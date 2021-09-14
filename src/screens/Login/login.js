@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 import './login.css';
 
 export default function Login() {
@@ -62,10 +62,10 @@ export default function Login() {
                     <div className="row ">
                     <ColoredLine color="red" />
                         <div >
-                            <button variant="primary" type="submit" className="btn btn-light btn-md pr-10"> <img src="https://e7.pngegg.com/pngimages/114/607/png-clipart-g-suite-pearl-river-middle-school-google-software-suite-email-sign-up-button-text-logo-thumbnail.png" width="50" radius="10" />
+                            <button variant="primary" type="submit" className="btn btn-light btn-md pr-10"> <img src="https://e7.pngegg.com/pngimages/114/607/png-clipart-g-suite-pearl-river-middle-school-google-software-suite-email-sign-up-button-text-logo-thumbnail.png" width="50" radius="10" alt="google" />
                                 Sign in With Google</button>
                         </div>
-                        <p className="link">New to IKeep? <a href="#">Join now</a></p>
+                        <p className="link">New to IKeep? <Link to="/signup">Join now</Link></p>
                     </div>
                 </form>
 

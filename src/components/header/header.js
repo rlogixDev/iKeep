@@ -1,7 +1,6 @@
 import React from 'react'
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import { Link, Router} from 'react-router-dom';
-import Login from '../../screens/Login/login';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Link} from 'react-router-dom';
 
 export default function header() {
     return (
@@ -9,7 +8,7 @@ export default function header() {
             
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
                 <Container>
-                    <Navbar.Brand href="#home">    <img
+                    <Navbar.Brand href="#home"><img
                         src="https://www.mediaagility.com/wp-content/uploads/2021/09/MediaAgility-logo-4-1.png"
                         width="100"
                         height="50"
