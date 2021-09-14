@@ -1,10 +1,18 @@
 
 import './App.css';
+import Login from './screens/Login/login';
+import Header from './components/header/header';
+import { Route, Switch} from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <h1>IKEEP</h1>
+      <Header/>
+      <Switch>
+        {/* <Route exact path="/" component={Header} /> */}
+        <Route exact  path="/login" component={Login} />
+      </Switch>
+      {/* <Login/> */}
     </div>
   );
 }
