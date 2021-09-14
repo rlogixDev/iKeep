@@ -1,15 +1,14 @@
 import React from 'react'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import { Route, Switch } from 'react-router-dom';
-import login from '../../screens/Login/login';
+import { Link, Router} from 'react-router-dom';
+import Login from '../../screens/Login/login';
 
 export default function header() {
     return (
         <div>
+            
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
                 <Container>
-
-
                     <Navbar.Brand href="#home">    <img
                         src="https://www.mediaagility.com/wp-content/uploads/2021/09/MediaAgility-logo-4-1.png"
                         width="100"
@@ -20,10 +19,8 @@ export default function header() {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
                         <Nav>
-                            <Nav.Link href='/login'>Login</Nav.Link>
-                            <Nav.Link href='/signup'>Sign Up</Nav.Link>
-
-                            {/* <Navbar.Text pullRight>Have a great day!</Navbar.Text> */}
+                            <Nav.Link href='/login'><Link to="/login">Login</Link></Nav.Link>
+                            <Nav.Link href='/signup'><Link to="/signup">Sign Up</Link></Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
