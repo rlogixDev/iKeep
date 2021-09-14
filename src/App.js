@@ -1,10 +1,18 @@
-import {Route} from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { Route } from 'react-router';
 import './App.css';
-import Signup from './screens/Signup/signup';
+
+const SignupComponent = React.lazy(() => import ('./screens/Signup/signup'));
+
 function App() {
   return (
    <>
-   <Route exact path="/signup" component={Signup}/>
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+      <Route path="/signup" component={SignupComponent}/>
+      </Suspense>
+    </div>
+  
    
    </>
   );

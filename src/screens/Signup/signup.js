@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import { Row,Container,Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import './signup.css';
 export default function Signup(){
 
     const [name,setName] =useState('');
@@ -9,7 +10,7 @@ export default function Signup(){
     const [email,setEmail] =useState('');
 
     return (<>
-    <h1 className="text-center mb-4 text-success">Signup</h1>
+    <h1 className="text-center mb-4">Signup</h1>
     <div className="form">
     <Form>
     <Form.Group className="mb-2">
@@ -41,9 +42,9 @@ export default function Signup(){
   <Container>
   <Row className="justify-content-center">
   <Col sm={{span:2}}> <Form.Label>Gender</Form.Label></Col>
-   <Col sm={{span:3}}> <Form.Check type="radio" label="male" />
-   <Form.Check type="radio" label="female" />
-   <Form.Check type="radio" label="others" />
+   <Col sm={{span:3}}> <Form.Check type="radio" name="Gender" label="male" />
+   <Form.Check type="radio" name="Gender" label="female" />
+   <Form.Check type="radio" name="Gender" label="others" />
    </Col>
     </Row>
     </Container>
@@ -71,7 +72,7 @@ export default function Signup(){
     </Container>
   </Form.Group>
   <Row className="justify-content-center">
- <Col sm={{span:3}}> <Button type="button" className="mb-3" >Register</Button></Col>
+  <Col sm={{span:3}}> <Button type="button" className="mb-3" >Register</Button></Col>
   </Row>
 
 
