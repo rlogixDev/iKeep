@@ -1,11 +1,12 @@
-
+import {Route} from 'react-router-dom';
 import './App.css';
-
+import Signup from './screens/Signup/signup';
 function App() {
   return (
-    <div className="App">
-      <h1>IKEEP</h1>
-    </div>
+   <>
+   <Route exact path="/signup" component={Signup}/>
+   
+   </>
   );
 }
 
