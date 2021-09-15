@@ -13,7 +13,7 @@ export default function Signup(){
     return (<>
    
     <div className="form mt-4">
-    <Form className="container p-4 mb-4">
+    <Form className="contain p-4 mb-4">
     <h3 className="mb-3">SignUp</h3>
     <Form.Group className="mb-3">
     <Container>
