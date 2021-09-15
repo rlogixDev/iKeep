@@ -1,0 +1,32 @@
+#login .container {
+    margin-top: 5%;
+    max-width: 603px;
+    min-width: max-content;
+    height: 30em;
+    border: 0px solid #000000;
+    background-color: #e4e4e4;
+    border-radius: 20px;
+    padding: 5%;
+  }
+ .login-row{
+    padding: 10px;
+  }
+  #login-buttons{   
+    padding: 10px;
+  }
+  .app-name{
+      color: #d4220e;
+      font-weight: 600;
+      padding-left: 0.3em;
+  }
+
+  .link{
+    padding-top: 0.5em;
+  }
+  .link a{
+    text-decoration: none;
+    font-weight: bolder;
+    color: #da2d1a;
+}
+
+

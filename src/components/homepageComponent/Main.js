@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
-import NotesDisplay from '../NotesDisplay';
+import NotesDisplay from './NotesDisplay';
 
 export default function Main() {
   return (

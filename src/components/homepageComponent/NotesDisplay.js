@@ -1,8 +1,8 @@
 import React from 'react';
-import InputNote from './Components/InputNote';
-import Notes from './Components/Notes';
+import InputNote from './InputNote';
+import Notes from './Notes';
 import { Row, Container, Button } from 'react-bootstrap';
-import SearchBox from './Components/SearchBox';
+import SearchBox from './SearchBox';
 
 export default function NotesDisplay() {
   return (
