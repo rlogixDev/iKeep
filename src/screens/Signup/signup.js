@@ -35,8 +35,8 @@ export default function Signup(){
   <Form.Group className="mb-3">
   <Container>
   <Row className="justify-content-center">
-   <Col sm={{span:3}}> <Form.Label>Mobile Number</Form.Label></Col>
-   <Col sm={{span:4}}> <Form.Control type="text" placeholder="Enter Mobile Number" /></Col>
+   <Col sm={{span:3}} lg={{span:2}}> <Form.Label>Mobile Number</Form.Label></Col>
+   <Col sm={{span:4}} lg={{span:3}}> <Form.Control type="text" placeholder="Enter Mobile Number" /></Col>
     </Row>
     </Container>
   </Form.Group>
@@ -54,16 +54,16 @@ export default function Signup(){
   <Form.Group className="mb-3">
   <Container>
   <Row className="justify-content-center">
-   <Col sm={{span:3}}> <Form.Label>Zip Code</Form.Label></Col>
-   <Col sm={{span:3}}> <Form.Control type="text" placeholder="Enter Zip Code" /></Col>
+   <Col sm={{span:3}} lg={{span:2}}> <Form.Label>Zip Code</Form.Label></Col>
+   <Col sm={{span:3}} lg={{span:3}}> <Form.Control type="text" placeholder="Enter Zip Code" /></Col>
     </Row>
     </Container>
   </Form.Group>
   <Form.Group className="mb-3">
   <Container>
       <Row className="justify-content-center">
-  <Col sm={{span:3}}> <Form.Label>State</Form.Label></Col>
-   <Col sm={{span:3}}> < Form.Control
+  <Col sm={{span:3}} lg={{span:2}}> <Form.Label>State</Form.Label></Col>
+   <Col sm={{span:3}} lg={{span:3}}> < Form.Control
           as="select">
   <option>Select</option>
   <option value="1">UP</option>
