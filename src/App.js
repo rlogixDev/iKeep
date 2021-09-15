@@ -9,10 +9,8 @@ function App() {
     <div className="App">
       <Header/>
       <Switch>
-        {/* <Route exact path="/" component={Header} /> */}
-        <Route exact  path="/login" component={Login} />
+        <Route exact  path="/" component={Login} />
       </Switch>
-      {/* <Login/> */}
     </div>
   );
 }
