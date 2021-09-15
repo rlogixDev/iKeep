@@ -47,7 +47,7 @@ export default function Signup(){
   <Row className="justify-content-center">
   <Col  sm="4"> <Form.Label>Gender</Form.Label></Col>
    <Col sm="2" > <Form.Check type="radio" name="Gender" label="m" /></Col>
-   <Col sm="2"> <Form.Check type="radio" name="Gender" label="f" /></Col>
+   <Col sm="3"> <Form.Check type="radio" name="Gender" label="f" /></Col>
    <Col sm="3">  <Form.Check type="radio" name="Gender" label="others" /></Col>
   
     </Row>
