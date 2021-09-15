@@ -1,12 +1,10 @@
-import React, { Suspense } from 'react';
-import { Route } from 'react-router';
+import React from 'react';
 import './App.css';
 import Login from './screens/Login/login';
 import Header from './components/header/header';
-import { Switch} from 'react-router-dom';
+import { Route, Switch} from 'react-router-dom';
+import HomePage from './screens/Homepage/homepage'
 import Signup from './screens/Signup/signup';
-const SignupComponent = React.lazy(() => import ('./screens/Signup/signup'));
-
 export default function App() {
   return (
   
@@ -17,6 +15,7 @@ export default function App() {
       <Switch>
         <Route exact  path="/" component={Login} />
         <Route exact  path="/signup" component={Signup} />
+        <Route exact  path="/homepage" component={HomePage} />
       </Switch>
     </div>
   
@@ -25,4 +24,3 @@ export default function App() {
  
   );
 }
-
