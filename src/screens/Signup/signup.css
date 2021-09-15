@@ -4,6 +4,7 @@
    margin: auto;
     width:50%;
     border:0px solid black;
+   
   
   }
 
@@ -11,5 +12,7 @@
 
     border: 0px solid #000000;
     background-color: #e4e4e4;
+    border-radius: 20px;
+  
  
   }

@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import { Row,Container,Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 import './signup.css';
 export default function Signup(){
 
@@ -13,6 +14,7 @@ export default function Signup(){
    
     <div className="form mt-4">
     <Form className="container p-4 mb-4">
+    <h3 className="mb-3">SignUp</h3>
     <Form.Group className="mb-3">
     <Container>
     <Row className="justify-content-center">
@@ -33,17 +35,17 @@ export default function Signup(){
   <Form.Group className="mb-3">
   <Container>
   <Row className="justify-content-center">
-   <Col sm={{span:2}}> <Form.Label>Mobile Number</Form.Label></Col>
-   <Col sm={{span:3}}> <Form.Control type="text" placeholder="Enter Mobile Number" /></Col>
+   <Col sm={{span:3}}> <Form.Label>Mobile Number</Form.Label></Col>
+   <Col sm={{span:4}}> <Form.Control type="text" placeholder="Enter Mobile Number" /></Col>
     </Row>
     </Container>
   </Form.Group>
   <Form.Group className="mb-3">
   <Container>
   <Row className="justify-content-center">
-  <Col sm={{span:2}}> <Form.Label>Gender</Form.Label></Col>
-   <Col sm={{span:2}}> <Form.Check type="radio" name="Gender" label="male" /></Col>
-   <Col sm={{span:2}}> <Form.Check type="radio" name="Gender" label="female" /></Col>
+  <Col sm={{span:3}}> <Form.Label>Gender</Form.Label></Col>
+   <Col sm={{span:1}} > <Form.Check type="radio" name="Gender" label="m" /></Col>
+   <Col sm={{span:1}}> <Form.Check type="radio" name="Gender" label="f" /></Col>
    <Col sm={{span:1}}>  <Form.Check type="radio" name="Gender" label="others" /></Col>
   
     </Row>
@@ -52,7 +54,7 @@ export default function Signup(){
   <Form.Group className="mb-3">
   <Container>
   <Row className="justify-content-center">
-   <Col sm={{span:2}}> <Form.Label>Zip Code</Form.Label></Col>
+   <Col sm={{span:3}}> <Form.Label>Zip Code</Form.Label></Col>
    <Col sm={{span:3}}> <Form.Control type="text" placeholder="Enter Zip Code" /></Col>
     </Row>
     </Container>
@@ -60,7 +62,7 @@ export default function Signup(){
   <Form.Group className="mb-3">
   <Container>
       <Row className="justify-content-center">
-  <Col sm={{span:2}}> <Form.Label>State</Form.Label></Col>
+  <Col sm={{span:3}}> <Form.Label>State</Form.Label></Col>
    <Col sm={{span:3}}> < Form.Control
           as="select">
   <option>Select</option>
@@ -74,10 +76,10 @@ export default function Signup(){
   <Row className="justify-content-center">
   <Col sm={{span:3}}> <Button type="button" className="mb-3" >Register</Button></Col>
   </Row>
-
+  <p className="link">Already have an account? <Link to="/">Login</Link></p>
 
     </Form>
-    
+   
     </div>
     
     </>)
