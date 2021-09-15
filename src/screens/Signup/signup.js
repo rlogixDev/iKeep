@@ -12,17 +12,17 @@ export default function Signup(){
     return (<>
     <h1 className="text-center mb-4">Signup</h1>
     <div className="form">
-    <Form className="container mb-3">
-    <Form.Group className="p-3">
+    <Form className="container p-3 mb-3">
+    <Form.Group className="mb-3">
     <Container>
     <Row className="justify-content-center">
-   <Col   sm={{span:3}} lg={{span:2}} > <Form.Label >Username</Form.Label></Col>
-    <Col  sm={{span:4}} lg={{span:3}}><Form.Control  type="text" placeholder="Enter Username" /></Col>
+   <Col   sm={{span:3}}  lg={{span:2}} > <Form.Label >Username</Form.Label></Col>
+    <Col  sm={{span:4}}  lg={{span:3}}><Form.Control  type="text" placeholder="Enter Username" /></Col>
     </Row>
     </Container>
   </Form.Group>
  
-  <Form.Group className="mb-2">
+  <Form.Group className="mb-3">
   <Container>
       <Row className="justify-content-center">
   <Col sm={{span:3}} lg={{span:2}}> <Form.Label>Password</Form.Label></Col>
