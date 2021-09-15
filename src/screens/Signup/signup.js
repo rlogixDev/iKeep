@@ -10,9 +10,9 @@ export default function Signup(){
     const [email,setEmail] =useState('');
 
     return (<>
-    <h1 className="text-center mb-4">Signup</h1>
-    <div className="form">
-    <Form className="container p-3 mb-3">
+   
+    <div className="form mt-4">
+    <Form className="container p-4 mb-4">
     <Form.Group className="mb-3">
     <Container>
     <Row className="justify-content-center">
@@ -42,10 +42,10 @@ export default function Signup(){
   <Container>
   <Row className="justify-content-center">
   <Col sm={{span:2}}> <Form.Label>Gender</Form.Label></Col>
-   <Col sm={{span:3}}> <Form.Check type="radio" name="Gender" label="male" />
-   <Form.Check type="radio" name="Gender" label="female" />
-   <Form.Check type="radio" name="Gender" label="others" />
-   </Col>
+   <Col sm={{span:2}}> <Form.Check type="radio" name="Gender" label="male" /></Col>
+   <Col sm={{span:2}}> <Form.Check type="radio" name="Gender" label="female" /></Col>
+   <Col sm={{span:1}}>  <Form.Check type="radio" name="Gender" label="others" /></Col>
+  
     </Row>
     </Container>
   </Form.Group>
