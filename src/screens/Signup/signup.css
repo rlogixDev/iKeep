@@ -1,7 +1,15 @@
 .form{
 
-    padding-top:40px;
-    margin-left: 350px;
+   
+   margin: auto auto auto auto;
     width:50%;
-    border:1px solid black;
+    border:0px solid black;
+  
+  }
+
+ .container {
+
+    border: 0px solid #000000;
+    background-color: #e4e4e4;
+ 
   }
