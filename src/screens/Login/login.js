@@ -1,73 +1,26 @@
 
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { useAuth } from "../../context/AuthContext";
 import './login.css';
 
 export default function Login() {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
-    const state = {
-        fields: {
-            username: '',
-            password: ''
-        },
-        errors: {
-            username: '',
-            password: '',
-        }
-    };
-    const validate = (name, value) => {
-        switch (name) {
-            case "username":
-                if (!value) {
-                    return "Email is Required";
-                } else {
-                    return "";
-                }
-            case "password":
-                if (!value) {
-                    return "Password is Required";
-                } else {
-                    return "";
-                }
-            default: {
-                return "";
-            }
-        }
-    }
-    setUserName = e => {
-        this.setState({
-          errors: {
-            ...this.state.errors,
-            [e.target.name]: this.validate(e.target.name, e.target.value)
-          },
-          fields: {
-            ...this.state.fields,
-            [e.target.name]: e.target.value
-          }
-        });
-      };
+    const  {login}  = useAuth()
+    const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
 
-    const handleSubmit = e => {
-        console.log("fucntion called")
-        e.preventDefault();
-        const credentials = ({
-            username,
-            password
-        });
-        
-        state.setState({
-            errors: {
-                ...state.errors,
-                [e.target.name]: validate(e.target.name, e.target.value)
-            },
-            fields: {
-                ...state.fields,
-                [e.target.name]: e.target.value
-            }
-        });
-        console.log("user credentials", credentials)
-
+    async function handleSubmit(e) {      
+        try {
+          setError("")
+          setLoading(true)
+          await login(username,password);
+        } catch {
+          setError("Failed to log in")
+          console.log('error in login', error)
+        }
+        setLoading(false)
     }
 
     const ColoredLine = ({ color }) => (
@@ -79,39 +32,41 @@ export default function Login() {
             }}
         />
     );
+
     return (
         <div>
-
             <div id="login" >
-                <form onSubmit={handleSubmit} className="container mx-auto col-4 d-flex justify-content-center flex-column">
+                <form className="container mx-auto col-4 d-flex justify-content-center flex-column">
                     <h3>Sign In</h3>
                     <div className="row justify-content-start login-row pt-4">
-                        <div className="col align-self-center">
+                        <div className="col align-self-start pt-1">
                             <div className="form-group p-2 ">
                                 <label>Email address</label>
                             </div>
                         </div>
                         <div className="col-8">
                             <div className="form-group p-2 ">
-                                <input type="email" className="form-control"  name="username" value={username}  placeholder="Enter email" required onChange={e => setUserName(e.target.value)} />
+                                <input type="email" className="form-control" name="username"  placeholder="Enter email" onChange={e => setUserName(e.target.value)} />
+                                {!username&& <p className="error">*Enter email</p>}
                             </div>
                         </div>
                     </div>
                     <div className="row justify-content-start login-row">
-                        <div className="col align-self-center">
+                        <div className="col align-self-start pt-1">
                             <div className="form-group p-2 ">
                                 <label>Password</label>
                             </div>
                         </div>
                         <div className="col-8">
                             <div className="form-group p-2">
-                                <input type="password" className="form-control"  name="password" value={password} placeholder="Enter password" required onChange={e => setPassword(e.target.value)} />
+                                <input type="password" className="form-control" name="password"  placeholder="Enter password" onChange={e => setPassword(e.target.value)} />
+                                {!password && <p className="error">*Enter password</p>}
                             </div>
                         </div>
                     </div>
                     <div id="login-buttons" className="row justify-content-end ">
                         <div >
-                            <button variant="primary" type="button" className="btn btn-primary btn-lg btn-block">Submit</button>
+                            <button variant="primary" type="button" className="btn btn-primary btn-lg btn-block" onClick={()=>handleSubmit()} disabled={loading}>Submit</button>
                         </div>
                     </div>
 
@@ -124,7 +79,6 @@ export default function Login() {
                         <p className="link">New to IKeep? <Link to="/signup">Join now</Link></p>
                     </div>
                 </form>
-
             </div>
         </div>
     )
