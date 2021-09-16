@@ -44,11 +44,19 @@ export default function Signup(){
   </Form.Group>
   <Form.Group className="mb-3">
  
+ <Row className="justify-content-center">
+  <Col  sm="4"> <Form.Label>E-mail</Form.Label></Col>
+  <Col sm="8"> <Form.Control type="text" placeholder="Enter E-mail" /></Col>
+   </Row>
+ 
+ </Form.Group>
+  <Form.Group className="mb-3">
+ 
   <Row className="justify-content-center">
   <Col  sm="4"> <Form.Label>Gender</Form.Label></Col>
-   <Col sm="2" > <Form.Check type="radio" name="Gender" label="m" /></Col>
-   <Col sm="3"> <Form.Check type="radio" name="Gender" label="f" /></Col>
-   <Col sm="3">  <Form.Check type="radio" name="Gender" label="others" /></Col>
+   <Col sm="2" > <Form.Check type="radio" name="Gender" label="M" /></Col>
+   <Col sm="3"> <Form.Check type="radio" name="Gender" label="F" /></Col>
+   <Col sm="3">  <Form.Check type="radio" name="Gender" label="Others" /></Col>
   
     </Row>
    
@@ -63,20 +71,34 @@ export default function Signup(){
   </Form.Group>
   <Form.Group className="mb-3">
  
-      <Row className="justify-content-center">
+   
+  <Row className="justify-content-center">
   <Col sm="4"> <Form.Label>State</Form.Label></Col>
-   <Col sm="8"> < Form.Control
-          as="select">
-  <option>Select</option>
-  <option value="1">UP</option>
-  <option value="2">Delhi</option>
-  <option value="3">West Bengal</option>
-</Form.Control></Col>
-    </Row>
+  <Col sm="8"> <Form.Control type="text" placeholder="Enter State" /></Col>
+   </Row>
+    
    
   </Form.Group>
-  <Row className="justify-content-center">
-  <Col sm={{span:3}}> <Button type="button" className="mb-3" >Register</Button></Col>
+  <Form.Group className="mb-3">
+ <Row className="justify-content-center">
+  <Col sm="4"> <Form.Label>Country</Form.Label></Col>
+  <Col sm="8"> <Form.Control type="text" placeholder="Enter Country" /></Col>
+   </Row>
+ </Form.Group>
+
+
+ <Form.Group className="mb-3">
+ 
+ <Row className="justify-content-start ">
+ <Col sm="4" ></Col>
+ <Col sm={8} className="d-flex justify-content-start"><Button type="submit" className="mb-3" >Register</Button></Col>
+    </Row>
+  </Form.Group>
+ 
+ 
+  <Row>
+ 
+  
   </Row>
   <p className="link">Already have an account? <Link to="/">Login</Link></p>
 </Container>
