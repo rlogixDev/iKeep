@@ -2,7 +2,7 @@
   margin-top: 5%;
   max-width: 603px;
   min-width: max-content;
-  height: 30em;
+  height: 32em;
   border: 0px solid #000000;
   background-color: #e4e4e4;
   border-radius: 20px;
@@ -29,6 +29,7 @@
   color: #da2d1a;
 }
 .error {
+  padding-top:0.5em;
   font-size: 13px;
   color: #da2d1a !important;
   float: left;
