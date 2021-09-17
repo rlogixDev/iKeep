@@ -5,6 +5,11 @@ import { AuthProvider } from '../../context/AuthContext';
 export default function header() {
     
     return (
+    //     <AuthProvider.Consumer>
+    //     {({value}) => (
+    //         console.log("currentUser", value)
+    //     )}
+    //   </AuthProvider.Consumer>
 
          <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
              <Container>

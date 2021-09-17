@@ -16,6 +16,7 @@ export default function Login() {
     const auth = getAuth(authApp);
     
     async function handleSubmit() {
+        // debugger;
         await signInWithEmailAndPassword(auth, username, password)
             .then((userCredential) => {
                 const user = userCredential.user;
@@ -27,6 +28,7 @@ export default function Login() {
                 setError('**'+errorMessage.trim().substring(5))
             });
     }
+    
     async function handleGoogleSignIn() {
         const provider = new GoogleAuthProvider();
         await signInWithPopup(auth, provider)
