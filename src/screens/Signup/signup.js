@@ -50,12 +50,29 @@ export default function Signup() {
                 <Form.Label column sm='4'>
                   Username
                 </Form.Label>
-                <Col sm='8' className='p-0'>
-                  <Form.Control
-                    type='text'
-                    placeholder='Enter Username'
-                    onChange={(e) => setName(e.target.value)}
-                  />
+                <Col sm='8'>
+                  <Row>
+                    <Form.Control
+                      type='text'
+                      placeholder='Enter Username'
+                      required
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </Row>
+                  <Row>
+                    {name.length == 0 && (
+                      <p
+                        style={{
+                          textAlign: 'left',
+                          color: 'red',
+                          fontSize: '10px',
+                          marginBottom: '5px',
+                        }}
+                      >
+                        *Enter Username
+                      </p>
+                    )}
+                  </Row>
                 </Col>
               </Row>
             </Form.Group>
@@ -71,6 +88,7 @@ export default function Signup() {
                     <Form.Control
                       type='password'
                       placeholder='Enter Password'
+                      required
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </Row>
@@ -99,12 +117,12 @@ export default function Signup() {
                   <Form.Label>Mobile Number</Form.Label>
                 </Col>
                 <Col sm='8'>
-                  {' '}
                   <Row>
                     <Form.Control
                       type='text'
                       placeholder='Enter Mobile Number'
                       value={phone}
+                      required
                       onChange={phoneNumberCheck}
                     />
                   </Row>
@@ -137,6 +155,7 @@ export default function Signup() {
                   <Row>
                     <Form.Control
                       type='text'
+                      required
                       placeholder='Enter E-mail'
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -169,7 +188,7 @@ export default function Signup() {
                     name='Gender'
                     label='M'
                     value='male'
-                    onClick={(e) => setGender(e.target.value)}
+                    onChange={(e) => setGender(e.target.value)}
                   />
                 </Col>
                 <Col sm='3'>
@@ -178,7 +197,7 @@ export default function Signup() {
                     name='Gender'
                     label='F'
                     value='female'
-                    onClick={(e) => setGender(e.target.value)}
+                    onChange={(e) => setGender(e.target.value)}
                   />
                 </Col>
                 <Col sm='3'>
@@ -187,27 +206,14 @@ export default function Signup() {
                     name='Gender'
                     label='Others'
                     value='others'
-                    onClick={(e) => setGender(e.target.value)}
+                    onChange={(e) => setGender(e.target.value)}
                   />
                 </Col>
-                {gender.length == 0 && (
-                  <p
-                    style={{
-                      width: '100px',
-                      color: 'red',
-                      fontSize: '10px',
-                      marginBottom: '5px',
-                    }}
-                  >
-                    *Enter Gender
-                  </p>
-                )}
               </Row>
             </Form.Group>
             <Form.Group className='mb-3'>
               <Row className='justify-content-center'>
                 <Col sm='4'>
-                  {' '}
                   <Form.Label>Zip Code</Form.Label>
                 </Col>
                 <Col sm='8'>
@@ -216,6 +222,7 @@ export default function Signup() {
                       type='text'
                       placeholder='Enter Zip Code'
                       value={zip}
+                      required
                       onChange={zipCodeCheck}
                     />
                   </Row>
@@ -248,7 +255,8 @@ export default function Signup() {
                     <Form.Control
                       type='text'
                       placeholder='Enter State'
-                      onClick={(e) => setState(e.target.value)}
+                      required
+                      onChange={(e) => setState(e.target.value)}
                     />
                   </Row>
                   <Row>
@@ -279,7 +287,8 @@ export default function Signup() {
                     <Form.Control
                       type='text'
                       placeholder='Enter Country'
-                      onClick={(e) => setCountry(e.target.value)}
+                      required
+                      onChange={(e) => setCountry(e.target.value)}
                     />
                   </Row>
                   <Row>

@@ -4,7 +4,9 @@ import { Card } from 'react-bootstrap';
 export default function Notes() {
   return (
     <div className='row d-flex justify-content-around mt-2 p-0'>
-      <h4>Today</h4>
+      <h4 className='text-decoration-underline' style={{ textAlign: 'left' }}>
+        Today
+      </h4>
       <Card style={{ width: '18rem' }} className='m-2'>
         <Card.Body>
           <input
@@ -54,7 +56,9 @@ export default function Notes() {
           <Card.Link href='#'>Edit</Card.Link>
         </Card.Body>
       </Card>
-      <h4>Yesterday</h4>
+      <h4 className='text-decoration-underline' style={{ textAlign: 'left' }}>
+        Yesterday
+      </h4>
       <Card style={{ width: '18rem' }} className='m-2'>
         <Card.Body>
           <input
