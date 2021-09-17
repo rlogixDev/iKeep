@@ -14,17 +14,3 @@ const firebaseConfig = {
 const authApp = initializeApp(firebaseConfig);
 export default authApp;
 
-// const auth = getAuth(app);
-// const db = getFirestore(app);
-
-// createUserWithEmailAndPassword(auth, email, password)
-//   .then((userCredential) => {
-//     // Signed in 
-//     const user = userCredential.user;
-//     // ...
-//   })
-//   .catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     // ..
-//   });
