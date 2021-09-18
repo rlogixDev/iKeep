@@ -10,14 +10,14 @@ import { AuthProvider } from './context/AuthContext';
 
 export default function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <AuthProvider>
         <Header />
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/homepage" component={HomePage} />
-          <Route exact path="/resetPassword" component={ResetPassword} />
+          <Route exact path='/' component={Login} />
+          <Route exact path='/signup' component={Signup} />
+          <Route exact path='/homepage' component={HomePage} />
+          <Route exact path='/resetPassword' component={ResetPassword} />
         </Switch>
       </AuthProvider>
     </div>

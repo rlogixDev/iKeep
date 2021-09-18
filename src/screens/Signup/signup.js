@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Row, Container, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import './signup.css';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { useHistory } from 'react-router-dom';
 
 export default function Signup() {
+  const history = useHistory();
+  const auth = getAuth();
+
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
@@ -14,6 +19,9 @@ export default function Signup() {
   const [state, setState] = useState('');
   const [country, setCountry] = useState('');
   const [email, setEmail] = useState('');
+  const [error, setError] = useState();
+  const [validation, setValidation] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const validEmail = new RegExp('@mediaagility.com$');
 
@@ -39,6 +47,29 @@ export default function Signup() {
     }
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+        history.push('/');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+        setError('Failed to create an account');
+        setLoading(false);
+      });
+  };
+
+  console.log('error', error);
+  console.log('email and apassword', email, password);
+
   return (
     <>
       <div className='form mt-4'>
@@ -60,7 +91,7 @@ export default function Signup() {
                     />
                   </Row>
                   <Row>
-                    {name.length == 0 && (
+                    {name.length === 0 && (
                       <p
                         style={{
                           textAlign: 'left',
@@ -128,7 +159,7 @@ export default function Signup() {
                   </Row>
                   <Row>
                     <Row>
-                      {phone.length != 10 && (
+                      {phone.length !== 10 && (
                         <p
                           style={{
                             textAlign: 'left',
@@ -227,7 +258,7 @@ export default function Signup() {
                     />
                   </Row>
                   <Row>
-                    {zip.length != 6 && (
+                    {zip.length !== 6 && (
                       <p
                         style={{
                           textAlign: 'left',
@@ -260,7 +291,7 @@ export default function Signup() {
                     />
                   </Row>
                   <Row>
-                    {state.length == 0 && (
+                    {state.length === 0 && (
                       <p
                         style={{
                           textAlign: 'left',
@@ -292,7 +323,7 @@ export default function Signup() {
                     />
                   </Row>
                   <Row>
-                    {country.length == 0 && (
+                    {country.length === 0 && validation && (
                       <p
                         style={{
                           textAlign: 'left',
@@ -312,7 +343,13 @@ export default function Signup() {
               <Row className='justify-content-start '>
                 <Col sm='4'></Col>
                 <Col sm={8} className='d-flex justify-content-start'>
-                  <Button type='submit' className='mb-3'>
+                  <Button
+                    type='submit'
+                    className='mb-3'
+                    disabled={loading}
+                    onClick={() => setValidation(true)}
+                    onClick={(e) => handleSubmit(e)}
+                  >
                     Register
                   </Button>
                 </Col>
