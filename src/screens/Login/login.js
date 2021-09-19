@@ -22,11 +22,18 @@ export default function Login() {
       .then((userCredential) => {
         const user = userCredential.user;
         setCurrentUser(user);
+        console.log(userCredential.user.accessToken);
         console.log(
           'user logged in via email/password',
           currentUser.auth.currentUser.email
         );
-        history.push('/homepage');
+
+        history.push({
+          pathname: '/homepage',
+          state: {
+            accessToken: userCredential.user.accessToken,
+          },
+        });
       })
       .catch((error) => {
         const errorMessage = error.code;

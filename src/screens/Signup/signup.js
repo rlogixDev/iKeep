@@ -20,7 +20,6 @@ export default function Signup() {
   const [country, setCountry] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState();
-  const [validation, setValidation] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const validEmail = new RegExp('@mediaagility.com$');
@@ -50,21 +49,24 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-        history.push('/');
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-        setError('Failed to create an account');
-        setLoading(false);
-      });
+    if (name && password && phone && zip && state && country && email) {
+      setLoading(true);
+      await createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // ...
+          history.push('/');
+        })
+        .catch((error) => {
+          const errorMessage = error.message.slice(22, 42);
+          // ..
+          setError(errorMessage);
+          setLoading(false);
+        });
+    } else {
+      setError('Please fill all the Fields');
+    }
   };
 
   console.log('error', error);
@@ -323,7 +325,7 @@ export default function Signup() {
                     />
                   </Row>
                   <Row>
-                    {country.length === 0 && validation && (
+                    {country.length === 0 && (
                       <p
                         style={{
                           textAlign: 'left',
@@ -345,9 +347,8 @@ export default function Signup() {
                 <Col sm={8} className='d-flex justify-content-start'>
                   <Button
                     type='submit'
-                    className='mb-3'
+                    className='m-0'
                     disabled={loading}
-                    onClick={() => setValidation(true)}
                     onClick={(e) => handleSubmit(e)}
                   >
                     Register
@@ -355,7 +356,10 @@ export default function Signup() {
                 </Col>
               </Row>
             </Form.Group>
-            <Row></Row>
+            <Form.Group className='m-0 d-flex justify-content-center'>
+              <p className='error p-0 m-0'>{error}</p>
+            </Form.Group>
+
             <p className='link'>
               Already have an account? <Link to='/'>Login</Link>
             </p>
