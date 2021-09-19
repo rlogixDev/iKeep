@@ -12,7 +12,6 @@ export default function Login() {
 
   const [password, setPassword] = useState();
   const [currentUser, setCurrentUser] = useState();
-  // const  {login}  = useAuth()
   const [error, setError] = useState();
   const [disabled, disableButton] = useState(true);
   const auth = getAuth(authApp);

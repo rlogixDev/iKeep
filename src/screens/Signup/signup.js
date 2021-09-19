@@ -4,7 +4,11 @@ import { Row, Container, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import './signup.css';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
 import { useHistory } from 'react-router-dom';
 
 export default function Signup() {
@@ -24,8 +28,10 @@ export default function Signup() {
 
   const validEmail = new RegExp('@mediaagility.com$');
 
+  // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
+
   const validPassword = new RegExp(
-    '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
+    '^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{8,16}$'
   );
 
   function phoneNumberCheck(e) {
@@ -51,13 +57,26 @@ export default function Signup() {
     setError('');
     if (name && password && phone && zip && state && country && email) {
       setLoading(true);
-      await createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+      await createUserWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => {
           // Signed in
           const user = userCredential.user;
           // ...
           history.push('/');
-        })
+        }
+      );
+      updateProfile(auth.currentUser, {
+        displayName: name,
+        phoneNumber: String(phone),
+      })
+        // .then(() => {
+        //   // Profile updated!
+        //   // ...
+        // })
+        // .catch((error) => {
+        //   // An error occurred
+        //   // ...
+        // })
         .catch((error) => {
           const errorMessage = error.message.slice(22, 42);
           // ..
