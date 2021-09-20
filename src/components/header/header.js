@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import { Navbar, Container } from 'react-bootstrap';
-import { useLocation } from "react-router-dom";
+import AuthContext from '../../context/AuthContext';
 
-export default function Header() {
+// import { useLocation } from "react-router-dom";
 
-    let location = useLocation();
-    const [currentUser, setCurrentUser] = useState();
+const Header = () =>{
+const currentUser = useContext(AuthContext);
+        console.log("user in header",currentUser);
+
+    // let location = useLocation();
+    // const [currentUser, setCurrentUser] = useState();
 
     useEffect(() => {
-        console.log("user in header",location.state);
-        // setCurrentUser(location.state.currentUser)
-    }, [location]);
+        console.log("user in header",currentUser);
+    }, []);
+
 
     return (
 
@@ -29,9 +33,11 @@ export default function Header() {
                    Welcome: {currentUser}                      
                     </Navbar.Text>
                 </Navbar.Collapse>
-                {/* <p>{currentUser}</p> */}
+                <p>{currentUser}</p>
             </Container>
         </Navbar>
 
     )
 }
+
+export default Header;

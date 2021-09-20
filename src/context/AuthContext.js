@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 import authApp from '../firebase';
 import Login from '../screens/Login/login';
 
-const AuthContext = createContext()
+export const AuthContext = createContext()
 
 export function useAuth() {
     return useContext(AuthContext)
@@ -14,10 +14,7 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const auth = getAuth(authApp);
 
-    const value = {
-        currentUser
-    }
-
+    
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)       

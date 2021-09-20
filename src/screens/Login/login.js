@@ -5,7 +5,7 @@ import './login.css';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import authApp from '../../firebase';
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { ToastContainer, toast } from 'react-toastify';
+import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from "react-router-dom";
 
@@ -26,12 +26,12 @@ export default function Login() {
                 const user = userCredential.user;
                 setCurrentUser(user);
                 console.log("user logged in via email/password", currentUser.auth.currentUser.email)
-                toast.success("logged in");
-                // history.push("/homepage");
-                history.push({
-                    pathname:'/homepage',
-                    state : {currentUser: currentUser.auth.currentUser.email}
-                });
+                toast.success("User logged in successfully ");
+                history.push("/homepage");
+                // history.push({
+                //     pathname:'/homepage',
+                //     state : {currentUser: currentUser.auth.currentUser.email}
+                // });
             })
             .catch((error) => {            
                 const errorMessage = error.message;
@@ -132,7 +132,7 @@ export default function Login() {
                     </div>
                 </form>
             </div>
-            <ToastContainer autoClose={2000}  />
+            
         </div>
     )
 }

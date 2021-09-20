@@ -7,6 +7,8 @@ import HomePage from './screens/Homepage/homepage';
 import Signup from './screens/Signup/signup';
 import ResetPassword from './screens/ResetPassword/ResetPassword';
 import { AuthProvider } from './context/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
   return (
@@ -19,6 +21,7 @@ export default function App() {
           <Route exact path="/homepage" component={HomePage} />
           <Route exact path="/resetPassword" component={ResetPassword} />
         </Switch>
+        <ToastContainer autoClose={2000}/>
       </AuthProvider>
     </div>
   );
