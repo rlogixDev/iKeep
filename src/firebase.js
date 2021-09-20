@@ -3,13 +3,14 @@ import { initializeApp } from 'firebase/app';
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBJZ5X8lgrNErxR5rxeTW8QNOcJTPh4DaY",
-    authDomain: "ikeep-authentication.firebaseapp.com",
-    projectId: "ikeep-authentication",
-    storageBucket: "ikeep-authentication.appspot.com",
-    messagingSenderId: "832795327299",
-    appId: "1:832795327299:web:9de52e4d31df87690e4df6"
-};
+    apiKey: "AIzaSyDBPuoiq8GlTWZzp_VxZXFgZezWNo_NMsE",
+    authDomain: "react-project-1443c.firebaseapp.com",
+    projectId: "react-project-1443c",
+    storageBucket: "react-project-1443c.appspot.com",
+    messagingSenderId: "401616856383",
+    appId: "1:401616856383:web:2c9da16e4e0bb8bc099f8a",
+    measurementId: "G-9SNYE0QB54"
+  };
 
 const authApp = initializeApp(firebaseConfig);
 export default authApp;
