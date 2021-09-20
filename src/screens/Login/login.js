@@ -5,16 +5,20 @@ import './login.css';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import authApp from '../../firebase';
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useHistory } from "react-router-dom";
 
 export default function Login() {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
-    const [currentUser, setCurrentUser] = useState()
-    // const  {login}  = useAuth()
-    const [error, setError] = useState()
-    const [disabled, disableButton] = useState(true)
+    const [currentUser, setCurrentUser] = useState();
+    const [error, setError] = useState();
+    const [disabled, disableButton] = useState(true);
+    const [notify, setNotification] =  useState();
     const auth = getAuth(authApp);
-    
+    let history = useHistory();
+
     async function handleSubmit() {
         // debugger;
         await signInWithEmailAndPassword(auth, username, password)
@@ -22,13 +26,21 @@ export default function Login() {
                 const user = userCredential.user;
                 setCurrentUser(user);
                 console.log("user logged in via email/password", currentUser.auth.currentUser.email)
+                toast.success("logged in");
+                // history.push("/homepage");
+                history.push({
+                    pathname:'/homepage',
+                    state : {currentUser: currentUser.auth.currentUser.email}
+                });
             })
-            .catch((error) => {
-                const errorMessage = error.code;
-                setError('**'+errorMessage.trim().substring(5))
+            .catch((error) => {            
+                const errorMessage = error.message;
+                console.log(errorMessage);
+                toast.error(errorMessage);
+                // setError('**' + errorMessage.trim().substring(5))
             });
     }
-    
+
     async function handleGoogleSignIn() {
         const provider = new GoogleAuthProvider();
         await signInWithPopup(auth, provider)
@@ -41,8 +53,7 @@ export default function Login() {
                 console.log(user)
                 // ...
             }).catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
+                
                 const errorMessage = error.message;
                 // The email of the user's account used.
                 const email = error.email;
@@ -103,7 +114,7 @@ export default function Login() {
                         <div >
                             {/* <Link to="/homepage"> */}
                             <button variant="primary" type="button" className="btn btn-primary btn-lg btn-block" onClick={() => handleSubmit()} disabled={!username | !password}> Submit</button>
-                           {/* </Link> */}
+                            {/* </Link> */}
                         </div>
                         <p className="error">{error}
                         </p>
@@ -114,13 +125,14 @@ export default function Login() {
                     <div className="row ">
                         <ColoredLine color="red" />
                         <div >
-                            <button variant="primary" type="submit" className="btn btn-light btn-md pr-10" onClick={() => handleGoogleSignIn()} > <img src="https://e7.pngegg.com/pngimages/114/607/png-clipart-g-suite-pearl-river-middle-school-google-software-suite-email-sign-up-button-text-logo-thumbnail.png" width="50" radius="10" alt="google" />
+                            <button variant="primary" type="submit" className="btn btn-light btn-md pr-10" onClick={() => handleGoogleSignIn()} {...notify}> <img src="https://e7.pngegg.com/pngimages/114/607/png-clipart-g-suite-pearl-river-middle-school-google-software-suite-email-sign-up-button-text-logo-thumbnail.png" width="50" radius="10" alt="google" />
                                 Sign in With Google</button>
                         </div>
                         <p className="link">New to IKeep? <Link to="/signup">Join now</Link></p>
                     </div>
                 </form>
             </div>
+            <ToastContainer autoClose={2000}  />
         </div>
     )
 }
