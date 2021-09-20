@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
 import { RiAddLine } from 'react-icons/ri';
-import { BiImageAdd } from 'react-icons/bi';
 
 export default function InputNote() {
   return (
@@ -30,14 +29,20 @@ export default function InputNote() {
           <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
             <Form.Control placeholder='Content' as='textarea' rows={3} />
           </Form.Group>
+          <div
+            className='d-flex justify-content-between input-group'
+            style={{ backgroundColor: '#ffff' }}
+          >
+            <input
+              type='file'
+              id='inputGroupFile01'
+              aria-describedby='inputGroupFileAddon01'
+            />
+            <button className='input-group-text' id='inputGroupFileAddon01'>
+              Upload
+            </button>
+          </div>
         </Card.Body>
-        <Button
-          className='position-absolute bottom-0 p-0'
-          variant='primary'
-          style={{ width: 'auto', height: '1.5rem' }}
-        >
-          <BiImageAdd size='1x' />
-        </Button>
       </Card>
     </>
   );
