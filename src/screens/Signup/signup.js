@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import { Row, Container, Col } from 'react-bootstrap';
+import { Row, Container, Col, Toast } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import './signup.css';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function Signup() {
   const history = useHistory();
@@ -62,27 +64,27 @@ export default function Signup() {
           // Signed in
           const user = userCredential.user;
           // ...
+          toast.success('Signup Successful', {
+            autoClose: 5000,
+            hideProgressBar: false,
+            draggable: false,
+            progress: undefined,
+            position: 'top-right',
+            pauseOnHover: true,
+            closeOnClick: true,
+          });
           history.push('/');
         }
       );
+
       updateProfile(auth.currentUser, {
         displayName: name,
         phoneNumber: String(phone),
-      })
-        // .then(() => {
-        //   // Profile updated!
-        //   // ...
-        // })
-        // .catch((error) => {
-        //   // An error occurred
-        //   // ...
-        // })
-        .catch((error) => {
-          const errorMessage = error.message.slice(22, 42);
-          // ..
-          setError(errorMessage);
-          setLoading(false);
-        });
+      }).catch((error) => {
+        const errorMessage = error.message.slice(22, 42);
+        setError(errorMessage);
+        setLoading(false);
+      });
     } else {
       setError('Please fill all the Fields');
     }
