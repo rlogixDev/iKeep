@@ -7,7 +7,7 @@ export default function Notes() {
       <h4 className='text-decoration-underline' style={{ textAlign: 'left' }}>
         Today
       </h4>
-      <Card style={{ width: '18rem' }} className='m-2'>
+      <Card style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
         <Card.Body>
           <input
             type='checkbox'
@@ -19,7 +19,7 @@ export default function Notes() {
           <Card.Link href='#'>Edit</Card.Link>
         </Card.Body>
       </Card>
-      <Card style={{ width: '18rem' }} className='m-2'>
+      <Card style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
         <Card.Body>
           <input
             type='checkbox'
@@ -32,7 +32,7 @@ export default function Notes() {
         </Card.Body>
       </Card>
 
-      <Card style={{ width: '18rem' }} className='m-2'>
+      <Card style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
         <Card.Body>
           <input
             type='checkbox'
@@ -44,7 +44,7 @@ export default function Notes() {
           <Card.Link href='#'>Edit</Card.Link>
         </Card.Body>
       </Card>
-      <Card style={{ width: '18rem' }} className='m-2'>
+      <Card style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
         <Card.Body>
           <input
             type='checkbox'
@@ -59,7 +59,7 @@ export default function Notes() {
       <h4 className='text-decoration-underline' style={{ textAlign: 'left' }}>
         Yesterday
       </h4>
-      <Card style={{ width: '18rem' }} className='m-2'>
+      <Card style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
         <Card.Body>
           <input
             type='checkbox'
@@ -71,7 +71,7 @@ export default function Notes() {
           <Card.Link href='#'>Edit</Card.Link>
         </Card.Body>
       </Card>
-      <Card style={{ width: '18rem' }} className='m-2'>
+      <Card style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
         <Card.Body>
           <input
             type='checkbox'
@@ -83,7 +83,7 @@ export default function Notes() {
           <Card.Link href='#'>Edit</Card.Link>
         </Card.Body>
       </Card>
-      <Card style={{ width: '18rem' }} className='m-2'>
+      <Card style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
         <Card.Body>
           <input
             type='checkbox'
@@ -95,7 +95,7 @@ export default function Notes() {
           <Card.Link href='#'>Edit</Card.Link>
         </Card.Body>
       </Card>
-      <Card style={{ width: '18rem' }} className='m-2'>
+      <Card style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
         <Card.Body>
           <input
             type='checkbox'
