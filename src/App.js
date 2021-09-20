@@ -7,21 +7,20 @@ import HomePage from './screens/Homepage/homepage';
 import Signup from './screens/Signup/signup';
 import ResetPassword from './screens/ResetPassword/ResetPassword';
 import { AuthProvider } from './context/AuthContext';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 export default function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <AuthProvider>
         <Header />
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/homepage" component={HomePage} />
-          <Route exact path="/resetPassword" component={ResetPassword} />
+          <Route exact path='/' component={Login} />
+          <Route exact path='/signup' component={Signup} />
+          <Route exact path='/homepage' component={HomePage} />
+          <Route exact path='/resetPassword' component={ResetPassword} />
         </Switch>
-        <ToastContainer autoClose={2000}/>
+        <ToastContainer />
       </AuthProvider>
     </div>
   );
