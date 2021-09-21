@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Form,
   Button,
@@ -8,6 +8,7 @@ import {
 } from 'react-bootstrap';
 
 export default function SearchBox() {
+  const [searchText, setSearch] = useState();
   return (
     <>
       <div className='d-flex justify-content-center'>
@@ -22,6 +23,7 @@ export default function SearchBox() {
             placeholder='Search'
             aria-label='Search '
             aria-describedby='basic-addon2'
+            onChange={e => setSearch(e.target.value)}
             style={{ maxWidth: '500px' }}
           />
           <Dropdown style={{ margin: '0px 10px' }} as={ButtonGroup}>

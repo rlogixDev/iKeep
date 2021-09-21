@@ -10,10 +10,9 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState();
+export const AuthProvider = ({ children }) => {
+  const [activeUser, setCurrentUser] = useState();
   const auth = getAuth(authApp);
-
     
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
@@ -22,10 +21,13 @@ export function AuthProvider({ children }) {
         return unsubscribe
     }, []);
 
-    console.log("auth user val", currentUser);
+    // console.log("auth user val", activeUser);
+    const value = {
+        activeUser
+      }
     return (
-        currentUser ? (<div>
-            <AuthContext.Provider value={{currentUser}}>
+        activeUser ? (<div>
+            <AuthContext.Provider  value={value}>
                 {children}
             </AuthContext.Provider>
         </div>) : <Login/>

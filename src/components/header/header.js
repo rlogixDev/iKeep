@@ -1,20 +1,18 @@
-import React, { useEffect, useState,useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Navbar, Container } from 'react-bootstrap';
 import AuthContext from '../../context/AuthContext';
 
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-const Header = () =>{
-const currentUser = useContext(AuthContext);
-        console.log("user in header",currentUser);
+const Header = () => {
+    const location = useLocation();
+    // const [activeUser, setActiveUser] = useState();
+    // useEffect(() => {
+    //     setActiveUser(location.state.currentUser)
+    //  }, [location]);
 
-    // let location = useLocation();
-    // const [currentUser, setCurrentUser] = useState();
-
-    useEffect(() => {
-        console.log("user in header",currentUser);
-    }, []);
-
+//     const {activeUser} = useContext(AuthContext);
+//    console.log("user in header", location.user);
 
     return (
 
@@ -30,10 +28,9 @@ const currentUser = useContext(AuthContext);
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>
-                   Welcome: {currentUser}                      
+                        {/* {activeUser && <p>Welcome: {activeUser}</p>} */}
                     </Navbar.Text>
                 </Navbar.Collapse>
-                <p>{currentUser}</p>
             </Container>
         </Navbar>
 
