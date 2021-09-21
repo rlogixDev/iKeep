@@ -11,8 +11,9 @@ const Header = () => {
     //     setActiveUser(location.state.currentUser)
     //  }, [location]);
 
-//     const {activeUser} = useContext(AuthContext);
-//    console.log("user in header", location.user);
+    const active= useContext(AuthContext);
+  console.log("scscsc", active)
+   console.log("user in header", location.user);
 
     return (
 
