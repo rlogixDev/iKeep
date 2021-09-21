@@ -1,11 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import { Row, Container, Col } from 'react-bootstrap';
+import { Row, Container, Col, Toast } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import './signup.css';
+import 'react-toastify/dist/ReactToastify.css';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function Signup() {
+  const history = useHistory();
+  const auth = getAuth();
+
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
@@ -14,11 +25,15 @@ export default function Signup() {
   const [state, setState] = useState('');
   const [country, setCountry] = useState('');
   const [email, setEmail] = useState('');
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
 
   const validEmail = new RegExp('@mediaagility.com$');
 
+  // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
+
   const validPassword = new RegExp(
-    '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
+    '^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{8,16}$'
   );
 
   function phoneNumberCheck(e) {
@@ -38,6 +53,45 @@ export default function Signup() {
       }
     }
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (name && password && phone && zip && state && country && email) {
+      setLoading(true);
+      await createUserWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // ...
+          toast.success('Signup Successful', {
+            autoClose: 5000,
+            hideProgressBar: false,
+            draggable: false,
+            progress: undefined,
+            position: 'top-right',
+            pauseOnHover: true,
+            closeOnClick: true,
+          });
+          history.push('/');
+        }
+      );
+
+      updateProfile(auth.currentUser, {
+        displayName: name,
+        phoneNumber: String(phone),
+      }).catch((error) => {
+        const errorMessage = error.message.slice(22, 42);
+        setError(errorMessage);
+        setLoading(false);
+      });
+    } else {
+      setError('Please fill all the Fields');
+    }
+  };
+
+  console.log('error', error);
+  console.log('email and apassword', email, password);
 
   return (
     <>
@@ -60,7 +114,7 @@ export default function Signup() {
                     />
                   </Row>
                   <Row>
-                    {name.length == 0 && (
+                    {name.length === 0 && (
                       <p
                         style={{
                           textAlign: 'left',
@@ -128,7 +182,7 @@ export default function Signup() {
                   </Row>
                   <Row>
                     <Row>
-                      {phone.length != 10 && (
+                      {phone.length !== 10 && (
                         <p
                           style={{
                             textAlign: 'left',
@@ -227,7 +281,7 @@ export default function Signup() {
                     />
                   </Row>
                   <Row>
-                    {zip.length != 6 && (
+                    {zip.length !== 6 && (
                       <p
                         style={{
                           textAlign: 'left',
@@ -260,7 +314,7 @@ export default function Signup() {
                     />
                   </Row>
                   <Row>
-                    {state.length == 0 && (
+                    {state.length === 0 && (
                       <p
                         style={{
                           textAlign: 'left',
@@ -292,7 +346,7 @@ export default function Signup() {
                     />
                   </Row>
                   <Row>
-                    {country.length == 0 && (
+                    {country.length === 0 && (
                       <p
                         style={{
                           textAlign: 'left',
@@ -312,13 +366,21 @@ export default function Signup() {
               <Row className='justify-content-start '>
                 <Col sm='4'></Col>
                 <Col sm={8} className='d-flex justify-content-start'>
-                  <Button type='submit' className='mb-3'>
+                  <Button
+                    type='submit'
+                    className='m-0'
+                    disabled={loading}
+                    onClick={(e) => handleSubmit(e)}
+                  >
                     Register
                   </Button>
                 </Col>
               </Row>
             </Form.Group>
-            <Row></Row>
+            <Form.Group className='m-0 d-flex justify-content-center'>
+              <p className='error p-0 m-0'>{error}</p>
+            </Form.Group>
+
             <p className='link'>
               Already have an account? <Link to='/'>Login</Link>
             </p>

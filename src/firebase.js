@@ -14,4 +14,3 @@ const firebaseConfig = {
 
 const authApp = initializeApp(firebaseConfig);
 export default authApp;
-
