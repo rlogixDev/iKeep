@@ -3,9 +3,8 @@ import { Navbar, Container } from 'react-bootstrap';
 import AuthContext from '../../context/AuthContext';
 
 const Header = () => {
-    const active = useContext(AuthContext);
-    console.log("user in head", active)
-
+    const activeUser = useContext(AuthContext)
+    console.log('User present in head',  activeUser);
     return (
 
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
