@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
 import { RiAddLine } from 'react-icons/ri';
+import { Image, CloudinaryContext } from 'cloudinary-react';
+import axios from 'axios';
 
 export default function InputNote() {
+  const [addImg, setAddImg] = useState('');
+  const uploadImage = async () => {
+    const formData = new FormData();
+    formData.append('file', addImg);
+    formData.append('upload_preset', 'lmx0ng0b');
+    await axios
+      .post('https://api.cloudinary.com/v1_1/adarsh022/image/upload', {
+        method: 'POST',
+        body: formData,
+      })
+      .then((res) => {
+        console.log('res', res);
+      });
+  };
+
+  console.log(addImg);
+
   return (
     <>
       <Card
@@ -36,9 +55,16 @@ export default function InputNote() {
             <input
               type='file'
               id='inputGroupFile01'
+              onChange={(e) => setAddImg(e.target.files[0])}
               aria-describedby='inputGroupFileAddon01'
             />
-            <button className='input-group-text' id='inputGroupFileAddon01'>
+            <button
+              className='input-group-text'
+              id='inputGroupFileAddon01'
+              onClick={uploadImage}
+              disabled={addImg.length === 0 ? true : false}
+              style={{ borderRadius: '5px' }}
+            >
               Upload
             </button>
           </div>
