@@ -96,7 +96,7 @@ export default function Signup() {
   return (
     <>
       <div className='form mt-4'>
-        <Form className='contain mx-auto p-4 '>
+        <Form className='contain  p-4 '>
           <h3 className='mb-3'>SignUp</h3>
           <Container>
             <Form.Group className='mb-3'>
