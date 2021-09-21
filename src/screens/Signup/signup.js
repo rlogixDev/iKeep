@@ -57,34 +57,45 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    if (name && password && phone && zip && state && country && email) {
+    if (
+      name &&
+      password &&
+      phone &&
+      zip &&
+      state &&
+      country &&
+      email &&
+      validPassword.test(password) &&
+      validEmail.test(email)
+    ) {
       setLoading(true);
-      await createUserWithEmailAndPassword(auth, email, password).then(
-        (userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          // ...
-          toast.success('Signup Successful', {
-            autoClose: 5000,
-            hideProgressBar: false,
-            draggable: false,
-            progress: undefined,
-            position: 'top-right',
-            pauseOnHover: true,
-            closeOnClick: true,
-          });
-          history.push('/');
-        }
-      );
-
-      updateProfile(auth.currentUser, {
-        displayName: name,
-        phoneNumber: String(phone),
-      }).catch((error) => {
+      try {
+        await createUserWithEmailAndPassword(auth, email, password).then(
+          (userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            // ...
+            toast.success('Signup Successful', {
+              autoClose: 5000,
+              hideProgressBar: false,
+              draggable: false,
+              progress: undefined,
+              position: 'top-right',
+              pauseOnHover: true,
+              closeOnClick: true,
+            });
+            history.push('/');
+          }
+        );
+        updateProfile(auth.currentUser, {
+          displayName: name,
+          phoneNumber: String(phone),
+        });
+      } catch (error) {
         const errorMessage = error.message.slice(22, 42);
         setError(errorMessage);
         setLoading(false);
-      });
+      }
     } else {
       setError('Please fill all the Fields');
     }
