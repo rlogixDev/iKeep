@@ -8,13 +8,14 @@ export default function Homepage() {
   const location = useLocation();
   const [accessToken, setAccessToken] = useState();
 
-  useEffect(() => {
-    try {
-      setAccessToken(location.state.accessToken);
-    } catch (err) {
-      history.push('/');
-    }
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     setAccessToken(location.state.accessToken);
+  //   } catch (err) {
+  //     console.log(err)
+  //     history.push('/');
+  //   }
+  // }, []);
 
   return (
     <>
