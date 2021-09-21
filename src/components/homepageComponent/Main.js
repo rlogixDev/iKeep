@@ -8,12 +8,10 @@ export default function Main() {
    console.log("user in main", activeUser.email);
 
   return (
-    activeUser?
-    (<div>
+    <div>
       <Row className='m-5'>
         <NotesDisplay />
       </Row>
-    </div>):
-    <p> not</p>
+    </div>
   );
 }

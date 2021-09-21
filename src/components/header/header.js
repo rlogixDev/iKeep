@@ -2,18 +2,9 @@ import React, { useEffect, useState, useContext } from 'react'
 import { Navbar, Container } from 'react-bootstrap';
 import AuthContext from '../../context/AuthContext';
 
-import { useLocation } from "react-router-dom";
-
 const Header = () => {
-    const location = useLocation();
-    // const [activeUser, setActiveUser] = useState();
-    // useEffect(() => {
-    //     setActiveUser(location.state.currentUser)
-    //  }, [location]);
-
-    const active= useContext(AuthContext);
-  console.log("scscsc", active)
-   console.log("user in header", location.user);
+    const active = useContext(AuthContext);
+    console.log("user in head", active)
 
     return (
 
