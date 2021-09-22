@@ -12,15 +12,11 @@ export const AuthContext = createContext()
     useEffect(() => {
         auth.onAuthStateChanged(user => {
             setCurrentUser(user)   
-            console.log("dcdcdc", user)    
         })
     }, []);
-
-    // console.log("auth user val", activeUser);
     const value = {
         activeUser
       }
-    console.log("stacc", activeUser)
     return (
 
             <AuthContext.Provider  value={{value}}>

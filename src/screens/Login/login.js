@@ -25,11 +25,11 @@ export const Login = () => {
                 const user = userCredential.user;
                 setCurrentUser(user);
                 toast.success(`User ${user.email} logged in!` );
-                // history.push("/homepage");
-                history.push({
-                    pathname: '/homepage',
-                    state: { currentUser:user.email }
-                });
+                history.push("/homepage");
+                // history.push({
+                //     pathname: '/homepage',
+                //     state: { currentUser:user.email }
+                // });
          
             })
             .catch((error) => {

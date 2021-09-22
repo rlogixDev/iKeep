@@ -7,13 +7,18 @@ export const ProtectedRoute = ({
   component: Component,
   ...rest
 }) => {
+  
   const activeUser = useContext(AuthContext)
-  console.log('User present in routes',  activeUser.email !=='');
+  if (activeUser.value.activeUser !== '') {
+
+    const activeid = activeUser.value.activeUser.email
+}
+  console.log('User present in routes', activeUser, activeUser.email !=='');
   return (
     <Route
       {...rest}
       render={(props) => {
-        activeUser.email !=='' ? <Component {...props} /> : <Redirect to="/" />
+        activeUser.email !=='' ? <Component {...props} /> :  <Redirect to={{ path: "/", state: { from: props.location } }}/>
       }}
     />
   );
