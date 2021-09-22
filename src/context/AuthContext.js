@@ -12,11 +12,11 @@ export const AuthContext = React.createContext('Hello')
     useEffect(() => {
         auth.onAuthStateChanged(user => {
             setCurrentUser(user)   
-             
         })
     }, []);
-
-    // console.log("auth user val", activeUser);
+    const value = {
+        activeUser
+      }
     return (
 
          (

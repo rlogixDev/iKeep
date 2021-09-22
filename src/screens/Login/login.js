@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom';
 import './login.css';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -7,8 +7,8 @@ import authApp from '../../firebase';
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useHistory } from "react-router-dom";
-
+import { useHistory, Redirect } from "react-router-dom";
+import { AuthContext } from '../../context/AuthContext';
 export const Login = () => {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
@@ -16,6 +16,7 @@ export const Login = () => {
 
     const auth = getAuth(authApp);
     let history = useHistory();
+    const activeUser = useContext(AuthContext)
 
     const handleSubmit = (e, currentUser) =>{
         e.preventDefault();
@@ -25,11 +26,11 @@ export const Login = () => {
                 const user = userCredential.user;
                 setCurrentUser(user);
                 toast.success(`User ${user.email} logged in!` );
-                // history.push("/homepage");
-                history.push({
-                    pathname: '/homepage',
-                    state: { currentUser:user.email }
-                });
+                history.push("/homepage");
+                // history.push({
+                //     pathname: '/homepage',
+                //     state: { currentUser:user.email }
+                // });
          
             })
             .catch((error) => {
@@ -54,11 +55,10 @@ export const Login = () => {
             });
     }
 
-    useEffect(() => {
-        auth.onAuthStateChanged(user => {
-            setCurrentUser(user);
-        })
-    }, [])
+    if(activeUser){
+        return <Redirect to="/homepage" />
+   
+       }
 
     const ColoredLine = ({ color }) => (
         <hr
