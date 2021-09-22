@@ -9,7 +9,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
-  updatePhoneNumber,
+  // updatePhoneNumber,
 } from 'firebase/auth';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -91,8 +91,11 @@ export default function Signup() {
         updateProfile(auth.currentUser, {
           displayName: name,
         });
-        // updateProfile(auth.currentUser, {
-        //   phoneNumber: String(phone),
+        updateProfile(auth.currentUser, {
+          phoneNumber: phone,
+        });
+        // updatePhoneNumber(auth.currentUser, {
+        //   phoneNumber: phone,
         // });
       } catch (error) {
         const errorMessage = error.message.slice(22, 42);

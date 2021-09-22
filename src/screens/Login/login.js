@@ -18,67 +18,67 @@ import authApp from '../../firebase';
 export const Login = () => {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
-  const [otp, setOtp] = useState();
-  const [enterOtp, setEnterOtp] = useState();
+  //   const [otp, setOtp] = useState();
+  //   const [enterOtp, setEnterOtp] = useState();
   const [currentUser, setCurrentUser] = useState();
-  const [recaptchaVerifie, setRecaptchaVerifie] = useState();
-  const [confirmationResultOtp, setConfirmationResultOtp] = useState();
+  //   const [recaptchaVerifie, setRecaptchaVerifie] = useState();
+  //   const [confirmationResultOtp, setConfirmationResultOtp] = useState();
 
   const auth = getAuth();
   let history = useHistory();
 
   /////////////////////////////////////////////////OTP////////////////////////////////////
 
-  const setUpRecaptcha = () => {
-    let recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-      size: 'invisible',
-      callback: function (response) {
-        console.log('Captcha Resolved');
-        this.onSignInSubmit();
-      },
-      defaultCountry: 'IN',
-    });
-    setRecaptchaVerifie(recaptchaVerifier);
-  };
+  //   const setUpRecaptcha = () => {
+  //     let recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+  //       size: 'invisible',
+  //       callback: function (response) {
+  //         console.log('Captcha Resolved');
+  //         this.onSignInSubmit();
+  //       },
+  //       defaultCountry: 'IN',
+  //     });
+  //     setRecaptchaVerifie(recaptchaVerifier);
+  //   };
 
-  const onSignInSubmit = (e) => {
-    e.preventDefault();
-    setUpRecaptcha();
-    let phoneNumber = '+91' + this.state.mobile;
-    console.log(phoneNumber);
-    let appVerifier = recaptchaVerifie;
-    authApp
-      .auth()
-      .signInWithPhoneNumber(phoneNumber, appVerifier)
-      .then(function (confirmationResult) {
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-        setConfirmationResultOtp(confirmationResult);
-        // console.log(confirmationResult);
-        console.log('OTP is sent');
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  //   const onSignInSubmit = (e) => {
+  //     e.preventDefault();
+  //     setUpRecaptcha();
+  //     let phoneNumber = '+91' + this.state.mobile;
+  //     console.log(phoneNumber);
+  //     let appVerifier = recaptchaVerifie;
+  //     authApp
+  //       .auth()
+  //       .signInWithPhoneNumber(phoneNumber, appVerifier)
+  //       .then(function (confirmationResult) {
+  //         // SMS sent. Prompt user to type the code from the message, then sign the
+  //         // user in with confirmationResult.confirm(code).
+  //         setConfirmationResultOtp(confirmationResult);
+  //         // console.log(confirmationResult);
+  //         console.log('OTP is sent');
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error);
+  //       });
+  //   };
 
-  const onSubmitOtp = (e) => {
-    e.preventDefault();
-    let otpInput = this.state.otp;
-    let optConfirm = confirmationResultOtp;
-    // console.log(codee);
-    optConfirm
-      .confirm(otpInput)
-      .then(function (result) {
-        // User signed in successfully.
-        // console.log("Result" + result.verificationID);
-        let user = result.user;
-      })
-      .catch(function (error) {
-        console.log(error);
-        alert('Incorrect OTP');
-      });
-  };
+  //   const onSubmitOtp = (e) => {
+  //     e.preventDefault();
+  //     let otpInput = this.state.otp;
+  //     let optConfirm = confirmationResultOtp;
+  //     // console.log(codee);
+  //     optConfirm
+  //       .confirm(otpInput)
+  //       .then(function (result) {
+  //         // User signed in successfully.
+  //         // console.log("Result" + result.verificationID);
+  //         let user = result.user;
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error);
+  //         alert('Incorrect OTP');
+  //       });
+  //   };
 
   /////////////////////////////////////////////////OTP////////////////////////////////////
 
