@@ -11,6 +11,7 @@ import { getDatabase,ref, set } from "firebase/database";
 export default function InputNote() {
   
   const {activeUser} = useContext(AuthContext);
+  console.log(activeUser.uid);
   const [title,setTitle] =useState('');
   const [Content,setContent] =useState('');
   
@@ -19,8 +20,8 @@ export default function InputNote() {
  
     const db = getDatabase();
     const id =Math.random().toString(36).substr(2, 9);
-    set(ref(db,'/'+ id), {
-      id:id,
+    set(ref(db,'/notes/'+activeUser.uid+'/'+ id), {
+      id:activeUser.uid,
       title: title,
       Content: Content,
       Email:activeUser.email,
