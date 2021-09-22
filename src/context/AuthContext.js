@@ -4,7 +4,7 @@ import { getAuth } from 'firebase/auth';
 import authApp from '../firebase';
 import Login from '../screens/Login/login';
 
-export const AuthContext = createContext()
+export const AuthContext = React.createContext()
  const AuthProvider = ({ children }) => {
   const [activeUser, setCurrentUser] = useState({});
   const auth = getAuth(authApp);
@@ -12,18 +12,14 @@ export const AuthContext = createContext()
     useEffect(() => {
         auth.onAuthStateChanged(user => {
             setCurrentUser(user)   
-            console.log("dcdcdc", user)    
+             
         })
     }, []);
 
     // console.log("auth user val", activeUser);
-    const value = {
-        activeUser
-      }
-    console.log("stacc", activeUser)
     return (
 
-            <AuthContext.Provider  value={{value}}>
+            <AuthContext.Provider  value={{activeUser:"helllow"}}>
                 {children}
             </AuthContext.Provider>
         

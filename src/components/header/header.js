@@ -12,8 +12,7 @@ const Header = () => {
     //  }, [location]);
 
     const active= useContext(AuthContext);
-  console.log("scscsc", active)
-   console.log("user in header", location.user);
+   console.log("user in header", location.user, active);
 
     return (
 

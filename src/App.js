@@ -11,7 +11,7 @@ import  AuthProvider  from './context/AuthContext';
 
 export default function App() {
   return (
-     <AuthProvider>
+<>
       <Header />
       <Switch>
         <Route exact path='/' component={Login} />
@@ -20,7 +20,7 @@ export default function App() {
         <ProtectedRoute exact path='/homepage' component={HomePage} />
       </Switch>
       <ToastContainer autoClose={5000} />
-      </AuthProvider>
+   </>
     
   );
 }
