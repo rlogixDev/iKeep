@@ -1,10 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState,useContext} from 'react';
 import { Form, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
 import { RiAddLine } from 'react-icons/ri';
 import { Image, CloudinaryContext } from 'cloudinary-react';
 import axios from 'axios';
+import { AuthContext } from '../../context/AuthContext';
+import { getDatabase,ref, set } from "firebase/database";
+
+
 
 export default function InputNote() {
+  
+  const {activeUser} = useContext(AuthContext);
+  const [title,setTitle] =useState('');
+  const [Content,setContent] =useState('');
+  
+  
+  const AddNote =() => {
+ 
+    const db = getDatabase();
+    set(ref(db, '/notes' + Math.random().toString(36).substr(2, 9)), {
+      title: title,
+      Content: Content,
+      Email:activeUser.email,
+      Date:Date(Date.now).toString().substr(0,15)
+    }).
+    then(() => console.log("Added successfully")).
+    catch(() => console.log("Error"));
+ 
+  }
+ 
   const [addImg, setAddImg] = useState('');
   const uploadImage = async () => {
     const formData = new FormData();
@@ -34,6 +58,7 @@ export default function InputNote() {
           className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0 '
           variant='primary'
           style={{ width: '2.5rem' }}
+          onClick={AddNote}
         >
           <RiAddLine size='1x' />
         </Button>
@@ -43,10 +68,11 @@ export default function InputNote() {
               placeholder='Title'
               aria-label='Default'
               aria-describedby='inputGroup-sizing-default'
+              onChange={(e) => setTitle(e.target.value) }
             />
           </InputGroup>
           <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
-            <Form.Control placeholder='Content' as='textarea' rows={3} />
+            <Form.Control placeholder='Content' as='textarea' name='content' rows={3} onChange={(e) => setContent(e.target.value) }  />
           </Form.Group>
           <div
             className='d-flex justify-content-between input-group'
