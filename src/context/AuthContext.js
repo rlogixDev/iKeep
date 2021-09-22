@@ -4,9 +4,9 @@ import { getAuth } from 'firebase/auth';
 import authApp from '../firebase';
 import Login from '../screens/Login/login';
 
-export const AuthContext = React.createContext()
+export const AuthContext = React.createContext('Hello')
  const AuthProvider = ({ children }) => {
-  const [activeUser, setCurrentUser] = useState({});
+  const [activeUser, setCurrentUser] = useState('');
   const auth = getAuth(authApp);
     
     useEffect(() => {
@@ -19,9 +19,11 @@ export const AuthContext = React.createContext()
     // console.log("auth user val", activeUser);
     return (
 
-            <AuthContext.Provider  value={{activeUser:"helllow"}}>
+         (
+                <AuthContext.Provider  value={{activeUser}}>
                 {children}
             </AuthContext.Provider>
+            )
         
 
     )
