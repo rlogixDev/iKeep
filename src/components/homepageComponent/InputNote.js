@@ -18,7 +18,9 @@ export default function InputNote() {
   const AddNote =() => {
  
     const db = getDatabase();
-    set(ref(db, '/notes' + Math.random().toString(36).substr(2, 9)), {
+    const id =Math.random().toString(36).substr(2, 9);
+    set(ref(db,'/'+ id), {
+      id:id,
       title: title,
       Content: Content,
       Email:activeUser.email,
