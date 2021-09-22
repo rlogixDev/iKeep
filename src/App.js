@@ -16,8 +16,8 @@ export default function App() {
       <Switch>
         <Route exact path='/' component={Login} />
         <Route exact path='/signup' component={Signup} />
-        {/* <Route exact path='/homepage' component={HomePage} /> */}
-        <ProtectedRoute exact path='/homepage' component={HomePage} />
+        <Route exact path='/homepage' component={HomePage} />
+        {/* <ProtectedRoute exact path='/homepage' component={HomePage} /> */}
       </Switch>
       <ToastContainer autoClose={5000} />
       </AuthProvider>

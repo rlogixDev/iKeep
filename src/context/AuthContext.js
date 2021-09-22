@@ -23,7 +23,7 @@ export const AuthContext = createContext()
     console.log("stacc", activeUser)
     return (
 
-            <AuthContext.Provider  value={{value}}>
+            <AuthContext.Provider  value={{activeUser}}>
                 {children}
             </AuthContext.Provider>
         
