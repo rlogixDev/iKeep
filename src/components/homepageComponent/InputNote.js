@@ -5,7 +5,7 @@ import { Image, CloudinaryContext } from 'cloudinary-react';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import { getDatabase,ref, set } from "firebase/database";
-
+import NotesDisplay from './NotesDisplay';
 
 
 export default function InputNote() {
@@ -19,9 +19,9 @@ export default function InputNote() {
   const AddNote =() => {
  
     const db = getDatabase();
-    const id =Math.round(Math.random()*100);
-    set(ref(db,'notes/'+id), {
-      id:activeUser.uid,
+    const id =Math.random().toString(36).substr(2, 9);
+    set(ref(db,'notes/'+activeUser.uid+'/'+Math.round(Math.random()*100)), {
+      id:id,
       title: title,
       Content: Content,
       Email:activeUser.email,
@@ -29,6 +29,8 @@ export default function InputNote() {
     }).
     then(() => console.log("Added successfully")).
     catch(() => console.log("Error"));
+    
+    
  
   }
  
@@ -61,8 +63,9 @@ export default function InputNote() {
           className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0 '
           variant='primary'
           style={{ width: '2.5rem' }}
-          onClick={AddNote}
+          onClick={AddNote} 
         >
+
           <RiAddLine size='1x' />
         </Button>
         <Card.Body>
@@ -71,7 +74,7 @@ export default function InputNote() {
               placeholder='Title'
               aria-label='Default'
               aria-describedby='inputGroup-sizing-default'
-              onChange={(e) => setTitle(e.target.value) }
+              onChange={(e) => setTitle(e.target.value)  }
             />
           </InputGroup>
           <Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>

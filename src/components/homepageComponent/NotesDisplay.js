@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import InputNote from './InputNote';
 import Notes from './Notes';
 import { Row, Container, Button } from 'react-bootstrap';
+import axios from 'axios';
 import SearchBox from './SearchBox';
+import { AuthContext } from '../../context/AuthContext';
+
 import {
   Form,
   FormControl,
@@ -12,45 +15,37 @@ import {
 
 export default function NotesDisplay() {
   const [searchText, setSearch] = useState();
-  const data =
-    [
-      {
-        "id": 1,
-        "title": "sunt aut facere repellat ehenderit",
-        "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-      },
-      {
-        "id": 2,
-        "title": "qui est esse",
-        "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
-      },
-      {
-        "id": 3,
-        "title": "ea molestias quasi ellat qui ipsa sit aut",
-        "body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
-      },
-      {
-        "id": 4,
-        "title": "eum et est occaecati",
-        "body": "ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit"
-      }]
-
-  const [filteredData, setData] = useState(data);
-  console.log(searchText);
-
+  const [data,setData] =useState([]);
+  // const [userNotes,setUserNotes] =useState([]);
+  const {activeUser}=useContext(AuthContext);
+  const uid=activeUser.uid;
+  console.log("uid",uid);
   useEffect(() => {
-    const lowercasedValue = searchText?.toLowerCase().trim();
-    // console.log("lowercasedValue",lowercasedValue);
-    if (lowercasedValue === "") setData(data);
-    else {
-      const filteredData = data.filter(item =>
-        item.title.toLowerCase().includes(lowercasedValue) ||
-        item.body.toLowerCase().includes(lowercasedValue)
-      );
-      console.log(filteredData)
-      setData(filteredData);
-    }
-  }, [searchText])
+    axios.get('https://react-project-1443c-default-rtdb.firebaseio.com/notes.json')
+    .then((res) => setData(res.data))
+
+  },[data])
+  let userNotes=[];
+ let a= data[uid] ? (Object.keys(data[uid]).map((item) => userNotes.push(data[uid][item])),
+  console.log(userNotes)):''
+  
+ 
+  // const [filteredData, setFilteredData] = useState(data);
+  // console.log(searchText);
+
+  // useEffect(() => {
+  //   const lowercasedValue = searchText?.toLowerCase().trim();
+  //   // console.log("lowercasedValue",lowercasedValue);
+  //   if (lowercasedValue === "") setData(data);
+  //   else {
+  //     const filteredData = data.filter(item =>
+  //       item.title.toLowerCase().includes(lowercasedValue) ||
+  //       item.body.toLowerCase().includes(lowercasedValue)
+  //     );
+  //     console.log(filteredData)
+  //     setFilteredData(filteredData);
+  //   }
+  // }, [searchText])
 
   return (
     <>
@@ -107,9 +102,9 @@ export default function NotesDisplay() {
             Delete
           </Button>
         </Row>
-        <Notes data={filteredData} />
-        {/* {filteredData.length > 0 ?
-          <Notes data={filteredData} /> : <p>No results found..</p>} */}
+        {/* <Notes data={filteredData} /> */}
+        {userNotes.length>0 ?
+           <Notes data={userNotes} /> : <p>No results found..</p>}
       </Container>
     </>
   );
