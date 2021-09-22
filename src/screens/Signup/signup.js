@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import { Row, Container, Col, Toast } from 'react-bootstrap';
+import { Row, Container, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import './signup.css';
@@ -9,6 +9,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
+  updatePhoneNumber,
 } from 'firebase/auth';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -89,8 +90,10 @@ export default function Signup() {
         );
         updateProfile(auth.currentUser, {
           displayName: name,
-          phoneNumber: String(phone),
         });
+        // updateProfile(auth.currentUser, {
+        //   phoneNumber: String(phone),
+        // });
       } catch (error) {
         const errorMessage = error.message.slice(22, 42);
         setError(errorMessage);
