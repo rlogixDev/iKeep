@@ -19,7 +19,7 @@ export const Login = () => {
   const [userEmail, setUserEmail] = useState();
 
   const auth = getAuth(authApp);
-  let history = useHistory();
+  // let history = useHistory();
   const activeUser = useContext(AuthContext);
 
   ///////////////////////////OTP////////////////////////////
