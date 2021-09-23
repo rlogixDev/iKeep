@@ -1,31 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Alert } from 'react-bootstrap';
-
+import React, { useState, useEffect, useContext } from 'react';
 import './login.css';
 import {
   getAuth,
   signInWithEmailAndPassword,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
+  // RecaptchaVerifier,
+  // signInWithPhoneNumber,
 } from 'firebase/auth';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useHistory } from 'react-router-dom';
 import authApp from '../../firebase';
+import { useHistory, Redirect, Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 export const Login = () => {
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
   //   const [otp, setOtp] = useState();
   //   const [enterOtp, setEnterOtp] = useState();
-  const [currentUser, setCurrentUser] = useState();
   //   const [recaptchaVerifie, setRecaptchaVerifie] = useState();
   //   const [confirmationResultOtp, setConfirmationResultOtp] = useState();
 
-  const auth = getAuth();
+  const [username, setUserName] = useState();
+  const [password, setPassword] = useState();
+  const [currentUser, setCurrentUser] = useState();
+
+  const auth = getAuth(authApp);
   let history = useHistory();
+  const activeUser = useContext(AuthContext);
+
+  // const handleSubmit = (e, currentUser) => {
+  //   e.preventDefault();
+  //   // debugger;
+  //   signInWithEmailAndPassword(auth, username, password)
+  //     .then((userCredential) => {
+  //       const user = userCredential.user;
+  //       setCurrentUser(user);
+  //       toast.success(`User ${user.email} logged in!`);
+  //       history.push('/homepage');
+  //       // history.push({
+  //       //     pathname: '/homepage',
+  //       //     state: { currentUser:user.email }
+  //       // });
+  //     })
+  //     .catch((error) => {
+  //       const errorMessage = error.message;
+  //       toast.error(errorMessage);
+  //     });
+  // };
 
   /////////////////////////////////////////////////OTP////////////////////////////////////
 
