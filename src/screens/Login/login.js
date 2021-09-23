@@ -101,6 +101,38 @@ export const Login = () => {
     //   otpCheck();
     //   return;
     // }
+
+    ///////////local storage check///////////
+    const re = /^[0-9\b]+$/;
+    if (username.length === 10 && re.test(username)) {
+      let a = JSON.parse(localStorage.getItem('session'));
+      let b = a.filter((item) => item.Phone == username);
+
+      console.log('username', b[0].Email);
+      signInWithEmailAndPassword(auth, b[0].Email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          setCurrentUser(user);
+          // if (username.length === 10 && re.test(username)) {
+          //   setOtp(Math.floor(Math.random() * 9999));
+          //   otpCheck();
+          //   return;
+          // }
+          toast.success(`User ${user.email} logged in!`);
+          // history.push("/homepage");
+          console.log(user);
+          history.push({
+            pathname: '/homepage',
+            state: { currentUser: user.email, user: user },
+          });
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          toast.error(errorMessage);
+        });
+      return;
+    }
+    ///////////local storage check///////////
     signInWithEmailAndPassword(auth, username, password)
       .then((userCredential) => {
         const user = userCredential.user;
