@@ -1,18 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import './login.css';
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  // RecaptchaVerifier,
-  // signInWithPhoneNumber,
-} from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { Alert } from 'react-bootstrap';
 
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import authApp from '../../firebase';
-import { useHistory, Redirect, Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 export const Login = () => {
@@ -27,23 +22,29 @@ export const Login = () => {
   let history = useHistory();
   const activeUser = useContext(AuthContext);
 
+  ///////////////////////////OTP////////////////////////////
+
   const createOtp = () => {
     setOTP(Math.floor(Math.random() * 9999));
     console.log(otp);
+    console.log('createOtp');
   };
 
   const otpCheck = () => {
+    console.log('otpCheck');
     if (otp == checkOtp) {
       toast.success(`User ${userEmail} logged in!`);
-      history.push({
-        pathname: '/homepage',
-        state: { currentUser: userEmail, user: currentUser },
-      });
+      // history.push({
+      //   pathname: '/homepage',
+      //   state: { currentUser: userEmail, user: currentUser },
+      // });
     } else {
       const errorMessage = 'Wrong OTP';
       toast.error(errorMessage);
     }
   };
+
+  ///////////////////////////OTP////////////////////////////
 
   const handleSubmit = (e, currentUser) => {
     e.preventDefault();
@@ -61,12 +62,6 @@ export const Login = () => {
           createOtp();
           setCurrentUser(user);
           setCurrentUser(user.email);
-          // toast.success(`User ${user.email} logged in!`);
-          // console.log(user);
-          // history.push({
-          //   pathname: '/homepage',
-          //   state: { currentUser: user.email, user: user },
-          // });
         })
         .catch((error) => {
           const errorMessage = error.message;
@@ -105,12 +100,6 @@ export const Login = () => {
       });
   }
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-  }, []);
-
   const ColoredLine = ({ color }) => (
     <hr
       style={{
@@ -125,7 +114,7 @@ export const Login = () => {
     <div>
       <div id='login'>
         <form className='container mx-auto col-4 d-flex justify-content-center flex-column'>
-          {otp && <Alert variant='success'>Enter Otp - {otp} </Alert>}
+          {otp && <Alert variant='success'>enter the OTP - {otp}</Alert>}
           <h3>Sign In</h3>
           <div className='row justify-content-start login-row pt-4'>
             <div className='col align-self-start pt-1'>
@@ -146,7 +135,6 @@ export const Login = () => {
               </div>
             </div>
           </div>
-
           <div className='row justify-content-start login-row'>
             <div className='col align-self-start pt-1'>
               <div className='form-group p-2 '>
@@ -166,8 +154,8 @@ export const Login = () => {
               </div>
             </div>
           </div>
+          {/* ////////////////////////////// */}
           <div>
-            {/* ////////////////////////////// */}
             <div
               style={{
                 display: !otp && 'none',
@@ -203,12 +191,10 @@ export const Login = () => {
                 </div>
               </div>
             </div>
-
-            {/* /////////////////////////// */}
           </div>
+          {/* /////////////////////////// */}
           <div id='login-buttons' className='row justify-content-center'>
             <div>
-              {/* <Link to="/homepage"> */}
               <button
                 variant='primary'
                 type='button'
@@ -216,16 +202,14 @@ export const Login = () => {
                 onClick={(e) => handleSubmit(e)}
                 disabled={!username | !password}
               >
-                <div id='recaptcha-container'></div> Submit
+                {' '}
+                Submit
               </button>
-              {/* </Link> */}
             </div>
-
             <p className='link'>
               Forgot Password? <Link to='/resetPassword'>Reset Password</Link>
             </p>
           </div>
-
           <div className='row '>
             <ColoredLine color='red' />
             <div>
@@ -235,7 +219,6 @@ export const Login = () => {
                 className='btn btn-light btn-md pr-10'
                 onClick={() => handleGoogleSignIn()}
               >
-                {' '}
                 <img
                   src='https://e7.pngegg.com/pngimages/114/607/png-clipart-g-suite-pearl-river-middle-school-google-software-suite-email-sign-up-button-text-logo-thumbnail.png'
                   width='50'

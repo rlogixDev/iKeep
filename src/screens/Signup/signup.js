@@ -133,7 +133,7 @@ export default function Signup() {
     <>
       <div className='form mt-4'>
         <Form className='contain mx-auto p-4 '>
-          <h3 className='mb-3'>SignUp</h3>
+          <h3 className='d-flex justify-content-center mb-3'>SignUp</h3>
           <Container>
             <Form.Group className='mb-3'>
               <Row className='justify-content-center'>
