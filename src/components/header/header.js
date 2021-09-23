@@ -7,13 +7,7 @@ const Header = () => {
   const auth = getAuth();
   const { activeUser } = useContext(AuthContext);
     console.log("User present in head", activeUser);
-  // logOut(){
-  //     signOut(auth).then(() => {
-  //         // Sign-out successful.
-  //       }).catch((error) => {
-  //         // An error happened.
-  //       });
-  // }
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
       <Container>
@@ -30,10 +24,10 @@ const Header = () => {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            {activeUser && <p>Welcome: </p>}
+            {activeUser && <p className="font-weight-bold">Welcome:{activeUser.email} </p>}
           </Navbar.Text>
           <Nav>
-            <Nav.Link
+          {activeUser && <Nav.Link
               onClick={() =>
                 signOut(auth)
                   .then(() => {
@@ -42,8 +36,8 @@ const Header = () => {
                   .catch((error) => {})
               }
             >
-              Logout
-            </Nav.Link>
+              <img src="https://cdn1.iconfinder.com/data/icons/basic-ui-elements-coloricon/21/38-512.png" width="30" radius="0" alt="google" />
+            </Nav.Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>
