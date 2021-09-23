@@ -1,10 +1,17 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { Navbar, Container } from 'react-bootstrap';
-import AuthContext from '../../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
+import { useLocation } from 'react-router-dom'
 
 const Header = () => {
+    // const location = useLocation();
+    // console.log(location.pathname);
     const activeUser = useContext(AuthContext)
-    console.log('User present in head',  activeUser);
+    console.log('User present in head', activeUser);
+    if (activeUser) {
+        const activeid = activeUser.email
+    }
+
     return (
 
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -19,7 +26,7 @@ const Header = () => {
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>
-                        {/* {activeUser && <p>Welcome: {activeUser}</p>} */}
+                        {/* {activeid && <p>Welcome: {activeUser.value.activeUser.email}</p>} */}
                     </Navbar.Text>
                 </Navbar.Collapse>
             </Container>
