@@ -27,16 +27,6 @@ export const Login = () => {
   let history = useHistory();
   const activeUser = useContext(AuthContext);
 
-  // useEffect(() => {
-  //   const createOtp = () => {
-  //     setOTP(Math.floor(Math.random() * 9999));
-  //     console.log(otp);
-  //   };
-  //   return () => {
-  //     createOtp();
-  //   };
-  // }, [username]);
-
   const createOtp = () => {
     setOTP(Math.floor(Math.random() * 9999));
     console.log(otp);
@@ -68,14 +58,15 @@ export const Login = () => {
       signInWithEmailAndPassword(auth, b[0].Email, password)
         .then((userCredential) => {
           const user = userCredential.user;
+          createOtp();
           setCurrentUser(user);
-
-          toast.success(`User ${user.email} logged in!`);
-          console.log(user);
-          history.push({
-            pathname: '/homepage',
-            state: { currentUser: user.email, user: user },
-          });
+          setCurrentUser(user.email);
+          // toast.success(`User ${user.email} logged in!`);
+          // console.log(user);
+          // history.push({
+          //   pathname: '/homepage',
+          //   state: { currentUser: user.email, user: user },
+          // });
         })
         .catch((error) => {
           const errorMessage = error.message;
