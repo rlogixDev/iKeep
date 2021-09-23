@@ -8,7 +8,7 @@ import Signup from './screens/Signup/signup';
 import  AuthProvider from './context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import  ProtectedRoute  from './protected.routes';
-
+import PublicRoute from './public.routes';
 export default function App() {
   return (
     <AuthProvider>

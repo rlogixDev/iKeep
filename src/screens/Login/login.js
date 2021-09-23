@@ -55,11 +55,6 @@ export const Login = () => {
             });
     }
 
-    if(activeUser){
-        return <Redirect to="/homepage" />
-   
-       }
-
     const ColoredLine = ({ color }) => (
         <hr
             style={{

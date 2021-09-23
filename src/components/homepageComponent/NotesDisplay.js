@@ -13,7 +13,6 @@ import {
 export default function NotesDisplay() {
   const [searchText, setSearch] = useState();
 
-  
   const data =
     [
       {
