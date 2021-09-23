@@ -1,5 +1,4 @@
 import React, { useState, useEffect,useContext } from 'react';
-import InputNote from './InputNote';
 import Notes from './Notes';
 import { Row, Container, Button } from 'react-bootstrap';
 import axios from 'axios';
@@ -84,7 +83,7 @@ export default function NotesDisplay({note}) {
               <Button variant='outline-success'>Save</Button>{' '}
             </Form>
           </div>
-          <InputNote />
+        
         </Row>
         <Row className='d-flex flex-row justify-content-center mt-3'>
           <Button
