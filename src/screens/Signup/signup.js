@@ -81,43 +81,43 @@ export default function Signup() {
           return;
         }
       });
-      if (error == '') {
-        a.push({ Email: email, Phone: phone });
-        localStorage.setItem('session', JSON.stringify(a));
+      // if (!error) {
+      a.push({ Email: email, Phone: phone });
+      localStorage.setItem('session', JSON.stringify(a));
+      ////////local storage///////
+      try {
+        await createUserWithEmailAndPassword(auth, email, password).then(
+          (userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            // ...
+            toast.success('Signup Successful', {
+              autoClose: 5000,
+              hideProgressBar: false,
+              draggable: false,
+              progress: undefined,
+              position: 'top-right',
+              pauseOnHover: true,
+              closeOnClick: true,
+            });
+            history.push('/');
+          }
+        );
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        });
         ////////local storage///////
-        try {
-          await createUserWithEmailAndPassword(auth, email, password).then(
-            (userCredential) => {
-              // Signed in
-              const user = userCredential.user;
-              // ...
-              toast.success('Signup Successful', {
-                autoClose: 5000,
-                hideProgressBar: false,
-                draggable: false,
-                progress: undefined,
-                position: 'top-right',
-                pauseOnHover: true,
-                closeOnClick: true,
-              });
-              history.push('/');
-            }
-          );
-          updateProfile(auth.currentUser, {
-            displayName: name,
-          });
-          ////////local storage///////
-          // let a = [];
-          // a = JSON.parse(localStorage.getItem('session')) || [];
-          // a.push({ Email: email, Phone: phone });
-          // localStorage.setItem('session', JSON.stringify(a));
-          ////////local storage///////
-        } catch (error) {
-          const errorMessage = error.message.slice(22, 42);
-          setError(errorMessage);
-          setLoading(false);
-        }
+        // let a = [];
+        // a = JSON.parse(localStorage.getItem('session')) || [];
+        // a.push({ Email: email, Phone: phone });
+        // localStorage.setItem('session', JSON.stringify(a));
+        ////////local storage///////
+      } catch (error) {
+        const errorMessage = error.message.slice(22, 42);
+        setError(errorMessage);
+        setLoading(false);
       }
+      // }
     } else {
       setError('Please fill all the Fields');
     }
