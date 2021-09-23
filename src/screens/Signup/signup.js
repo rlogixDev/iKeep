@@ -22,6 +22,7 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [gender, setGender] = useState('');
+  const [flag, setFlag] = useState(true);
   const [zip, setZip] = useState('');
   const [state, setState] = useState('');
   const [country, setCountry] = useState('');
@@ -78,46 +79,48 @@ export default function Signup() {
         if (item.Phone === phone) {
           setError('Mobile Number already exist');
           setLoading(false);
+          setFlag(false);
           return;
         }
       });
-      // if (!error) {
-      a.push({ Email: email, Phone: phone });
-      localStorage.setItem('session', JSON.stringify(a));
-      ////////local storage///////
-      try {
-        await createUserWithEmailAndPassword(auth, email, password).then(
-          (userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            // ...
-            toast.success('Signup Successful', {
-              autoClose: 5000,
-              hideProgressBar: false,
-              draggable: false,
-              progress: undefined,
-              position: 'top-right',
-              pauseOnHover: true,
-              closeOnClick: true,
-            });
-            history.push('/');
-          }
-        );
-        updateProfile(auth.currentUser, {
-          displayName: name,
-        });
+      if (!loading) {
         ////////local storage///////
-        // let a = [];
-        // a = JSON.parse(localStorage.getItem('session')) || [];
-        // a.push({ Email: email, Phone: phone });
-        // localStorage.setItem('session', JSON.stringify(a));
-        ////////local storage///////
-      } catch (error) {
-        const errorMessage = error.message.slice(22, 42);
-        setError(errorMessage);
-        setLoading(false);
+        try {
+          await createUserWithEmailAndPassword(auth, email, password).then(
+            (userCredential) => {
+              // Signed in
+              const user = userCredential.user;
+              // ...
+              toast.success('Signup Successful', {
+                autoClose: 5000,
+                hideProgressBar: false,
+                draggable: false,
+                progress: undefined,
+                position: 'top-right',
+                pauseOnHover: true,
+                closeOnClick: true,
+              });
+              a.push({ Email: email, Phone: phone });
+              localStorage.setItem('session', JSON.stringify(a));
+              history.push('/');
+            }
+          );
+          updateProfile(auth.currentUser, {
+            displayName: name,
+          });
+          ////////local storage///////
+          // let a = [];
+          // a = JSON.parse(localStorage.getItem('session')) || [];
+          // a.push({ Email: email, Phone: phone });
+          // localStorage.setItem('session', JSON.stringify(a));
+          ////////local storage///////
+        } catch (error) {
+          const errorMessage = error.message.slice(22, 42);
+          setError(errorMessage);
+          setLoading(false);
+        }
       }
-      // }
+      setLoading(false);
     } else {
       setError('Please fill all the Fields');
     }
