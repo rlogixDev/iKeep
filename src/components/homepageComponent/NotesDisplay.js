@@ -37,18 +37,18 @@ export default function NotesDisplay() {
       }]
 
   const [filteredData, setData] = useState(data);
-  console.log(searchText);
+  console.log("filterd data 1", filteredData);
 
   useEffect(() => {
     const lowercasedValue = searchText?.toLowerCase().trim();
-    // console.log("lowercasedValue",lowercasedValue);
+    console.log("lowercasedValue",lowercasedValue);
     if (lowercasedValue === "") setData(data);
     else {
       const filteredData = data.filter(item =>
         item.title.toLowerCase().includes(lowercasedValue) ||
         item.body.toLowerCase().includes(lowercasedValue)
       );
-      console.log(filteredData)
+      console.log('filteredData', filteredData)
       setData(filteredData);
     }
   }, [searchText])

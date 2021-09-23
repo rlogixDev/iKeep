@@ -8,13 +8,9 @@ import Login from "./screens/Login/login";
   ...rest
 }) => {
   
-  const activeUser = useContext(AuthContext);
-//   if(activeUser)
-  //  let activeRouteFlag = activeUser.activeUser.uid.length >=1
-  console.log('user in private routes',activeUser.activeUser.uid?.length <0)
+  const {activeUser} = useContext(AuthContext);
   return (
-
-    activeUser.activeUser.uid?.length <= 0 ? <Redirect to='/homepage' /> :<RouteComponent/>
+    activeUser ? <Redirect to='/homepage' /> :<RouteComponent/>
   );
 };
 
