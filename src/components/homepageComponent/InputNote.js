@@ -10,6 +10,7 @@ import NotesDisplay from './NotesDisplay';
 
 export default function InputNote() {
   
+  const[newNote,setNewNote] =useState({});
   const {activeUser} = useContext(AuthContext);
   console.log(activeUser.uid);
   const [title,setTitle] =useState('');
@@ -27,7 +28,9 @@ export default function InputNote() {
       Email:activeUser.email,
       Date:Date(Date.now).toString().substr(0,15)
     }).
-    then(() => console.log("Added successfully")).
+    then(() => console.log("Added successfully"),
+      setNewNote({id:id,title:title,Content: Content,Email:activeUser.email,Date:Date(Date.now).toString().substr(0,15)})
+    ).
     catch(() => console.log("Error"));
     
     
@@ -102,6 +105,7 @@ export default function InputNote() {
           </div>
         </Card.Body>
       </Card>
+      <NotesDisplay note={newNote}/>
     </>
   );
 }

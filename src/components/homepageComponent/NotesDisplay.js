@@ -13,7 +13,7 @@ import {
   ButtonGroup,
 } from 'react-bootstrap';
 
-export default function NotesDisplay() {
+export default function NotesDisplay({note}) {
   const [searchText, setSearch] = useState();
   const [data,setData] =useState([]);
   // const [userNotes,setUserNotes] =useState([]);
@@ -24,7 +24,7 @@ export default function NotesDisplay() {
     axios.get('https://react-project-1443c-default-rtdb.firebaseio.com/notes.json')
     .then((res) => setData(res.data))
 
-  },[data])
+  },[note])
   let userNotes=[];
  let a= data[uid] ? (Object.keys(data[uid]).map((item) => userNotes.push(data[uid][item])),
   console.log(userNotes)):''
