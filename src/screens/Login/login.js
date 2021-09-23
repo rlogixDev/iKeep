@@ -6,6 +6,8 @@ import {
   // RecaptchaVerifier,
   // signInWithPhoneNumber,
 } from 'firebase/auth';
+import { Alert } from 'react-bootstrap';
+
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,113 +16,47 @@ import { useHistory, Redirect, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 export const Login = () => {
-  //   const [otp, setOtp] = useState();
-  //   const [enterOtp, setEnterOtp] = useState();
-  //   const [recaptchaVerifie, setRecaptchaVerifie] = useState();
-  //   const [confirmationResultOtp, setConfirmationResultOtp] = useState();
-
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
   const [currentUser, setCurrentUser] = useState();
+  const [otp, setOTP] = useState();
+  const [checkOtp, setCheckOtp] = useState();
+  const [userEmail, setUserEmail] = useState();
 
   const auth = getAuth(authApp);
   let history = useHistory();
   const activeUser = useContext(AuthContext);
 
-  // const handleSubmit = (e, currentUser) => {
-  //   e.preventDefault();
-  //   // debugger;
-  //   signInWithEmailAndPassword(auth, username, password)
-  //     .then((userCredential) => {
-  //       const user = userCredential.user;
-  //       setCurrentUser(user);
-  //       toast.success(`User ${user.email} logged in!`);
-  //       history.push('/homepage');
-  //       // history.push({
-  //       //     pathname: '/homepage',
-  //       //     state: { currentUser:user.email }
-  //       // });
-  //     })
-  //     .catch((error) => {
-  //       const errorMessage = error.message;
-  //       toast.error(errorMessage);
-  //     });
-  // };
-
-  /////////////////////////////////////////////////OTP////////////////////////////////////
-
-  //   const setUpRecaptcha = () => {
-  //     let recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-  //       size: 'invisible',
-  //       callback: function (response) {
-  //         console.log('Captcha Resolved');
-  //         this.onSignInSubmit();
-  //       },
-  //       defaultCountry: 'IN',
-  //     });
-  //     setRecaptchaVerifie(recaptchaVerifier);
+  // useEffect(() => {
+  //   const createOtp = () => {
+  //     setOTP(Math.floor(Math.random() * 9999));
+  //     console.log(otp);
   //   };
-
-  //   const onSignInSubmit = (e) => {
-  //     e.preventDefault();
-  //     setUpRecaptcha();
-  //     let phoneNumber = '+91' + this.state.mobile;
-  //     console.log(phoneNumber);
-  //     let appVerifier = recaptchaVerifie;
-  //     authApp
-  //       .auth()
-  //       .signInWithPhoneNumber(phoneNumber, appVerifier)
-  //       .then(function (confirmationResult) {
-  //         // SMS sent. Prompt user to type the code from the message, then sign the
-  //         // user in with confirmationResult.confirm(code).
-  //         setConfirmationResultOtp(confirmationResult);
-  //         // console.log(confirmationResult);
-  //         console.log('OTP is sent');
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //       });
+  //   return () => {
+  //     createOtp();
   //   };
+  // }, [username]);
 
-  //   const onSubmitOtp = (e) => {
-  //     e.preventDefault();
-  //     let otpInput = this.state.otp;
-  //     let optConfirm = confirmationResultOtp;
-  //     // console.log(codee);
-  //     optConfirm
-  //       .confirm(otpInput)
-  //       .then(function (result) {
-  //         // User signed in successfully.
-  //         // console.log("Result" + result.verificationID);
-  //         let user = result.user;
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //         alert('Incorrect OTP');
-  //       });
-  //   };
+  const createOtp = () => {
+    setOTP(Math.floor(Math.random() * 9999));
+    console.log(otp);
+  };
 
-  /////////////////////////////////////////////////OTP////////////////////////////////////
-
-  //   const otpCheck = () => {
-  //     if (otp === enterOtp) {
-  //       toast.success(` logged in!`);
-  //       history.push({
-  //         pathname: '/homepage',
-  //         state: { currentUser: user.email, user: user },
-  //       });
-  //     }
-  //   };
+  const otpCheck = () => {
+    if (otp == checkOtp) {
+      toast.success(`User ${userEmail} logged in!`);
+      history.push({
+        pathname: '/homepage',
+        state: { currentUser: userEmail, user: currentUser },
+      });
+    } else {
+      const errorMessage = 'Wrong OTP';
+      toast.error(errorMessage);
+    }
+  };
 
   const handleSubmit = (e, currentUser) => {
     e.preventDefault();
-    // debugger;
-    // const re = /^[0-9\b]+$/;
-    // if (username.length === 10 && re.test(username)) {
-    //   setOtp(Math.floor(Math.random() * 9999));
-    //   otpCheck();
-    //   return;
-    // }
 
     ///////////local storage check///////////
     const re = /^[0-9\b]+$/;
@@ -133,13 +69,8 @@ export const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           setCurrentUser(user);
-          // if (username.length === 10 && re.test(username)) {
-          //   setOtp(Math.floor(Math.random() * 9999));
-          //   otpCheck();
-          //   return;
-          // }
+
           toast.success(`User ${user.email} logged in!`);
-          // history.push("/homepage");
           console.log(user);
           history.push({
             pathname: '/homepage',
@@ -157,18 +88,8 @@ export const Login = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         setCurrentUser(user);
-        // if (username.length === 10 && re.test(username)) {
-        //   setOtp(Math.floor(Math.random() * 9999));
-        //   otpCheck();
-        //   return;
-        // }
-        toast.success(`User ${user.email} logged in!`);
-        // history.push("/homepage");
-        console.log(user);
-        history.push({
-          pathname: '/homepage',
-          state: { currentUser: user.email, user: user },
-        });
+        setUserEmail(user.email);
+        createOtp();
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -213,13 +134,7 @@ export const Login = () => {
     <div>
       <div id='login'>
         <form className='container mx-auto col-4 d-flex justify-content-center flex-column'>
-          {/* {
-            <Alert variant='primary'>
-              Enter Otp{' '}
-              <input onChange={(e) => setEnterOtp(e.target.value)}></input>
-              <button onClick={() => otpCheck()}>submit</button>
-            </Alert>
-          } */}
+          {otp && <Alert variant='success'>Enter Otp - {otp} </Alert>}
           <h3>Sign In</h3>
           <div className='row justify-content-start login-row pt-4'>
             <div className='col align-self-start pt-1'>
@@ -240,6 +155,7 @@ export const Login = () => {
               </div>
             </div>
           </div>
+
           <div className='row justify-content-start login-row'>
             <div className='col align-self-start pt-1'>
               <div className='form-group p-2 '>
@@ -258,6 +174,46 @@ export const Login = () => {
                 {!password && <p className='error'>*Enter password</p>}
               </div>
             </div>
+          </div>
+          <div>
+            {/* ////////////////////////////// */}
+            <div
+              style={{
+                display: !otp && 'none',
+              }}
+              className='row justify-content-start login-row'
+            >
+              <div className='col align-self-start pt-1 d-flex justify-centent-center align-tem-center '>
+                <div className='form-group p-2 '>
+                  <label>Enter OTP</label>
+                </div>
+              </div>
+              <div className='col-8'>
+                <div className='form-group p-2' style={{ display: 'flex' }}>
+                  <input
+                    type='password'
+                    className='form-control'
+                    name='password'
+                    placeholder='Enter password'
+                    onChange={(e) => setCheckOtp(e.target.value)}
+                  />
+                  <button
+                    style={{
+                      marginLeft: '10px',
+                      borderRadius: '10px',
+                    }}
+                    variant='primary'
+                    type='button'
+                    className='btn btn-primary btn-lg btn-block'
+                    onClick={() => otpCheck()}
+                  >
+                    verify
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* /////////////////////////// */}
           </div>
           <div id='login-buttons' className='row justify-content-center'>
             <div>
