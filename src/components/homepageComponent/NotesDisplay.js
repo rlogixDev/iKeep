@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import React, { useState, useEffect, useContext } from 'react';
 import InputNote from './InputNote';
+=======
+import React, { useState, useEffect,useContext } from 'react';
+>>>>>>> b9a10f7417bcc1edc72f03927c1f88ff7fa3554c
 import Notes from './Notes';
 import { Row, Container, Button } from 'react-bootstrap';
 import axios from 'axios';
@@ -8,7 +12,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 import { Form, FormControl, Dropdown, ButtonGroup } from 'react-bootstrap';
 
-export default function NotesDisplay() {
+export default function NotesDisplay({note}) {
   const [searchText, setSearch] = useState();
   const [data, setData] = useState([]);
   // const [userNotes,setUserNotes] =useState([]);
@@ -26,6 +30,15 @@ export default function NotesDisplay() {
       console.log(userNotes))
     : '';
 
+<<<<<<< HEAD
+=======
+  },[note])
+  let userNotes=[];
+ let a= data[uid] ? (Object.keys(data[uid]).map((item) => userNotes.push(data[uid][item])),
+  console.log(userNotes)):''
+  
+ 
+>>>>>>> b9a10f7417bcc1edc72f03927c1f88ff7fa3554c
   // const [filteredData, setFilteredData] = useState(data);
   // console.log(searchText);
 
@@ -46,6 +59,7 @@ export default function NotesDisplay() {
   return (
     <>
       <Container>
+<<<<<<< HEAD
         <Row>
           {/* <SearchBox searchText={searchText}/> */}
           <div className='d-flex justify-content-center'>
@@ -84,6 +98,8 @@ export default function NotesDisplay() {
           </div>
           <InputNote />
         </Row>
+=======
+>>>>>>> b9a10f7417bcc1edc72f03927c1f88ff7fa3554c
         <Row className='d-flex flex-row justify-content-center mt-3'>
           <Button
             variant='primary'
