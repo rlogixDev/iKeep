@@ -16,6 +16,7 @@ export default function Notes({data}) {
   const yesDate=new Date().getDate()-1;
   const yesterday=yesDay + " " + yesMon + " " + yesDate + " " + yesYear;
   const yesterdayData=data.filter((item,key) =>  (item? item.Date  === yesterday :'' ) )
+  const EarlierData=data.filter((item,key) => (item? ((item.Date!=yesterday) && (item.Date!=Date(Date.now).toString().substr(0,15)) ):''))
   console.log("yesterday",yesterday);
   return (
     
@@ -43,6 +44,25 @@ export default function Notes({data}) {
         Yesterday
       </h4>
       {yesterdayData.map((data, index) => (data?
+        (<>
+          <Card  style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
+            <Card.Body>
+              <input
+                type='checkbox'
+                className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
+              ></input>
+              <Card.Title >{data.title}</Card.Title>
+              <Card.Text >{data.Content}</Card.Text>
+              <Card.Link href='#'>Delete</Card.Link>
+              <Card.Link href='#'>Edit</Card.Link>
+            </Card.Body>
+          </Card>
+        </>):''
+      ))}
+       <h4 className='text-decoration-underline' style={{ textAlign: 'left' }}>
+        Earlier Notes
+      </h4>
+      {EarlierData.map((data, index) => (data?
         (<>
           <Card  style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
             <Card.Body>
