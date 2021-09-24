@@ -7,15 +7,6 @@ export default function Homepage() {
   const history = useHistory();
   const location = useLocation();
 
-  useEffect(() => {
-    try {
-      console.log(location.state.user);
-    } catch (err) {
-      console.log(err);
-      history.push('/');
-    }
-  }, []);
-
   return (
     <>
       <Main />

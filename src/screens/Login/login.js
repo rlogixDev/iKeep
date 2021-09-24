@@ -19,7 +19,7 @@ export const Login = () => {
   const [userEmail, setUserEmail] = useState();
 
   const auth = getAuth(authApp);
-  // let history = useHistory();
+  let history = useHistory();
   const activeUser = useContext(AuthContext);
 
   ///////////////////////////OTP////////////////////////////
@@ -58,10 +58,12 @@ export const Login = () => {
       console.log('username', b[0].Email);
       signInWithEmailAndPassword(auth, b[0].Email, password)
         .then((userCredential) => {
-          const user = userCredential.user;
+          // const user = userCredential.user;
           createOtp();
-          setCurrentUser(user);
-          setCurrentUser(user.email);
+          // setCurrentUser(user);
+          setCurrentUser(userCredential.user);
+          // setCurrentUser(user.email);
+          setCurrentUser(userCredential.user.email);
         })
         .catch((error) => {
           const errorMessage = error.message;

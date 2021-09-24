@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 import React, { useState, useEffect, useContext } from 'react';
-import InputNote from './InputNote';
-=======
-import React, { useState, useEffect,useContext } from 'react';
->>>>>>> b9a10f7417bcc1edc72f03927c1f88ff7fa3554c
 import Notes from './Notes';
 import { Row, Container, Button } from 'react-bootstrap';
 import axios from 'axios';
@@ -12,7 +7,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 import { Form, FormControl, Dropdown, ButtonGroup } from 'react-bootstrap';
 
-export default function NotesDisplay({note}) {
+export default function NotesDisplay({ note }) {
   const [searchText, setSearch] = useState();
   const [data, setData] = useState([]);
   // const [userNotes,setUserNotes] =useState([]);
@@ -23,22 +18,12 @@ export default function NotesDisplay({note}) {
     axios
       .get('https://react-project-1443c-default-rtdb.firebaseio.com/notes.json')
       .then((res) => setData(res.data));
-  }, [data]);
+  }, [note]);
   let userNotes = [];
   let a = data[uid]
     ? (Object.keys(data[uid]).map((item) => userNotes.push(data[uid][item])),
       console.log(userNotes))
     : '';
-
-<<<<<<< HEAD
-=======
-  },[note])
-  let userNotes=[];
- let a= data[uid] ? (Object.keys(data[uid]).map((item) => userNotes.push(data[uid][item])),
-  console.log(userNotes)):''
-  
- 
->>>>>>> b9a10f7417bcc1edc72f03927c1f88ff7fa3554c
   // const [filteredData, setFilteredData] = useState(data);
   // console.log(searchText);
 
@@ -59,47 +44,6 @@ export default function NotesDisplay({note}) {
   return (
     <>
       <Container>
-<<<<<<< HEAD
-        <Row>
-          {/* <SearchBox searchText={searchText}/> */}
-          <div className='d-flex justify-content-center'>
-            <Form
-              className='d-flex justify-content-around p-0 mb-5'
-              style={{
-                width: '50rem',
-              }}
-            >
-              <FormControl
-                type='search'
-                placeholder='Search'
-                aria-label='Search '
-                aria-describedby='basic-addon2'
-                onChange={(e) => setSearch(e.target.value)}
-                style={{ maxWidth: '500px' }}
-              />
-              <Dropdown style={{ margin: '0px 10px' }} as={ButtonGroup}>
-                <Button variant='outline-info'>Sort</Button>
-
-                <Dropdown.Toggle
-                  split
-                  variant='outline-info'
-                  id='dropdown-split-basic'
-                />
-
-                <Dropdown.Menu>
-                  <Dropdown.Item href='#/action-1'>Date Wise</Dropdown.Item>
-                  <Dropdown.Item href='#/action-2'>
-                    Alphabetical Wise
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-              <Button variant='outline-success'>Save</Button>{' '}
-            </Form>
-          </div>
-          <InputNote />
-        </Row>
-=======
->>>>>>> b9a10f7417bcc1edc72f03927c1f88ff7fa3554c
         <Row className='d-flex flex-row justify-content-center mt-3'>
           <Button
             variant='primary'
