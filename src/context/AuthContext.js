@@ -17,6 +17,7 @@ const AuthProvider = ({ children }) => {
         // https://firebase.google.com/docs/reference/js/firebase.User
         setCurrentUser(user);
         console.log('user', user);
+
         // ...
       } else {
         // User is signed out
