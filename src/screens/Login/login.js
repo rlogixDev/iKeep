@@ -74,10 +74,16 @@ export const Login = () => {
     ///////////local storage check///////////
     signInWithEmailAndPassword(auth, username, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        setCurrentUser(user);
-        setUserEmail(user.email);
+        // const user = userCredential.user;
+        // setCurrentUser(user);
+        // setUserEmail(user.email);
+        // createOtp();
+        // const user = userCredential.user;
         createOtp();
+        // setCurrentUser(user);
+        setCurrentUser(userCredential.user);
+        // setCurrentUser(user.email);
+        setCurrentUser(userCredential.user.email);
       })
       .catch((error) => {
         const errorMessage = error.message;
