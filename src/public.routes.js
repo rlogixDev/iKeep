@@ -5,6 +5,7 @@ import Login from './screens/Login/login';
 
 const PublicRoute = ({ component: RouteComponent, ...rest }) => {
   const { activeUser } = useContext(AuthContext);
+  console.log('activeUser', activeUser);
   return activeUser ? <Redirect to='/homepage' /> : <RouteComponent />;
 };
 

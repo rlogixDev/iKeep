@@ -24,71 +24,60 @@ export const Login = () => {
 
   ///////////////////////////OTP////////////////////////////
 
-  const createOtp = () => {
-    setOTP(Math.floor(Math.random() * 9999));
-    console.log(otp);
-    console.log('createOtp');
-  };
+  const createOtp = () => {};
+
+  // toast.success(`User ${userEmail} logged in!`);
+  // history.push({
+  //   pathname: '/homepage',
+  //   state: { currentUser: userEmail, user: currentUser },
+  // });
+
+  ///////////////////////////OTP////////////////////////////
 
   const otpCheck = () => {
     console.log('otpCheck');
     if (otp == checkOtp) {
-      toast.success(`User ${userEmail} logged in!`);
-      // history.push({
-      //   pathname: '/homepage',
-      //   state: { currentUser: userEmail, user: currentUser },
-      // });
+      ///////////local storage check///////////
+      const re = /^[0-9\b]+$/;
+      if (username.length === 10 && re.test(username)) {
+        let a = JSON.parse(localStorage.getItem('session'));
+        let b = a.filter((item) => item.Phone == username);
+
+        console.log('username', b[0].Email);
+        signInWithEmailAndPassword(auth, b[0].Email, password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            setCurrentUser(user);
+            toast.success(`User ${user.email} logged in!`);
+          })
+          .catch((error) => {
+            const errorMessage = error.message;
+            toast.error(errorMessage);
+          });
+        return;
+      }
+      ///////////local storage check///////////
+      signInWithEmailAndPassword(auth, username, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          setCurrentUser(user);
+          toast.success(`User ${user.email} logged in!`);
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          toast.error(errorMessage);
+        });
     } else {
       const errorMessage = 'Wrong OTP';
       toast.error(errorMessage);
     }
   };
 
-  ///////////////////////////OTP////////////////////////////
-
   const handleSubmit = (e, currentUser) => {
     e.preventDefault();
-
-    ///////////local storage check///////////
-    const re = /^[0-9\b]+$/;
-    if (username.length === 10 && re.test(username)) {
-      let a = JSON.parse(localStorage.getItem('session'));
-      let b = a.filter((item) => item.Phone == username);
-
-      console.log('username', b[0].Email);
-      signInWithEmailAndPassword(auth, b[0].Email, password)
-        .then((userCredential) => {
-          // const user = userCredential.user;
-          createOtp();
-          // setCurrentUser(user);
-          setCurrentUser(userCredential.user);
-          // setCurrentUser(user.email);
-          setCurrentUser(userCredential.user.email);
-        })
-        .catch((error) => {
-          const errorMessage = error.message;
-          toast.error(errorMessage);
-        });
-      return;
-    }
-    ///////////local storage check///////////
-    signInWithEmailAndPassword(auth, username, password)
-      .then((userCredential) => {
-        // const user = userCredential.user;
-        // setCurrentUser(user);
-        // setUserEmail(user.email);
-        // createOtp();
-        // const user = userCredential.user;
-        createOtp();
-        // setCurrentUser(user);
-        setCurrentUser(userCredential.user);
-        // setCurrentUser(user.email);
-        setCurrentUser(userCredential.user.email);
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        toast.error(errorMessage);
-      });
+    setOTP(Math.floor(Math.random() * 9999));
+    console.log(otp);
+    console.log('createOtp');
   };
 
   async function handleGoogleSignIn() {

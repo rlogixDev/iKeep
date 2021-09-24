@@ -1,16 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Navbar, Container } from 'react-bootstrap';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 import { AuthContext } from '../../context/AuthContext';
-import { useLocation } from 'react-router-dom';
+import { getAuth, signOut } from 'firebase/auth';
 
 const Header = () => {
-  // const location = useLocation();
-  // console.log(location.pathname);
-  const activeUser = useContext(AuthContext);
+  const auth = getAuth();
+  const { activeUser } = useContext(AuthContext);
   console.log('User present in head', activeUser);
-  if (activeUser) {
-    const activeid = activeUser.email;
-  }
 
   return (
     <Navbar collapseOnSelect expand='lg' bg='light' variant='light'>
@@ -28,8 +24,30 @@ const Header = () => {
         <Navbar.Toggle />
         <Navbar.Collapse className='justify-content-end'>
           <Navbar.Text>
-            {/* {activeid && <p>Welcome: {activeUser.value.activeUser.email}</p>} */}
+            {activeUser && (
+              <p className='font-weight-bold'>Welcome:{activeUser.email} </p>
+            )}
           </Navbar.Text>
+          <Nav>
+            {activeUser && (
+              <Nav.Link
+                onClick={() =>
+                  signOut(auth)
+                    .then(() => {
+                      console.log('signed out');
+                    })
+                    .catch((error) => {})
+                }
+              >
+                <img
+                  src='https://cdn1.iconfinder.com/data/icons/basic-ui-elements-coloricon/21/38-512.png'
+                  width='30'
+                  radius='0'
+                  alt='google'
+                />
+              </Nav.Link>
+            )}
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

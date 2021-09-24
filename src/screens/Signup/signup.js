@@ -91,7 +91,7 @@ export default function Signup() {
               // Signed in
               const user = userCredential.user;
               // ...
-              toast.success('Signup Successful', {
+              toast.success('Account Created', {
                 autoClose: 5000,
                 hideProgressBar: false,
                 draggable: false,

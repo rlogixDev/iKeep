@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import InputNote from './InputNote';
 import Notes from './Notes';
 import { Row, Container, Button } from 'react-bootstrap';
 import axios from 'axios';
@@ -18,32 +19,71 @@ export default function NotesDisplay({ note }) {
     axios
       .get('https://react-project-1443c-default-rtdb.firebaseio.com/notes.json')
       .then((res) => setData(res.data));
-  }, [note]);
+  }, [data]);
   let userNotes = [];
   let a = data[uid]
     ? (Object.keys(data[uid]).map((item) => userNotes.push(data[uid][item])),
       console.log(userNotes))
     : '';
-  // const [filteredData, setFilteredData] = useState(data);
-  // console.log(searchText);
 
-  // useEffect(() => {
-  //   const lowercasedValue = searchText?.toLowerCase().trim();
-  //   // console.log("lowercasedValue",lowercasedValue);
-  //   if (lowercasedValue === "") setData(data);
-  //   else {
-  //     const filteredData = data.filter(item =>
-  //       item.title.toLowerCase().includes(lowercasedValue) ||
-  //       item.body.toLowerCase().includes(lowercasedValue)
-  //     );
-  //     console.log(filteredData)
-  //     setFilteredData(filteredData);
-  //   }
-  // }, [searchText])
+  const [filteredData, setFilteredData] = useState(data);
+  console.log(searchText);
+
+  useEffect(() => {
+    const lowercasedValue = searchText?.toLowerCase().trim();
+    if (lowercasedValue === '') userNotes(userNotes);
+    else {
+      const filteredData = userNotes.filter(
+        (item) =>
+          item.title.toLowerCase().includes(lowercasedValue) ||
+          item.Content.toLowerCase().includes(lowercasedValue)
+      );
+      // console.log("filteredData", filteredData);
+      setFilteredData(filteredData);
+    }
+  }, [searchText]);
 
   return (
     <>
       <Container>
+        <Row>
+          {/* <SearchBox searchText={searchText}/> */}
+          <div className='d-flex justify-content-center'>
+            <Form
+              className='d-flex justify-content-around p-0 mb-5'
+              style={{
+                width: '50rem',
+              }}
+            >
+              <FormControl
+                type='search'
+                placeholder='Search'
+                aria-label='Search '
+                aria-describedby='basic-addon2'
+                onChange={(e) => setSearch(e.target.value)}
+                style={{ maxWidth: '500px' }}
+              />
+              <Dropdown style={{ margin: '0px 10px' }} as={ButtonGroup}>
+                <Button variant='outline-info'>Sort</Button>
+
+                <Dropdown.Toggle
+                  split
+                  variant='outline-info'
+                  id='dropdown-split-basic'
+                />
+
+                <Dropdown.Menu>
+                  <Dropdown.Item href='#/action-1'>Date Wise</Dropdown.Item>
+                  <Dropdown.Item href='#/action-2'>
+                    Alphabetical Wise
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              <Button variant='outline-success'>Save</Button>{' '}
+            </Form>
+          </div>
+          <InputNote />
+        </Row>
         <Row className='d-flex flex-row justify-content-center mt-3'>
           <Button
             variant='primary'
