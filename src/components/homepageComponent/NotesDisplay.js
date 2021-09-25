@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 
 import Notes from "./Notes";
 import { RiAddLine } from 'react-icons/ri';
-import { Row, Container, Button ,Card,InputGroup} from "react-bootstrap";
+import { Row, Container, Button ,Card,InputGroup,Modal} from "react-bootstrap";
 import { Image, CloudinaryContext } from 'cloudinary-react';
 import { getDatabase,ref, set } from "firebase/database";
 import axios from "axios";
@@ -11,6 +11,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { Form, FormControl, Dropdown, ButtonGroup } from "react-bootstrap";
 
 export default function NotesDisplay() {
+  const[editModal,setEditModal] =useState(false);
   const [searchText, setSearch] = useState();
   const [data, setData] = useState([]);
   // const [userNotes,setUserNotes] =useState([]);
@@ -19,7 +20,7 @@ export default function NotesDisplay() {
   const [title,setTitle] =useState('');
   const [Content,setContent] =useState('');   
   const [newNote,setNewNote]=useState({});  
-  
+  let userNotesData=[];
   const [addImg, setAddImg] = useState('');
 
        
@@ -91,6 +92,30 @@ export default function NotesDisplay() {
     }
   }, [searchText]);
  
+  { userNotes.length > 0 ?filteredData.length>0? (
+    userNotesData=filteredData 
+   ) : (
+     userNotesData=userNotes 
+   ):(
+     <p>No results found..</p>
+   )}  
+
+   console.log("Notes userNotesData",userNotesData);
+ 
+   var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+
+  
+   const today=userNotesData?userNotesData.filter((item,key) =>  (item? item.Date  === Date(Date.now).toString().substr(0,15):'' ) ):'';
+ 
+   const yesDay = days[new Date().getDay()-1].substr(0,3);
+   const yesMon=monthNames[new Date().getMonth()].substr(0,3);
+   const yesYear=new Date().getFullYear();
+   const yesDate=new Date().getDate()-1;
+   const yesterday=yesDay + " " + yesMon + " " + yesDate + " " + yesYear;
+   const yesterdayuserNotesData=userNotesData?userNotesData.filter((item,key) =>  (item? item.Date  === yesterday :'' ) ):''
+   const EarlieruserNotesData=userNotesData?userNotesData.filter((item,key) => (item? ((item.Date!=yesterday) && (item.Date!=Date(Date.now).toString().substr(0,15)) ):'')):''
+   console.log("yesterday",yesterday);
   return (
     <>
       <Container>
@@ -210,13 +235,84 @@ export default function NotesDisplay() {
     
     
       </Container>
-      { userNotes.length > 0 ?filteredData.length>0? (
-          <Notes data={filteredData} />
-        ) : (
-          <Notes data={userNotes} />
-        ):(
-          <p>No results found..</p>
-        )}  
+        {
+          userNotesData.length>0?(
+            <div className='row d-flex justify-content-around mt-2 p-0'>
+            <h4 className='text-decoration-underline' style={{ textAlign: 'left' }}>
+              Today
+            </h4>
+            {today.map((item, index) => (item?
+              (<>
+                <Modal show={editModal}>
+                <Modal.Header closeButton>
+                   <Modal.Title>{item.title}</Modal.Title>
+                   </Modal.Header>
+                   <Modal.Body>
+                   {item.Content}
+                </Modal.Body>
+                <Modal.Footer>
+                      <Button variant="secondary" onClick ={()=> setEditModal(false)}>Close</Button>
+                      <Button variant="primary">Save changes</Button>
+              </Modal.Footer>
+
+                  </Modal>
+                <Card  style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
+                  <Card.Body>
+                    <input
+                      type='checkbox'
+                      className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
+                    ></input>
+                    <Card.Title >{item.title}</Card.Title>
+                    <Card.Text >{item.Content}</Card.Text>
+                    <Card.Link href='#'>Delete</Card.Link>
+                    <Card.Link href='#' onClick= {()=> setEditModal(true)}>Edit</Card.Link>
+                  </Card.Body>
+                </Card>
+              </>):''
+            ))}
+            <h4 className='text-decoration-underline' style={{ textAlign: 'left' }}>
+              Yesterday
+            </h4>
+            {yesterdayuserNotesData.map((item, index) => (item?
+              (<>
+                <Card  style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
+                  <Card.Body>
+                    <input
+                      type='checkbox'
+                      className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
+                    ></input>
+                    <Card.Title >{item.title}</Card.Title>
+                    <Card.Text >{item.Content}</Card.Text>
+                    <Card.Link href='#'>Delete</Card.Link>
+                    <Card.Link href='#'>Edit</Card.Link>
+                  </Card.Body>
+                </Card>
+              </>):''
+            ))}
+             <h4 className='text-decoration-underline' style={{ textAlign: 'left' }}>
+              Earlier Notes
+            </h4>
+            {EarlieruserNotesData.map((userNotesData, index) => (userNotesData?
+              (<>
+                <Card  style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
+                  <Card.Body>
+                    <input
+                      type='checkbox'
+                      className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
+                    ></input>
+                    <Card.Title >{userNotesData.title}</Card.Title>
+                    <Card.Text >{userNotesData.Content}</Card.Text>
+                    <Card.Link href='#'>Delete</Card.Link>
+                    <Card.Link href='#'>Edit</Card.Link>
+                  </Card.Body>
+                </Card>
+              </>):''
+            ))}
+          </div>
+
+
+          ):''
+        }
       
        
       {/* {/* { console.log("length",userNotes.length)} */}
