@@ -22,7 +22,8 @@ export default function NotesDisplay() {
   const [newNote,setNewNote]=useState({});  
   let userNotesData=[];
   const [addImg, setAddImg] = useState('');
-
+  let editTitle='';
+  let editContent='';
        
   console.log("uid", uid);
   const AddNote =() => {
@@ -106,6 +107,7 @@ export default function NotesDisplay() {
    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 
   
+
    const today=userNotesData?userNotesData.filter((item,key) =>  (item? item.Date  === Date(Date.now).toString().substr(0,15):'' ) ):'';
  
    const yesDay = days[new Date().getDay()-1].substr(0,3);
@@ -241,10 +243,10 @@ export default function NotesDisplay() {
             <h4 className='text-decoration-underline' style={{ textAlign: 'left' }}>
               Today
             </h4>
-            {today.map((item, index) => (item?
+            {today?(today.map((item, index) => (item?
               (<>
-                <Modal show={editModal}>
-                <Modal.Header closeButton>
+                <Modal show={editModal} id={index}>
+                <Modal.Header>
                    <Modal.Title>{item.title}</Modal.Title>
                    </Modal.Header>
                    <Modal.Body>
@@ -269,7 +271,7 @@ export default function NotesDisplay() {
                   </Card.Body>
                 </Card>
               </>):''
-            ))}
+            ))):''}
             <h4 className='text-decoration-underline' style={{ textAlign: 'left' }}>
               Yesterday
             </h4>
