@@ -101,6 +101,18 @@ export default function NotesDisplay() {
      <p>No results found..</p>
    )}  
 
+
+   const handleEdit = (title,Content) => {
+     
+     return (<>
+    
+
+     
+     </>)
+   
+
+   }
+
    console.log("Notes userNotesData",userNotesData);
  
    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -245,12 +257,12 @@ export default function NotesDisplay() {
             </h4>
             {today?(today.map((item, index) => (item?
               (<>
-                <Modal show={editModal} id={index}>
+                   <Modal show={editModal}>
                 <Modal.Header>
-                   <Modal.Title>{item.title}</Modal.Title>
+                   <Modal.Title><textarea>{item.title}</textarea></Modal.Title>
                    </Modal.Header>
                    <Modal.Body>
-                   {item.Content}
+                  {item.Content}
                 </Modal.Body>
                 <Modal.Footer>
                       <Button variant="secondary" onClick ={()=> setEditModal(false)}>Close</Button>
