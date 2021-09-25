@@ -18,8 +18,8 @@ export default function NotesDisplay() {
   const uid = activeUser.uid;
   const [title,setTitle] =useState('');
   const [Content,setContent] =useState('');   
-  // const [newNote,setNewNote]=useState({}); 
-  let newNote={}; 
+  const [newNote,setNewNote]=useState({}); 
+
   
   const [addImg, setAddImg] = useState('');
 
@@ -37,7 +37,7 @@ export default function NotesDisplay() {
       Date:Date(Date.now).toString().substr(0,15)
     }).
     then(() => console.log("Added successfully"),
-    newNote={"id":id,"title":title,"Content":Content,"Email":activeUser,"Date":Date(Date.now).toString().substr(0,15)},
+    setNewNote({"id":id,"title":title,"Content":Content,"Email":activeUser,"Date":Date(Date.now).toString().substr(0,15)}),
     console.log("newNote",newNote)
     ).
     catch(() => console.log("Error"));
@@ -63,11 +63,11 @@ export default function NotesDisplay() {
       .get("https://react-project-1443c-default-rtdb.firebaseio.com/notes.json")
       .then((res) => { (setData(res.data))});
   }, [newNote]);
-  useEffect(() => {
- axios
-      .get("https://react-project-1443c-default-rtdb.firebaseio.com/notes.json")
-      .then((res) => setData(res.data));
-  }, []);
+//   useEffect(() => {
+//  axios
+//       .get("https://react-project-1443c-default-rtdb.firebaseio.com/notes.json")
+//       .then((res) => setData(res.data));
+//   }, []);
 
   console.log("data",data);
   let userNotes = [];
