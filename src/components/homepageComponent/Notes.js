@@ -9,8 +9,8 @@ export default function Notes({data}) {
  
  
   const today=data.filter((item,key) =>  (item? item.Date  === Date(Date.now).toString().substr(0,15):'' ) )
-
-  const yesDay = days[new Date().getDay()-1].substr(0,3);
+console.log(days[new Date().getDay()] ==='Sunday');
+  const yesDay = (days[new Date().getDay()] ==='Sunday' ? 'Saturday':days[new Date().getDay()]).substr(0,3);
   const yesMon=monthNames[new Date().getMonth()].substr(0,3);
   const yesYear=new Date().getFullYear();
   const yesDate=new Date().getDate()-1;

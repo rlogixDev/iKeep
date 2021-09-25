@@ -18,7 +18,8 @@ export default function NotesDisplay() {
   const uid = activeUser.uid;
   const [title,setTitle] =useState('');
   const [Content,setContent] =useState('');   
-  const [newNote,setNewNote]=useState({});  
+  // const [newNote,setNewNote]=useState({}); 
+  let newNote={}; 
   
   const [addImg, setAddImg] = useState('');
 
@@ -36,7 +37,7 @@ export default function NotesDisplay() {
       Date:Date(Date.now).toString().substr(0,15)
     }).
     then(() => console.log("Added successfully"),
-    setNewNote({"id":id,"title":title,"Content":Content,"Email":activeUser,"Date":Date(Date.now).toString().substr(0,15)}),
+    newNote={"id":id,"title":title,"Content":Content,"Email":activeUser,"Date":Date(Date.now).toString().substr(0,15)},
     console.log("newNote",newNote)
     ).
     catch(() => console.log("Error"));
