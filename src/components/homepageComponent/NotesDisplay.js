@@ -64,11 +64,11 @@ export default function NotesDisplay() {
       .get("https://react-project-1443c-default-rtdb.firebaseio.com/notes.json")
       .then((res) => { (setData(res.data))});
   }, [newNote]);
-  useEffect(() => {
- axios
-      .get("https://react-project-1443c-default-rtdb.firebaseio.com/notes.json")
-      .then((res) => setData(res.data));
-  }, []);
+//   useEffect(() => {
+//  axios
+//       .get("https://react-project-1443c-default-rtdb.firebaseio.com/notes.json")
+//       .then((res) => setData(res.data));
+//   }, []);
 
   console.log("data",data);
   let userNotes = [];
@@ -122,7 +122,7 @@ export default function NotesDisplay() {
 
    const today=userNotesData?userNotesData.filter((item,key) =>  (item? item.Date  === Date(Date.now).toString().substr(0,15):'' ) ):'';
  
-   const yesDay = days[new Date().getDay()-1].substr(0,3);
+   const yesDay =(days[new Date().getDay()]==='Sunday'?'Saturday':days[new Date().getDay()-1]).substr(0,3);
    const yesMon=monthNames[new Date().getMonth()].substr(0,3);
    const yesYear=new Date().getFullYear();
    const yesDate=new Date().getDate()-1;
