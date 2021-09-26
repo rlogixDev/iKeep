@@ -23,10 +23,37 @@ export default function NotesDisplay() {
   const [editItem,setEditItem] =useState({});
   let userNotesData=[];
   const [addImg, setAddImg] = useState('');
-  let editTitle='';
-  let editContent='';
+ const [editTitle,setEditTitle] =useState('');
+ const [editContent,setEditContent]= useState('');
        
   console.log("uid", uid);
+
+  
+  const UpdateNote = () => {
+    const title=editTitle?editTitle:editItem.title;
+    const Content=editContent?editContent:editItem.Content;
+    console.log(title);
+    console.log(Content);
+    console.log(editItem.Email);
+    console.log(editItem.id);
+    console.log(editItem.Date);
+    console.log(uid);
+    const userId=editItem.id;
+
+    const updatedNote={
+      id:editItem.id,
+      title: title,
+      Content: Content,
+      Email:editItem.Email,
+      Date:editItem.Date
+    }
+    axios.put('https://react-project-1443c-default-rtdb.firebaseio.com/notes/'+uid+'/'+userId+'.json', updatedNote)
+    .then(() => (console.log("Updated Successfully"), setNewNote(updatedNote)))
+    .catch(() => console.log("Error"))
+    setEditItem({})
+    }
+
+
   const AddNote =() => {
  
     const db = getDatabase();
@@ -255,16 +282,22 @@ export default function NotesDisplay() {
             </h4>
             {today?(today.map((item, index) => (item?
               (<>
+             
                 <Modal show={Object.keys(editItem).length>0}>
+               
                 <Modal.Header>
-                   <Modal.Title><textarea>{editItem.title}</textarea></Modal.Title>
+                   <Modal.Title><textarea onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea></Modal.Title>
                    </Modal.Header>
                    <Modal.Body>
+                     <textarea onChange={(e) => setEditContent(e.target.value)}>
                   {editItem.Content}
+                  </textarea>
                 </Modal.Body>
-                <Modal.Footer>
+           
+              <Modal.Footer>
                       <Button variant="secondary" onClick ={()=> setEditItem({})}>Close</Button>
-                      <Button variant="primary">Save changes</Button>
+                  
+                      <Button variant="primary" onClick={UpdateNote}>Save changes</Button>
               </Modal.Footer>
 
                   </Modal>
