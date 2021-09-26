@@ -20,7 +20,7 @@ export default function NotesDisplay() {
   const [title,setTitle] =useState('');
   const [Content,setContent] =useState('');   
   const [newNote,setNewNote]=useState({}); 
-   
+  const [editItem,setEditItem] =useState({});
   let userNotesData=[];
   const [addImg, setAddImg] = useState('');
   let editTitle='';
@@ -109,16 +109,7 @@ export default function NotesDisplay() {
    )}  
 
 
-   const handleEdit = (title,Content) => {
-     
-     return (<>
-    
-
-     
-     </>)
    
-
-   }
 
    console.log("Notes userNotesData",userNotesData);
  
@@ -264,19 +255,24 @@ export default function NotesDisplay() {
             </h4>
             {today?(today.map((item, index) => (item?
               (<>
-                   <Modal show={editModal}>
+              
+               
+                  <Modal show={Object.keys(editItem).length>0}>
                 <Modal.Header>
-                   <Modal.Title><textarea>{item.title}</textarea></Modal.Title>
+                   <Modal.Title><textarea>{editItem.title}</textarea></Modal.Title>
                    </Modal.Header>
                    <Modal.Body>
-                  {item.Content}
+                  {editItem.Content}
                 </Modal.Body>
                 <Modal.Footer>
-                      <Button variant="secondary" onClick ={()=> setEditModal(false)}>Close</Button>
+                      <Button variant="secondary" onClick ={()=> setEditItem({})}>Close</Button>
                       <Button variant="primary">Save changes</Button>
               </Modal.Footer>
 
                   </Modal>
+                
+              
+
                 <Card  style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
                   <Card.Body>
                     <input
@@ -286,7 +282,7 @@ export default function NotesDisplay() {
                     <Card.Title >{item.title}</Card.Title>
                     <Card.Text >{item.Content}</Card.Text>
                     <Card.Link href='#' onClick={() => Delete(item.id)}>Delete</Card.Link>
-                    <Card.Link href='#' onClick= {()=> setEditModal(true)}>Edit</Card.Link>
+                    <Card.Link href='#' onClick= {()=> setEditItem(item)}>Edit</Card.Link>
                   </Card.Body>
                 </Card>
               </>):''
