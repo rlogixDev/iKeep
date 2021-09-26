@@ -255,9 +255,7 @@ export default function NotesDisplay() {
             </h4>
             {today?(today.map((item, index) => (item?
               (<>
-              
-               
-                  <Modal show={Object.keys(editItem).length>0}>
+                <Modal show={Object.keys(editItem).length>0}>
                 <Modal.Header>
                    <Modal.Title><textarea>{editItem.title}</textarea></Modal.Title>
                    </Modal.Header>
