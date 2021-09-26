@@ -19,7 +19,8 @@ export default function NotesDisplay() {
   const uid = activeUser.uid;
   const [title,setTitle] =useState('');
   const [Content,setContent] =useState('');   
-  const [newNote,setNewNote]=useState({});  
+  const [newNote,setNewNote]=useState({}); 
+   
   let userNotesData=[];
   const [addImg, setAddImg] = useState('');
   let editTitle='';
@@ -58,6 +59,12 @@ export default function NotesDisplay() {
       });
   };
 
+  const Delete = (id) => {
+    axios.delete("https://react-project-1443c-default-rtdb.firebaseio.com/notes/"+uid+"/"+id+".json")
+    .then(() => (console.log("deleted Successfully"),setNewNote({delete:true})))
+    .catch(() => console.log("Error Occurred"))
+
+  }
   console.log(addImg);
   useEffect(() => {
  axios
@@ -278,7 +285,7 @@ export default function NotesDisplay() {
                     ></input>
                     <Card.Title >{item.title}</Card.Title>
                     <Card.Text >{item.Content}</Card.Text>
-                    <Card.Link href='#'>Delete</Card.Link>
+                    <Card.Link href='#' onClick={() => Delete(item.id)}>Delete</Card.Link>
                     <Card.Link href='#' onClick= {()=> setEditModal(true)}>Edit</Card.Link>
                   </Card.Body>
                 </Card>
@@ -297,7 +304,7 @@ export default function NotesDisplay() {
                     ></input>
                     <Card.Title >{item.title}</Card.Title>
                     <Card.Text >{item.Content}</Card.Text>
-                    <Card.Link href='#'>Delete</Card.Link>
+                    <Card.Link href='#'  onClick={() => Delete(item.id)}>Delete</Card.Link>
                     <Card.Link href='#'>Edit</Card.Link>
                   </Card.Body>
                 </Card>
@@ -306,7 +313,7 @@ export default function NotesDisplay() {
              <h4 className='text-decoration-underline' style={{ textAlign: 'left' }}>
               Earlier Notes
             </h4>
-            {EarlieruserNotesData.map((userNotesData, index) => (userNotesData?
+            {EarlieruserNotesData.map((item, index) => (item?
               (<>
                 <Card  style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
                   <Card.Body>
@@ -314,9 +321,9 @@ export default function NotesDisplay() {
                       type='checkbox'
                       className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
                     ></input>
-                    <Card.Title >{userNotesData.title}</Card.Title>
-                    <Card.Text >{userNotesData.Content}</Card.Text>
-                    <Card.Link href='#'>Delete</Card.Link>
+                    <Card.Title >{item.title}</Card.Title>
+                    <Card.Text >{item.Content}</Card.Text>
+                    <Card.Link href='#'  onClick={() => Delete(item.id)}>Delete</Card.Link>
                     <Card.Link href='#'>Edit</Card.Link>
                   </Card.Body>
                 </Card>
