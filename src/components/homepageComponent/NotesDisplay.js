@@ -323,18 +323,39 @@ export default function NotesDisplay() {
             </h4>
             {yesterdayuserNotesData.map((item, index) => (item?
               (<>
-                <Card  style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
-                  <Card.Body>
-                    <input
-                      type='checkbox'
-                      className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
-                    ></input>
-                    <Card.Title >{item.title}</Card.Title>
-                    <Card.Text >{item.Content}</Card.Text>
-                    <Card.Link href='#'  onClick={() => Delete(item.id)}>Delete</Card.Link>
-                    <Card.Link href='#'>Edit</Card.Link>
-                  </Card.Body>
-                </Card>
+                 <Modal show={Object.keys(editItem).length>0}>
+               
+               <Modal.Header>
+                  <Modal.Title><textarea onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea></Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <textarea onChange={(e) => setEditContent(e.target.value)}>
+                 {editItem.Content}
+                 </textarea>
+               </Modal.Body>
+          
+             <Modal.Footer>
+                     <Button variant="secondary" onClick ={()=> setEditItem({})}>Close</Button>
+                 
+                     <Button variant="primary" onClick={UpdateNote}>Save changes</Button>
+             </Modal.Footer>
+
+                 </Modal>
+               
+             
+
+               <Card  style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
+                 <Card.Body>
+                   <input
+                     type='checkbox'
+                     className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
+                   ></input>
+                   <Card.Title >{item.title}</Card.Title>
+                   <Card.Text >{item.Content}</Card.Text>
+                   <Card.Link href='#' onClick={() => Delete(item.id)}>Delete</Card.Link>
+                   <Card.Link href='#' onClick= {()=> setEditItem(item)}>Edit</Card.Link>
+                 </Card.Body>
+               </Card>
               </>):''
             ))}
              <h4 className='text-decoration-underline' style={{ textAlign: 'left' }}>
@@ -342,18 +363,39 @@ export default function NotesDisplay() {
             </h4>
             {EarlieruserNotesData.map((item, index) => (item?
               (<>
-                <Card  style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
-                  <Card.Body>
-                    <input
-                      type='checkbox'
-                      className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
-                    ></input>
-                    <Card.Title >{item.title}</Card.Title>
-                    <Card.Text >{item.Content}</Card.Text>
-                    <Card.Link href='#'  onClick={() => Delete(item.id)}>Delete</Card.Link>
-                    <Card.Link href='#'>Edit</Card.Link>
-                  </Card.Body>
-                </Card>
+                 <Modal show={Object.keys(editItem).length>0}>
+               
+               <Modal.Header>
+                  <Modal.Title><textarea onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea></Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <textarea onChange={(e) => setEditContent(e.target.value)}>
+                 {editItem.Content}
+                 </textarea>
+               </Modal.Body>
+          
+             <Modal.Footer>
+                     <Button variant="secondary" onClick ={()=> setEditItem({})}>Close</Button>
+                 
+                     <Button variant="primary" onClick={UpdateNote}>Save changes</Button>
+             </Modal.Footer>
+
+                 </Modal>
+               
+             
+
+               <Card  style={{ width: '18rem', borderRadius: '15px' }} className='m-2'>
+                 <Card.Body>
+                   <input
+                     type='checkbox'
+                     className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
+                   ></input>
+                   <Card.Title >{item.title}</Card.Title>
+                   <Card.Text >{item.Content}</Card.Text>
+                   <Card.Link href='#' onClick={() => Delete(item.id)}>Delete</Card.Link>
+                   <Card.Link href='#' onClick= {()=> setEditItem(item)}>Edit</Card.Link>
+                 </Card.Body>
+               </Card>
               </>):''
             ))}
           </div>
