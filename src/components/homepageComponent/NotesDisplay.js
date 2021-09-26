@@ -61,7 +61,7 @@ export default function NotesDisplay() {
   console.log(addImg);
   useEffect(() => {
  axios
-      .get("https://react-project-1443c-default-rtdb.firebaseio.com/notes.json")
+      .get("https://react-project-1443c-default-rtdb.firebaseio.com/notes/"+uid+".json")
       .then((res) => { (setData(res.data))});
   }, [newNote]);
 //   useEffect(() => {
@@ -72,8 +72,8 @@ export default function NotesDisplay() {
 
   console.log("data",data);
   let userNotes = [];
-  let a = data[uid]
-    ? (Object.keys(data[uid]).map((item) => userNotes.push(data[uid][item]))): '';
+  let a = data
+    ? (Object.keys(data).map((item) => userNotes.push(data[item]))): '';
     console.log("userNotes",userNotes);
     
 
@@ -86,7 +86,7 @@ export default function NotesDisplay() {
     else {
       const filteredData = userNotes.filter(
         (item) =>item?
-         ((item.title.includes(searchText))):''
+         ((item.title.includes(searchText)) || (item.Content.includes(searchText))):''
       );
       console.log("filteredData", filteredData);
       setFilteredData(filteredData);
