@@ -30,10 +30,10 @@ export default function NotesDisplay() {
 
   
   const UpdateNote = () => {
-    const title=editTitle?editTitle:editItem.title;
-    const Content=editContent?editContent:editItem.Content;
-    console.log(title);
-    console.log(Content);
+    const title1=editTitle?editTitle:editItem.title;
+    const Content1=editContent?editContent:editItem.Content;
+    console.log(title1);
+    console.log(Content1);
     console.log(editItem.Email);
     console.log(editItem.id);
     console.log(editItem.Date);
@@ -42,8 +42,8 @@ export default function NotesDisplay() {
 
     const updatedNote={
       id:editItem.id,
-      title: title,
-      Content: Content,
+      title: title1,
+      Content: Content1,
       Email:editItem.Email,
       Date:editItem.Date
     }
@@ -286,10 +286,10 @@ export default function NotesDisplay() {
                 <Modal show={Object.keys(editItem).length>0}>
                
                 <Modal.Header>
-                   <Modal.Title><textarea onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea></Modal.Title>
+                   <Modal.Title><textarea cols="30" rows="1" onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea></Modal.Title>
                    </Modal.Header>
                    <Modal.Body>
-                     <textarea onChange={(e) => setEditContent(e.target.value)}>
+                     <textarea cols="48" rows="10" onChange={(e) => setEditContent(e.target.value)}>
                   {editItem.Content}
                   </textarea>
                 </Modal.Body>
@@ -323,13 +323,13 @@ export default function NotesDisplay() {
             </h4>
             {yesterdayuserNotesData.map((item, index) => (item?
               (<>
-                 <Modal show={Object.keys(editItem).length>0}>
+                <Modal show={Object.keys(editItem).length>0}>
                
                <Modal.Header>
-                  <Modal.Title><textarea onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea></Modal.Title>
+                  <Modal.Title><textarea cols="30" rows="1" onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea></Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <textarea onChange={(e) => setEditContent(e.target.value)}>
+                    <textarea cols="48" rows="10" onChange={(e) => setEditContent(e.target.value)}>
                  {editItem.Content}
                  </textarea>
                </Modal.Body>
@@ -341,6 +341,7 @@ export default function NotesDisplay() {
              </Modal.Footer>
 
                  </Modal>
+               
                
              
 
@@ -366,10 +367,10 @@ export default function NotesDisplay() {
                  <Modal show={Object.keys(editItem).length>0}>
                
                <Modal.Header>
-                  <Modal.Title><textarea onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea></Modal.Title>
+                  <Modal.Title><textarea cols="30" rows="1" onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea></Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <textarea onChange={(e) => setEditContent(e.target.value)}>
+                    <textarea cols="48" rows="10" onChange={(e) => setEditContent(e.target.value)}>
                  {editItem.Content}
                  </textarea>
                </Modal.Body>
@@ -381,6 +382,7 @@ export default function NotesDisplay() {
              </Modal.Footer>
 
                  </Modal>
+               
                
              
 
