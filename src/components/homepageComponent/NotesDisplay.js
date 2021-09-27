@@ -36,6 +36,20 @@ export default function NotesDisplay() {
 
   console.log('uid', uid);
 
+  function compare(a, b) {
+    // Use toUpperCase() to ignore character casing
+    const DateA = a.Date;
+    const DateB = b.Date;
+  
+    let comparison = 0;
+    if (DateA < DateB) {
+      comparison = 1;
+    } else if (DateA > DateB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
   const UpdateNote = () => {
     const title = editTitle ? editTitle : editItem.title;
     const Content = editContent ? editContent : editItem.Content;
@@ -70,6 +84,18 @@ export default function NotesDisplay() {
     setEditItem({});
   };
 
+  const UpdateNewNote = () => {
+    axios
+      .get(
+        'https://react-project-1443c-default-rtdb.firebaseio.com/notes/' +
+          uid +
+          '.json'
+      )
+      .then((res) => {
+        setData(res.data);
+      });
+  }
+  
   const AddNote = () => {
     const db = getDatabase();
     const id = Math.round(Math.random() * 100);
@@ -78,7 +104,7 @@ export default function NotesDisplay() {
       title: title,
       Content: Content,
       Email: activeUser.email,
-      Date: Date(Date.now).toString().substr(0, 15),
+      Date: Date(Date.now).toString().substr(0,24),
     })
       .then(
         () => console.log('Added successfully'),
@@ -87,8 +113,10 @@ export default function NotesDisplay() {
           title: title,
           Content: Content,
           Email: activeUser,
-          Date: Date(Date.now).toString().substr(0, 15),
+          Date: Date(Date.now).toString().substr(0,24),
         }),
+        UpdateNewNote,
+        console.log("Date",Date(Date.now).toString().substr(0,24)),
         console.log('newNote', newNote)
       )
       .catch(() => console.log('Error'));
@@ -139,6 +167,8 @@ export default function NotesDisplay() {
         setData(res.data);
       });
   }, [newNote]);
+
+
   //   useEffect(() => {
   //  axios
   //       .get("https://react-project-1443c-default-rtdb.firebaseio.com/notes.json")
@@ -151,6 +181,7 @@ export default function NotesDisplay() {
     ? Object.keys(data).map((item) => userNotes.push(data[item]))
     : '';
   console.log('userNotes', userNotes);
+  userNotes.sort(compare);
 
   const [filteredData, setFilteredData] = useState(userNotes);
   console.log(searchText);
@@ -209,7 +240,7 @@ export default function NotesDisplay() {
 
   const today = userNotesData
     ? userNotesData.filter((item, key) =>
-        item ? item.Date === Date(Date.now).toString().substr(0, 15) : ''
+        item ? item.Date.substr(0, 15) === Date(Date.now).toString().substr(0, 15) : ''
       )
     : '';
 
@@ -223,13 +254,13 @@ export default function NotesDisplay() {
   const yesDate = new Date().getDate() - 1;
   const yesterday = yesDay + ' ' + yesMon + ' ' + yesDate + ' ' + yesYear;
   const yesterdayuserNotesData = userNotesData
-    ? userNotesData.filter((item, key) => (item ? item.Date === yesterday : ''))
+    ? userNotesData.filter((item, key) => (item ? item.Date.substr(0, 15) === yesterday : ''))
     : '';
   const EarlieruserNotesData = userNotesData
     ? userNotesData.filter((item, key) =>
         item
-          ? item.Date != yesterday &&
-            item.Date != Date(Date.now).toString().substr(0, 15)
+          ? item.Date.substr(0, 15) != yesterday &&
+            item.Date.substr(0, 15) != Date(Date.now).toString().substr(0, 15)
           : ''
       )
     : '';
