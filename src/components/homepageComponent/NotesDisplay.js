@@ -11,6 +11,7 @@ import {
   Modal,
 } from 'react-bootstrap';
 import { Image, CloudinaryContext } from 'cloudinary-react';
+import { Cloudinary } from 'cloudinary-core';
 import { getDatabase, ref, set } from 'firebase/database';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
@@ -107,9 +108,12 @@ export default function NotesDisplay() {
       });
   };
 
-  const delImage = (index) => {
+  /////////////////////////////////////////
+
+  const delImage = async (index) => {
     setImagesId(imagesId.filter((item) => item != index));
   };
+  /////////////////////////////////////////
 
   const Delete = (id) => {
     axios
