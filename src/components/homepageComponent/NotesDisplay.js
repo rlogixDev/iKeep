@@ -381,24 +381,17 @@ export default function NotesDisplay() {
                 item ? (
                   <>
                     <Modal show={Object.keys(editItem).length > 0}>
-                      <Modal.Header>
+                    <Modal.Header>
                         <Modal.Title>
-                          <textarea
-                            onChange={(e) => setEditTitle(e.target.value)}
-                          >
-                            {editItem.title}
-                          </textarea>
+                            <textarea cols="30" rows="1" onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea>
                         </Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <textarea
-                          onChange={(e) => setEditContent(e.target.value)}
-                        >
-                          {editItem.Content}
-                        </textarea>
-                      </Modal.Body>
-
-                      <Modal.Footer>
+                    </Modal.Header>
+                  < Modal.Body>
+                    <textarea cols="48" rows="10" onChange={(e) => setEditContent(e.target.value)}>
+                    {editItem.Content}
+                    </textarea>
+                  </Modal.Body>
+                  <Modal.Footer>
                         <Button
                           variant='secondary'
                           onClick={() => setEditItem({})}
@@ -447,29 +440,30 @@ export default function NotesDisplay() {
             item ? (
               <>
                 <Modal show={Object.keys(editItem).length > 0}>
-                  <Modal.Header>
-                    <Modal.Title>
-                      <textarea onChange={(e) => setEditTitle(e.target.value)}>
-                        {editItem.title}
-                      </textarea>
-                    </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <textarea onChange={(e) => setEditContent(e.target.value)}>
-                      {editItem.Content}
+                    <Modal.Header>
+                        <Modal.Title>
+                            <textarea cols="30" rows="1" onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea>
+                        </Modal.Title>
+                    </Modal.Header>
+                  < Modal.Body>
+                    <textarea cols="48" rows="10" onChange={(e) => setEditContent(e.target.value)}>
+                    {editItem.Content}
                     </textarea>
                   </Modal.Body>
-
                   <Modal.Footer>
-                    <Button variant='secondary' onClick={() => setEditItem({})}>
-                      Close
-                    </Button>
+                        <Button
+                          variant='secondary'
+                          onClick={() => setEditItem({})}
+                        >
+                          Close
+                        </Button>
 
-                    <Button variant='primary' onClick={UpdateNote}>
-                      Save changes
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
+                        <Button variant='primary' onClick={UpdateNote}>
+                          Save changes
+                        </Button>
+                    </Modal.Footer>
+                    </Modal>
+
 
                 <Card
                   style={{ width: '18rem', borderRadius: '15px' }}
@@ -505,29 +499,29 @@ export default function NotesDisplay() {
             item ? (
               <>
                 <Modal show={Object.keys(editItem).length > 0}>
-                  <Modal.Header>
-                    <Modal.Title>
-                      <textarea onChange={(e) => setEditTitle(e.target.value)}>
-                        {editItem.title}
-                      </textarea>
-                    </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <textarea onChange={(e) => setEditContent(e.target.value)}>
-                      {editItem.Content}
+                    <Modal.Header>
+                        <Modal.Title>
+                            <textarea cols="30" rows="1" onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea>
+                        </Modal.Title>
+                    </Modal.Header>
+                  < Modal.Body>
+                    <textarea cols="48" rows="10" onChange={(e) => setEditContent(e.target.value)}>
+                    {editItem.Content}
                     </textarea>
                   </Modal.Body>
-
                   <Modal.Footer>
-                    <Button variant='secondary' onClick={() => setEditItem({})}>
-                      Close
-                    </Button>
+                        <Button
+                          variant='secondary'
+                          onClick={() => setEditItem({})}
+                        >
+                          Close
+                        </Button>
 
-                    <Button variant='primary' onClick={UpdateNote}>
-                      Save changes
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
+                        <Button variant='primary' onClick={UpdateNote}>
+                          Save changes
+                        </Button>
+                    </Modal.Footer>
+                    </Modal>
 
                 <Card
                   style={{ width: '18rem', borderRadius: '15px' }}
