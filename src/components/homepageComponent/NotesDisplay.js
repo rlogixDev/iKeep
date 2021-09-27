@@ -11,6 +11,7 @@ import {
   Modal,
 } from 'react-bootstrap';
 import { Image, CloudinaryContext } from 'cloudinary-react';
+import { Cloudinary } from 'cloudinary-core';
 import { getDatabase, ref, set } from 'firebase/database';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
@@ -71,6 +72,7 @@ export default function NotesDisplay() {
   };
 
   const AddNote = () => {
+    console.log('addnotes akejofeojfoejfoefjoj');
     const db = getDatabase();
     const id = Math.round(Math.random() * 100);
     set(ref(db, 'notes/' + activeUser.uid + '/' + id), {
@@ -88,9 +90,14 @@ export default function NotesDisplay() {
           Content: Content,
           Email: activeUser,
           Date: Date(Date.now).toString().substr(0, 15),
-        }),
-        console.log('newNote', newNote)
+        })
+        // console.log('newNote', newNote);
       )
+      .then(() => {
+        setTitle('');
+        setContent('');
+        setAddImg('');
+      })
       .catch(() => console.log('Error'));
   };
 
@@ -104,12 +111,16 @@ export default function NotesDisplay() {
         setImagesId([...imagesId, res.data.url]);
         console.log('imagesId', imagesId);
         console.log('res', res.data.url);
-      });
+      })
+      .then(() => AddNote());
   };
 
-  const delImage = (index) => {
+  /////////////////////////////////////////
+
+  const delImage = async (index) => {
     setImagesId(imagesId.filter((item) => item != index));
   };
+  /////////////////////////////////////////
 
   const Delete = (id) => {
     axios
@@ -254,7 +265,7 @@ export default function NotesDisplay() {
                 onChange={(e) => setSearch(e.target.value)}
                 style={{ maxWidth: '500px' }}
               />
-              <Dropdown style={{ margin: '0px 10px' }} as={ButtonGroup}>
+              {/* <Dropdown style={{ margin: '0px 10px' }} as={ButtonGroup}>
                 <Button variant='outline-info'>Sort</Button>
 
                 <Dropdown.Toggle
@@ -270,7 +281,7 @@ export default function NotesDisplay() {
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <Button variant='outline-success'>Save</Button>{' '}
+              <Button variant='outline-success'>Save</Button>{' '} */}
             </Form>
           </div>
         </Row>
@@ -285,7 +296,8 @@ export default function NotesDisplay() {
               className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0 '
               variant='primary'
               style={{ width: '2.5rem' }}
-              onClick={AddNote}
+              // onClick={AddNote}
+              onClick={uploadImage}
             >
               <RiAddLine size='1x' />
             </Button>
@@ -293,6 +305,7 @@ export default function NotesDisplay() {
               <InputGroup className='mb-3'>
                 <FormControl
                   placeholder='Title'
+                  value={title}
                   aria-label='Default'
                   aria-describedby='inputGroup-sizing-default'
                   onChange={(e) => setTitle(e.target.value)}
@@ -304,13 +317,14 @@ export default function NotesDisplay() {
               >
                 <Form.Control
                   placeholder='Content'
+                  value={Content}
                   as='textarea'
                   name='content'
                   rows={3}
                   onChange={(e) => setContent(e.target.value)}
                 />
               </Form.Group>
-              <div>
+              {/* <div>
                 {imagesId.length > 0
                   ? imagesId.map((item) => (
                       <div>
@@ -325,7 +339,7 @@ export default function NotesDisplay() {
                       </div>
                     ))
                   : ''}
-              </div>
+              </div> */}
               <div
                 className='d-flex justify-content-between input-group'
                 style={{ backgroundColor: '#ffff' }}
@@ -333,18 +347,10 @@ export default function NotesDisplay() {
                 <input
                   type='file'
                   id='inputGroupFile01'
+                  // value={addImg ? addImg.name : ''}
                   onChange={(e) => setAddImg(e.target.files[0])}
                   aria-describedby='inputGroupFileAddon01'
                 />
-                <button
-                  className='input-group-text'
-                  id='inputGroupFileAddon01'
-                  onClick={uploadImage}
-                  disabled={addImg.length === 0 ? true : false}
-                  style={{ borderRadius: '5px' }}
-                >
-                  Upload
-                </button>
               </div>
             </Card.Body>
           </Card>
@@ -381,17 +387,27 @@ export default function NotesDisplay() {
                 item ? (
                   <>
                     <Modal show={Object.keys(editItem).length > 0}>
-                    <Modal.Header>
+                      <Modal.Header>
                         <Modal.Title>
-                            <textarea cols="30" rows="1" onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea>
+                          <textarea
+                            cols='30'
+                            rows='1'
+                            onChange={(e) => setEditTitle(e.target.value)}
+                          >
+                            {editItem.title}
+                          </textarea>
                         </Modal.Title>
-                    </Modal.Header>
-                  < Modal.Body>
-                    <textarea cols="48" rows="10" onChange={(e) => setEditContent(e.target.value)}>
-                    {editItem.Content}
-                    </textarea>
-                  </Modal.Body>
-                  <Modal.Footer>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <textarea
+                          cols='48'
+                          rows='10'
+                          onChange={(e) => setEditContent(e.target.value)}
+                        >
+                          {editItem.Content}
+                        </textarea>
+                      </Modal.Body>
+                      <Modal.Footer>
                         <Button
                           variant='secondary'
                           onClick={() => setEditItem({})}
@@ -440,30 +456,36 @@ export default function NotesDisplay() {
             item ? (
               <>
                 <Modal show={Object.keys(editItem).length > 0}>
-                    <Modal.Header>
-                        <Modal.Title>
-                            <textarea cols="30" rows="1" onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea>
-                        </Modal.Title>
-                    </Modal.Header>
-                  < Modal.Body>
-                    <textarea cols="48" rows="10" onChange={(e) => setEditContent(e.target.value)}>
-                    {editItem.Content}
+                  <Modal.Header>
+                    <Modal.Title>
+                      <textarea
+                        cols='30'
+                        rows='1'
+                        onChange={(e) => setEditTitle(e.target.value)}
+                      >
+                        {editItem.title}
+                      </textarea>
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <textarea
+                      cols='48'
+                      rows='10'
+                      onChange={(e) => setEditContent(e.target.value)}
+                    >
+                      {editItem.Content}
                     </textarea>
                   </Modal.Body>
                   <Modal.Footer>
-                        <Button
-                          variant='secondary'
-                          onClick={() => setEditItem({})}
-                        >
-                          Close
-                        </Button>
+                    <Button variant='secondary' onClick={() => setEditItem({})}>
+                      Close
+                    </Button>
 
-                        <Button variant='primary' onClick={UpdateNote}>
-                          Save changes
-                        </Button>
-                    </Modal.Footer>
-                    </Modal>
-
+                    <Button variant='primary' onClick={UpdateNote}>
+                      Save changes
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
 
                 <Card
                   style={{ width: '18rem', borderRadius: '15px' }}
@@ -499,29 +521,36 @@ export default function NotesDisplay() {
             item ? (
               <>
                 <Modal show={Object.keys(editItem).length > 0}>
-                    <Modal.Header>
-                        <Modal.Title>
-                            <textarea cols="30" rows="1" onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea>
-                        </Modal.Title>
-                    </Modal.Header>
-                  < Modal.Body>
-                    <textarea cols="48" rows="10" onChange={(e) => setEditContent(e.target.value)}>
-                    {editItem.Content}
+                  <Modal.Header>
+                    <Modal.Title>
+                      <textarea
+                        cols='30'
+                        rows='1'
+                        onChange={(e) => setEditTitle(e.target.value)}
+                      >
+                        {editItem.title}
+                      </textarea>
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <textarea
+                      cols='48'
+                      rows='10'
+                      onChange={(e) => setEditContent(e.target.value)}
+                    >
+                      {editItem.Content}
                     </textarea>
                   </Modal.Body>
                   <Modal.Footer>
-                        <Button
-                          variant='secondary'
-                          onClick={() => setEditItem({})}
-                        >
-                          Close
-                        </Button>
+                    <Button variant='secondary' onClick={() => setEditItem({})}>
+                      Close
+                    </Button>
 
-                        <Button variant='primary' onClick={UpdateNote}>
-                          Save changes
-                        </Button>
-                    </Modal.Footer>
-                    </Modal>
+                    <Button variant='primary' onClick={UpdateNote}>
+                      Save changes
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
 
                 <Card
                   style={{ width: '18rem', borderRadius: '15px' }}
