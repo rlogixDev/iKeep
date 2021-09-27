@@ -24,7 +24,7 @@ const Header = () => {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            {activeUser && <p className="font-weight-bold">Welcome:{activeUser.email} </p>}
+            {activeUser && <p className="font-weight-bold">Welcome:{activeUser.displayName} </p>}
           </Navbar.Text>
           <Nav>
           {activeUser && <Nav.Link

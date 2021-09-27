@@ -30,7 +30,7 @@ export default function Signup() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
 
-  const validEmail = new RegExp('@mediaagility.com$');
+  const validEmail = new RegExp('@gmail.com$');
 
   // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
 
