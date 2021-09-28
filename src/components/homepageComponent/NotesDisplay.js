@@ -95,6 +95,7 @@ export default function NotesDisplay() {
   };
 
   const AddNote = () => {
+    console.log('addnotes akejofeojfoejfoefjoj');
     const db = getDatabase();
     const id = Math.round(Math.random() * 100);
     set(ref(db, 'notes/' + activeUser.uid + '/' + id), {
@@ -102,7 +103,7 @@ export default function NotesDisplay() {
       title: title,
       Content: Content,
       Email: activeUser.email,
-      Date: Date(Date.now).toString().substr(0, 24),
+      Date: Date(Date.now).toString().substr(0, 15),
     })
       .then(
         () => console.log('Added successfully'),
@@ -111,12 +112,15 @@ export default function NotesDisplay() {
           title: title,
           Content: Content,
           Email: activeUser,
-          Date: Date(Date.now).toString().substr(0, 24),
-        }),
-        UpdateNewNote,
-        console.log('Date', Date(Date.now).toString().substr(0, 24)),
-        console.log('newNote', newNote)
+          Date: Date(Date.now).toString().substr(0, 15),
+        })
+        // console.log('newNote', newNote);
       )
+      .then(() => {
+        setTitle('');
+        setContent('');
+        setAddImg('');
+      })
       .catch(() => console.log('Error'));
   };
 
@@ -130,7 +134,8 @@ export default function NotesDisplay() {
         setImagesId([...imagesId, res.data.url]);
         console.log('imagesId', imagesId);
         console.log('res', res.data.url);
-      });
+      })
+      .then(() => AddNote());
   };
 
   const delImage = (index) => {
@@ -301,7 +306,7 @@ export default function NotesDisplay() {
               className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0 '
               variant='primary'
               style={{ width: '2.5rem' }}
-              onClick={AddNote}
+              onClick={uploadImage}
             >
               <RiAddLine size='1x' />
             </Button>
@@ -310,6 +315,7 @@ export default function NotesDisplay() {
                 <FormControl
                   placeholder='Title'
                   aria-label='Default'
+                  value={title}
                   aria-describedby='inputGroup-sizing-default'
                   onChange={(e) => setTitle(e.target.value)}
                 />
@@ -322,11 +328,12 @@ export default function NotesDisplay() {
                   placeholder='Content'
                   as='textarea'
                   name='content'
+                  value={Content}
                   rows={3}
                   onChange={(e) => setContent(e.target.value)}
                 />
               </Form.Group>
-              <div>
+              {/* <div>
                 {imagesId.length > 0
                   ? imagesId.map((item) => (
                       <div>
@@ -341,7 +348,7 @@ export default function NotesDisplay() {
                       </div>
                     ))
                   : ''}
-              </div>
+              </div> */}
               <div
                 className='d-flex justify-content-between input-group'
                 style={{ backgroundColor: '#ffff' }}
@@ -352,35 +359,11 @@ export default function NotesDisplay() {
                   onChange={(e) => setAddImg(e.target.files[0])}
                   aria-describedby='inputGroupFileAddon01'
                 />
-                <button
-                  className='input-group-text'
-                  id='inputGroupFileAddon01'
-                  onClick={uploadImage}
-                  disabled={addImg.length === 0 ? true : false}
-                  style={{ borderRadius: '5px' }}
-                >
-                  Upload
-                </button>
               </div>
             </Card.Body>
           </Card>
         </Row>
-        <Row className='d-flex flex-row justify-content-center mt-3'>
-          {/* <Button
-            variant='primary'
-            className='m-1'
-            style={{ maxWidth: '100px' }}
-          >
-            Select All
-          </Button>
-          <Button
-            variant='primary'
-            className='m-1'
-            style={{ maxWidth: '100px' }}
-          >
-            Delete
-          </Button> */}
-        </Row>
+        <Row className='d-flex flex-row justify-content-center mt-3'></Row>
       </Container>
       {/* displaying input notes */}
       {userNotesData.length > 0 ? (
