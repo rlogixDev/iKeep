@@ -89,13 +89,16 @@ export default function NotesDisplay() {
     const db = getDatabase();
     const id = Math.round(Math.random() * 100);
     console.log(Date(Date.now).toString());
+  //  console.log ("add img",imagesId!=''?imagesId:'')
+  console.log ("add img",imagesId?imagesId:'')
+  
     set(ref(db, 'notes/' + activeUser.uid + '/' + id), {
       id: id,
       title: title,
       Content: Content,
       Email: activeUser.email,
       Date: Date(Date.now).toString().substr(0, 24),
-      img: (imagesId?imagesId:'')
+      img: (imagesId!=''?imagesId:'')
     })
       .then(
         setNewNote({
@@ -130,6 +133,7 @@ export default function NotesDisplay() {
         });
     }
     AddNote();
+    console.log(imagesId);
   };
 
   const delImage = (index) => {
@@ -413,17 +417,20 @@ export default function NotesDisplay() {
                       }}
                       className='m-2 p-0'
                     >
+                      {console.log("img",item.img?item.img:'')}
                       <Card.Body style={{ width: 'auto' }}>
                         <div className='d-flex'>
+                          {console.log("item",item)}
                           {item.img && (
                             <div>
+                              {console.log(item.img)}
                               <Image
                                 style={{
                                   maxWidth: '100px',
                                 }}
                                 onClick={() => delImage(item)}
                                 cloudName='adarsh022'
-                                publicId={item.img[0]}
+                                publicId={item.img}
                               />
                               {console.log("item.img",item.img)}
                             </div>
