@@ -95,6 +95,7 @@ export default function NotesDisplay() {
       Content: Content,
       Email: activeUser.email,
       Date: Date(Date.now).toString().substr(0, 24),
+      img: (imagesId?imagesId:'')
     })
       .then(
         setNewNote({
@@ -125,7 +126,7 @@ export default function NotesDisplay() {
           formData
         )
         .then((res) => {
-          setImagesId([...imagesId, res.data.url]);
+          setImagesId(res.data.url);
         });
     }
     AddNote();
@@ -414,7 +415,7 @@ export default function NotesDisplay() {
                     >
                       <Card.Body style={{ width: 'auto' }}>
                         <div className='d-flex'>
-                          {imagesId && (
+                          {item.img && (
                             <div>
                               <Image
                                 style={{
@@ -422,8 +423,9 @@ export default function NotesDisplay() {
                                 }}
                                 onClick={() => delImage(item)}
                                 cloudName='adarsh022'
-                                publicId='http://res.cloudinary.com/adarsh022/image/upload/v1632822910/iKeep/ntbl13xecgkutcljkkjo.png'
+                                publicId={item.img[0]}
                               />
+                              {console.log("item.img",item.img)}
                             </div>
                           )}
                           <div style={{ marginLeft: '20px' }}>
