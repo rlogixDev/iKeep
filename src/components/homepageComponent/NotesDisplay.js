@@ -114,15 +114,20 @@ export default function NotesDisplay() {
   };
 
   const uploadImage = async () => {
-    const formData = new FormData();
-    formData.append('file', addImg);
-    formData.append('upload_preset', 'lmx0ng0b');
-    await axios
-      .post('https://api.cloudinary.com/v1_1/adarsh022/image/upload', formData)
-      .then((res) => {
-        setImagesId([...imagesId, res.data.url]);
-      })
-      .then(() => AddNote());
+    if (addImg) {
+      const formData = new FormData();
+      formData.append('file', addImg);
+      formData.append('upload_preset', 'lmx0ng0b');
+      await axios
+        .post(
+          'https://api.cloudinary.com/v1_1/adarsh022/image/upload',
+          formData
+        )
+        .then((res) => {
+          setImagesId([...imagesId, res.data.url]);
+        });
+    }
+    AddNote();
   };
 
   const delImage = (index) => {
