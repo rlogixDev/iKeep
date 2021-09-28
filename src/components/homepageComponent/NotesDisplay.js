@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-
 import Notes from './Notes';
 import { RiAddLine } from 'react-icons/ri';
 import {
@@ -22,7 +21,6 @@ export default function NotesDisplay() {
   const [editModal, setEditModal] = useState(false);
   const [searchText, setSearch] = useState();
   const [data, setData] = useState([]);
-  // const [userNotes,setUserNotes] =useState([]);
   const { activeUser } = useContext(AuthContext);
   const uid = activeUser.uid;
   const [title, setTitle] = useState('');
@@ -91,7 +89,6 @@ export default function NotesDisplay() {
           Email: activeUser,
           Date: Date(Date.now).toString().substr(0, 15),
         })
-        // console.log('newNote', newNote);
       )
       .then(() => {
         setTitle('');
@@ -150,11 +147,6 @@ export default function NotesDisplay() {
         setData(res.data);
       });
   }, [newNote]);
-  //   useEffect(() => {
-  //  axios
-  //       .get("https://react-project-1443c-default-rtdb.firebaseio.com/notes.json")
-  //       .then((res) => setData(res.data));
-  //   }, []);
 
   console.log('data', data);
   let userNotes = [];
@@ -249,7 +241,6 @@ export default function NotesDisplay() {
     <>
       <Container>
         <Row>
-          {/* <SearchBox searchText={searchText}/> */}
           <div className='d-flex justify-content-center'>
             <Form
               className='d-flex justify-content-around p-0 mb-5'
@@ -265,23 +256,6 @@ export default function NotesDisplay() {
                 onChange={(e) => setSearch(e.target.value)}
                 style={{ maxWidth: '500px' }}
               />
-              {/* <Dropdown style={{ margin: '0px 10px' }} as={ButtonGroup}>
-                <Button variant='outline-info'>Sort</Button>
-
-                <Dropdown.Toggle
-                  split
-                  variant='outline-info'
-                  id='dropdown-split-basic'
-                />
-
-                <Dropdown.Menu>
-                  <Dropdown.Item href='#/action-1'>Date Wise</Dropdown.Item>
-                  <Dropdown.Item href='#/action-2'>
-                    Alphabetical Wise
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-              <Button variant='outline-success'>Save</Button>{' '} */}
             </Form>
           </div>
         </Row>
@@ -371,9 +345,8 @@ export default function NotesDisplay() {
             Delete
           </Button>
         </Row>
-
-        {/* <Notes data={filteredData} /> */}
       </Container>
+      {/* displaying input notes */}
       {userNotesData.length > 0 ? (
         <div className='row d-flex justify-content-around mt-2 p-0'>
           <h4
@@ -388,6 +361,16 @@ export default function NotesDisplay() {
                   <>
                     <Modal show={Object.keys(editItem).length > 0}>
                       <Modal.Header>
+                        <div>
+                          <Image
+                            style={{
+                              maxWidth: '100px',
+                            }}
+                            onClick={() => delImage(item)}
+                            cloudName='adarsh022'
+                            publicId='https://res.cloudinary.com/adarsh022/image/upload/v1632733193/iKeep/cwlkageui8yoll02kguh.png'
+                          />
+                        </div>
                         <Modal.Title>
                           <textarea
                             cols='30'
@@ -580,8 +563,6 @@ export default function NotesDisplay() {
       ) : (
         ''
       )}
-
-      {/* {/* { console.log("length",userNotes.length)} */}
     </>
   );
 }

@@ -13,6 +13,7 @@ import {
 } from 'firebase/auth';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../../context/AuthContext';
 
 export default function Signup() {
   const history = useHistory();
