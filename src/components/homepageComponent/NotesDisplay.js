@@ -32,7 +32,6 @@ export default function NotesDisplay() {
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
   const [deleteModal, setDeleteModal] = useState({});
-  console.log('uid', uid);
 
   function compare(a, b) {
     // Use toUpperCase() to ignore character casing
@@ -51,12 +50,6 @@ export default function NotesDisplay() {
   const UpdateNote = () => {
     const title = editTitle ? editTitle : editItem.title;
     const Content = editContent ? editContent : editItem.Content;
-    console.log(title);
-    console.log(Content);
-    console.log(editItem.Email);
-    console.log(editItem.id);
-    console.log(editItem.Date);
-    console.log(uid);
     const userId = editItem.id;
 
     const updatedNote = {
@@ -75,9 +68,7 @@ export default function NotesDisplay() {
           '.json',
         updatedNote
       )
-      .then(
-        () => (console.log('Updated Successfully'), setNewNote(updatedNote))
-      )
+      .then(() => setNewNote(updatedNote))
       .catch(() => console.log('Error'));
     setEditItem({});
   };
@@ -95,7 +86,6 @@ export default function NotesDisplay() {
   };
 
   const AddNote = () => {
-    console.log('addnotes akejofeojfoejfoefjoj');
     const db = getDatabase();
     const id = Math.round(Math.random() * 100);
     set(ref(db, 'notes/' + activeUser.uid + '/' + id), {
@@ -106,7 +96,6 @@ export default function NotesDisplay() {
       Date: Date(Date.now).toString().substr(0, 15),
     })
       .then(
-        () => console.log('Added successfully'),
         setNewNote({
           id: id,
           title: title,
@@ -114,9 +103,9 @@ export default function NotesDisplay() {
           Email: activeUser,
           Date: Date(Date.now).toString().substr(0, 15),
         })
-        // console.log('newNote', newNote);
       )
       .then(() => {
+        UpdateNewNote();
         setTitle('');
         setContent('');
         setAddImg('');
@@ -132,8 +121,6 @@ export default function NotesDisplay() {
       .post('https://api.cloudinary.com/v1_1/adarsh022/image/upload', formData)
       .then((res) => {
         setImagesId([...imagesId, res.data.url]);
-        console.log('imagesId', imagesId);
-        console.log('res', res);
       })
       .then(() => AddNote());
   };
@@ -152,15 +139,11 @@ export default function NotesDisplay() {
           id +
           '.json'
       )
-      .then(
-        () => (
-          console.log('deleted Successfully'), setNewNote({ delete: true })
-        )
-      )
+      .then(() => setNewNote({ delete: true }))
       .catch(() => console.log('Error Occurred'));
     setDeleteModal({});
   };
-  console.log(addImg);
+
   useEffect(() => {
     axios
       .get(
@@ -179,16 +162,13 @@ export default function NotesDisplay() {
   //       .then((res) => setData(res.data));
   //   }, []);
 
-  console.log('data', data);
   let userNotes = [];
   let a = data
     ? Object.keys(data).map((item) => userNotes.push(data[item]))
     : '';
-  console.log('userNotes', userNotes);
   userNotes.sort(compare);
 
   const [filteredData, setFilteredData] = useState(userNotes);
-  console.log(searchText);
 
   useEffect(() => {
     const lowercasedValue = searchText?.toLowerCase().trim();
@@ -199,7 +179,6 @@ export default function NotesDisplay() {
           ? item.title.includes(searchText) || item.Content.includes(searchText)
           : ''
       );
-      console.log('filteredData', filteredData);
       setFilteredData(filteredData);
     }
   }, [searchText]);
@@ -215,8 +194,6 @@ export default function NotesDisplay() {
       <p>No results found..</p>
     );
   }
-
-  console.log('Notes userNotesData', userNotesData);
 
   var days = [
     'Sunday',
@@ -272,7 +249,6 @@ export default function NotesDisplay() {
           : ''
       )
     : '';
-  console.log('yesterday', yesterday);
   return (
     <>
       <Container>
@@ -431,12 +407,7 @@ export default function NotesDisplay() {
                       className='m-2 p-0'
                     >
                       <Card.Body style={{ width: 'auto' }}>
-                        {/* <input
-                      type='checkbox'
-                      className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
-                    ></input> */}
                         <div className='d-flex'>
-                          {/* ////////////////////////////// */}
                           {imagesId && (
                             <div>
                               <Image
@@ -449,7 +420,6 @@ export default function NotesDisplay() {
                               />
                             </div>
                           )}
-                          {/* ////////////////////////////// */}
                           <div style={{ marginLeft: '20px' }}>
                             <Card.Title>{item.title}</Card.Title>
                             <Card.Text>{item.Content}</Card.Text>
@@ -552,12 +522,7 @@ export default function NotesDisplay() {
                   className='m-2 p-0'
                 >
                   <Card.Body style={{ width: 'auto' }}>
-                    {/* <input
-                      type='checkbox'
-                      className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
-                    ></input> */}
                     <div className='d-flex'>
-                      {/* ////////////////////////////// */}
                       {imagesId && (
                         <div>
                           <Image
@@ -570,7 +535,6 @@ export default function NotesDisplay() {
                           />
                         </div>
                       )}
-                      {/* ////////////////////////////// */}
                       <div style={{ marginLeft: '20px' }}>
                         <Card.Title>{item.title}</Card.Title>
                         <Card.Text>{item.Content}</Card.Text>
@@ -672,12 +636,7 @@ export default function NotesDisplay() {
                   className='m-2 p-0'
                 >
                   <Card.Body style={{ width: 'auto' }}>
-                    {/* <input
-                      type='checkbox'
-                      className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
-                    ></input> */}
                     <div className='d-flex'>
-                      {/* ////////////////////////////// */}
                       {imagesId && (
                         <div>
                           <Image
@@ -690,7 +649,6 @@ export default function NotesDisplay() {
                           />
                         </div>
                       )}
-                      {/* ////////////////////////////// */}
                       <div style={{ marginLeft: '20px' }}>
                         <Card.Title>{item.title}</Card.Title>
                         <Card.Text>{item.Content}</Card.Text>
