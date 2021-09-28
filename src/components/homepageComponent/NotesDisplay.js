@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import Notes from './Notes';
-import { RiAddLine } from 'react-icons/ri';
+import { RiAddLine, RiDeleteBack2Fill } from 'react-icons/ri';
 import {
   Row,
   Container,
@@ -33,7 +33,7 @@ export default function NotesDisplay() {
   const [imagesId, setImagesId] = useState([]);
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
-
+  const [deleteModal,setDeleteModal] =useState({});
   console.log('uid', uid);
 
   function compare(a, b) {
@@ -139,7 +139,8 @@ export default function NotesDisplay() {
     setImagesId(imagesId.filter((item) => item != index));
   };
 
-  const Delete = (id) => {
+  const Delete = () => {
+    const id=deleteModal.id;
     axios
       .delete(
         'https://react-project-1443c-default-rtdb.firebaseio.com/notes/' +
@@ -154,6 +155,7 @@ export default function NotesDisplay() {
         )
       )
       .catch(() => console.log('Error Occurred'));
+      setDeleteModal({});
   };
   console.log(addImg);
   useEffect(() => {
@@ -401,16 +403,39 @@ export default function NotesDisplay() {
       </Container>
       {userNotesData.length > 0 ? (
         <div className='row d-flex justify-content-around mt-2 p-0'>
-          <h4
+         
+          {today.length>0?(    <h4
             className='text-decoration-underline'
             style={{ textAlign: 'left' }}
           >
             Today
-          </h4>
+          </h4>):''}
           {today
             ? today.map((item, index) =>
                 item ? (
                   <>
+
+                  {/* Delete Modal */}
+                  <Modal show={Object.keys(deleteModal).length > 0}>
+                  <Modal.Header>
+                        <Modal.Title>
+                         Are you sure that you want to delete this note
+                        </Modal.Title>
+                        <Modal.Footer>
+                        <Button
+                          variant='secondary'
+                          onClick={() => setDeleteModal({})}
+                        >
+                          Cancel
+                        </Button>
+                        <Button variant='primary' onClick={Delete}>
+                          Delete
+                        </Button>
+                          </Modal.Footer>
+                    </Modal.Header>
+                    </Modal>
+                    
+                  {/* Edit Modal */}
                     <Modal show={Object.keys(editItem).length > 0}>
                     <Modal.Header>
                         <Modal.Title>
@@ -447,7 +472,7 @@ export default function NotesDisplay() {
                         ></input>
                         <Card.Title>{item.title}</Card.Title>
                         <Card.Text>{item.Content}</Card.Text>
-                        <Card.Link href='#' onClick={() => Delete(item.id)}>
+                        <Card.Link href='#' onClick={() => setDeleteModal({"id":item.id})}>
                           Delete
                         </Card.Link>
                         <Card.Link href='#' onClick={() => setEditItem(item)}>
@@ -461,15 +486,38 @@ export default function NotesDisplay() {
                 )
               )
             : ''}
-          <h4
+            {yesterdayuserNotesData.length>0?(    <h4
             className='text-decoration-underline'
             style={{ textAlign: 'left' }}
           >
             Yesterday
-          </h4>
+          </h4>):''}
+      
           {yesterdayuserNotesData.map((item, index) =>
             item ? (
               <>
+
+              {/* Delete Modal */}
+                <Modal show={Object.keys(deleteModal).length > 0}>
+                  <Modal.Header>
+                        <Modal.Title>
+                         Are you sure that you want to delete this note
+                        </Modal.Title>
+                        <Modal.Footer>
+                        <Button
+                          variant='secondary'
+                          onClick={() => setDeleteModal({})}
+                        >
+                          Cancel
+                        </Button>
+                        <Button variant='primary' onClick={Delete}>
+                          Delete
+                        </Button>
+                          </Modal.Footer>
+                    </Modal.Header>
+                    </Modal>
+
+                    {/* Edit Modal */}
                 <Modal show={Object.keys(editItem).length > 0}>
                     <Modal.Header>
                         <Modal.Title>
@@ -507,7 +555,7 @@ export default function NotesDisplay() {
                     ></input>
                     <Card.Title>{item.title}</Card.Title>
                     <Card.Text>{item.Content}</Card.Text>
-                    <Card.Link href='#' onClick={() => Delete(item.id)}>
+                    <Card.Link href='#' onClick={() => setDeleteModal({"id":item.id})}>
                       Delete
                     </Card.Link>
                     <Card.Link href='#' onClick={() => setEditItem(item)}>
@@ -520,15 +568,38 @@ export default function NotesDisplay() {
               ''
             )
           )}
-          <h4
+          
+          {EarlieruserNotesData.length>0?(    <h4
             className='text-decoration-underline'
             style={{ textAlign: 'left' }}
           >
             Earlier Notes
-          </h4>
+          </h4>):''}
           {EarlieruserNotesData.map((item, index) =>
             item ? (
               <>
+
+              {/* DeleteModal */}
+                <Modal show={Object.keys(deleteModal).length > 0}>
+                  <Modal.Header>
+                        <Modal.Title>
+                         Are you sure that you want to delete this note
+                        </Modal.Title>
+                        <Modal.Footer>
+                        <Button
+                          variant='secondary'
+                          onClick={() => setDeleteModal({})}
+                        >
+                          Cancel
+                        </Button>
+                        <Button variant='primary' onClick={Delete}>
+                          Delete
+                        </Button>
+                          </Modal.Footer>
+                    </Modal.Header>
+                    </Modal>
+
+                {/* EditModal */}
                 <Modal show={Object.keys(editItem).length > 0}>
                     <Modal.Header>
                         <Modal.Title>
@@ -565,7 +636,7 @@ export default function NotesDisplay() {
                     ></input>
                     <Card.Title>{item.title}</Card.Title>
                     <Card.Text>{item.Content}</Card.Text>
-                    <Card.Link href='#' onClick={() => Delete(item.id)}>
+                    <Card.Link href='#' onClick={() => setDeleteModal({"id":item.id})}>
                       Delete
                     </Card.Link>
                     <Card.Link href='#' onClick={() => setEditItem(item)}>
