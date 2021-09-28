@@ -1,14 +1,18 @@
-import React, { useState, useContext } from "react";
-import "./login.css";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { Alert } from "react-bootstrap";
+import React, { useState, useContext } from 'react';
+import './login.css';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Alert } from 'react-bootstrap';
 
-import { signInWithPopup, GoogleAuthProvider, signInWithRedirect  } from "firebase/auth";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import authApp from "../../firebase";
-import { useHistory, Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  signInWithRedirect,
+} from 'firebase/auth';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import authApp from '../../firebase';
+import { useHistory, Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 export const Login = () => {
   const [username, setUserName] = useState();
@@ -35,15 +39,15 @@ export const Login = () => {
   ///////////////////////////OTP////////////////////////////
 
   const otpCheck = () => {
-    console.log("otpCheck");
+    console.log('otpCheck');
     if (otp == checkOtp) {
       ///////////local storage check///////////
       const re = /^[0-9\b]+$/;
       if (username.length === 10 && re.test(username)) {
-        let a = JSON.parse(localStorage.getItem("session"));
+        let a = JSON.parse(localStorage.getItem('session'));
         let b = a.filter((item) => item.Phone == username);
 
-        console.log("username", b[0].Email);
+        console.log('username', b[0].Email);
         signInWithEmailAndPassword(auth, b[0].Email, password)
           .then((userCredential) => {
             const user = userCredential.user;
@@ -68,7 +72,7 @@ export const Login = () => {
           toast.error(errorMessage);
         });
     } else {
-      const errorMessage = "Wrong OTP";
+      const errorMessage = 'Wrong OTP';
       toast.error(errorMessage);
     }
   };
@@ -77,7 +81,7 @@ export const Login = () => {
     e.preventDefault();
     setOTP(Math.floor(Math.random() * 9999));
     console.log(otp);
-    console.log("createOtp");
+    console.log('createOtp');
   };
 
   function handleGoogleSignIn() {
@@ -112,45 +116,45 @@ export const Login = () => {
 
   return (
     <div>
-      <div id="login">
-        <form className="container mx-auto col-4 d-flex justify-content-center flex-column">
-          {otp && <Alert variant="success">enter the OTP - {otp}</Alert>}
+      <div id='login'>
+        <form className='container mx-auto col-4 d-flex justify-content-center flex-column'>
+          {otp && <Alert variant='success'>enter the OTP - {otp}</Alert>}
           <h3>Sign In</h3>
-          <div className="row justify-content-start login-row pt-4">
-            <div className="col align-self-start pt-1">
-              <div className="form-group p-2 ">
+          <div className='row justify-content-start login-row pt-4'>
+            <div className='col align-self-start pt-1'>
+              <div className='form-group p-2 '>
                 <label>Email address</label>
               </div>
             </div>
-            <div className="col-8">
-              <div className="form-group p-2 ">
+            <div className='col-8'>
+              <div className='form-group p-2 '>
                 <input
-                  type="email"
-                  className="form-control"
-                  name="username"
-                  placeholder="Enter email"
+                  type='email'
+                  className='form-control'
+                  name='username'
+                  placeholder='Enter email'
                   onChange={(e) => setUserName(e.target.value)}
                 />
-                {!username && <p className="error">*Enter email</p>}
+                {!username && <p className='error'>*Enter email</p>}
               </div>
             </div>
           </div>
-          <div className="row justify-content-start login-row">
-            <div className="col align-self-start pt-1">
-              <div className="form-group p-2 ">
+          <div className='row justify-content-start login-row'>
+            <div className='col align-self-start pt-1'>
+              <div className='form-group p-2 '>
                 <label>Password</label>
               </div>
             </div>
-            <div className="col-8">
-              <div className="form-group p-2">
+            <div className='col-8'>
+              <div className='form-group p-2'>
                 <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  placeholder="Enter password"
+                  type='password'
+                  className='form-control'
+                  name='password'
+                  placeholder='Enter password'
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                {!password && <p className="error">*Enter password</p>}
+                {!password && <p className='error'>*Enter password</p>}
               </div>
             </div>
           </div>
@@ -158,32 +162,32 @@ export const Login = () => {
           <div>
             <div
               style={{
-                display: !otp && "none",
+                display: !otp && 'none',
               }}
-              className="row justify-content-start login-row"
+              className='row justify-content-start login-row'
             >
-              <div className="col align-self-start pt-1 d-flex justify-centent-center align-tem-center ">
-                <div className="form-group p-2 ">
+              <div className='col align-self-start pt-1 d-flex justify-centent-center align-tem-center '>
+                <div className='form-group p-2 '>
                   <label>Enter OTP</label>
                 </div>
               </div>
-              <div className="col-8">
-                <div className="form-group p-2" style={{ display: "flex" }}>
+              <div className='col-8'>
+                <div className='form-group p-2' style={{ display: 'flex' }}>
                   <input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    placeholder="Enter password"
+                    type='password'
+                    className='form-control'
+                    name='password'
+                    placeholder='Enter password'
                     onChange={(e) => setCheckOtp(e.target.value)}
                   />
                   <button
                     style={{
-                      marginLeft: "10px",
-                      borderRadius: "10px",
+                      marginLeft: '10px',
+                      borderRadius: '10px',
                     }}
-                    variant="primary"
-                    type="button"
-                    className="btn btn-primary btn-lg btn-block"
+                    variant='primary'
+                    type='button'
+                    className='btn btn-primary btn-lg btn-block'
                     onClick={() => otpCheck()}
                   >
                     verify
@@ -193,43 +197,43 @@ export const Login = () => {
             </div>
           </div>
           {/* /////////////////////////// */}
-          <div id="login-buttons" className="row justify-content-center">
+          <div id='login-buttons' className='row justify-content-center'>
             <div>
               <button
-                variant="primary"
-                type="button"
-                className="btn btn-primary btn-lg btn-block"
+                variant='primary'
+                type='button'
+                className='btn btn-primary btn-lg btn-block'
                 onClick={(e) => handleSubmit(e)}
                 disabled={!username | !password}
               >
-                {" "}
+                {' '}
                 Submit
               </button>
             </div>
-            <p className="link">
-              Forgot Password? <Link to="/resetPassword">Reset Password</Link>
+            <p className='link'>
+              Forgot Password? <Link to='/resetPassword'>Reset Password</Link>
             </p>
           </div>
-          <div className="row ">
-            <ColoredLine color="red" />
+          <div className='row '>
+            <ColoredLine color='red' />
             <div>
               <button
-                variant="primary"
-                type="submit"
-                className="btn btn-light btn-md pr-10"
+                variant='primary'
+                type='submit'
+                className='btn btn-light btn-md pr-10'
                 onClick={() => handleGoogleSignIn()}
               >
                 <img
-                  src="https://e7.pngegg.com/pngimages/114/607/png-clipart-g-suite-pearl-river-middle-school-google-software-suite-email-sign-up-button-text-logo-thumbnail.png"
-                  width="50"
-                  radius="10"
-                  alt="google"
+                  src='https://e7.pngegg.com/pngimages/114/607/png-clipart-g-suite-pearl-river-middle-school-google-software-suite-email-sign-up-button-text-logo-thumbnail.png'
+                  width='50'
+                  radius='10'
+                  alt='google'
                 />
                 Sign in With Google
               </button>
             </div>
-            <p className="link">
-              New to IKeep? <Link to="/signup">Join now</Link>
+            <p className='link'>
+              New to IKeep? <Link to='/signup'>Join now</Link>
             </p>
           </div>
         </form>
