@@ -88,12 +88,13 @@ export default function NotesDisplay() {
   const AddNote = () => {
     const db = getDatabase();
     const id = Math.round(Math.random() * 100);
+    console.log(Date(Date.now).toString());
     set(ref(db, 'notes/' + activeUser.uid + '/' + id), {
       id: id,
       title: title,
       Content: Content,
       Email: activeUser.email,
-      Date: Date(Date.now).toString().substr(0, 15),
+      Date: Date(Date.now).toString().substr(0, 24),
     })
       .then(
         setNewNote({
