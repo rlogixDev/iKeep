@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import Notes from './Notes';
-import { RiAddLine } from 'react-icons/ri';
+import { RiAddLine, RiDeleteBack2Fill } from 'react-icons/ri';
 import {
   Row,
   Container,
@@ -11,7 +11,6 @@ import {
   Modal,
 } from 'react-bootstrap';
 import { Image, CloudinaryContext } from 'cloudinary-react';
-import { Cloudinary } from 'cloudinary-core';
 import { getDatabase, ref, set } from 'firebase/database';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
@@ -34,8 +33,22 @@ export default function NotesDisplay() {
   const [imagesId, setImagesId] = useState([]);
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
-
+  const [deleteModal,setDeleteModal] =useState({});
   console.log('uid', uid);
+
+  function compare(a, b) {
+    // Use toUpperCase() to ignore character casing
+    const DateA = a.Date;
+    const DateB = b.Date;
+  
+    let comparison = 0;
+    if (DateA < DateB) {
+      comparison = 1;
+    } else if (DateA > DateB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
 
   const UpdateNote = () => {
     const title = editTitle ? editTitle : editItem.title;
@@ -71,8 +84,19 @@ export default function NotesDisplay() {
     setEditItem({});
   };
 
+  const UpdateNewNote = () => {
+    axios
+      .get(
+        'https://react-project-1443c-default-rtdb.firebaseio.com/notes/' +
+          uid +
+          '.json'
+      )
+      .then((res) => {
+        setData(res.data);
+      });
+  }
+  
   const AddNote = () => {
-    console.log('addnotes akejofeojfoejfoefjoj');
     const db = getDatabase();
     const id = Math.round(Math.random() * 100);
     set(ref(db, 'notes/' + activeUser.uid + '/' + id), {
@@ -80,7 +104,7 @@ export default function NotesDisplay() {
       title: title,
       Content: Content,
       Email: activeUser.email,
-      Date: Date(Date.now).toString().substr(0, 15),
+      Date: Date(Date.now).toString().substr(0,24),
     })
       .then(
         () => console.log('Added successfully'),
@@ -89,15 +113,12 @@ export default function NotesDisplay() {
           title: title,
           Content: Content,
           Email: activeUser,
-          Date: Date(Date.now).toString().substr(0, 15),
-        })
-        // console.log('newNote', newNote);
+          Date: Date(Date.now).toString().substr(0,24),
+        }),
+        UpdateNewNote,
+        console.log("Date",Date(Date.now).toString().substr(0,24)),
+        console.log('newNote', newNote)
       )
-      .then(() => {
-        setTitle('');
-        setContent('');
-        setAddImg('');
-      })
       .catch(() => console.log('Error'));
   };
 
@@ -111,18 +132,15 @@ export default function NotesDisplay() {
         setImagesId([...imagesId, res.data.url]);
         console.log('imagesId', imagesId);
         console.log('res', res.data.url);
-      })
-      .then(() => AddNote());
+      });
   };
 
-  /////////////////////////////////////////
-
-  const delImage = async (index) => {
+  const delImage = (index) => {
     setImagesId(imagesId.filter((item) => item != index));
   };
-  /////////////////////////////////////////
 
-  const Delete = (id) => {
+  const Delete = () => {
+    const id=deleteModal.id;
     axios
       .delete(
         'https://react-project-1443c-default-rtdb.firebaseio.com/notes/' +
@@ -137,6 +155,7 @@ export default function NotesDisplay() {
         )
       )
       .catch(() => console.log('Error Occurred'));
+      setDeleteModal({});
   };
   console.log(addImg);
   useEffect(() => {
@@ -150,6 +169,8 @@ export default function NotesDisplay() {
         setData(res.data);
       });
   }, [newNote]);
+
+
   //   useEffect(() => {
   //  axios
   //       .get("https://react-project-1443c-default-rtdb.firebaseio.com/notes.json")
@@ -162,6 +183,7 @@ export default function NotesDisplay() {
     ? Object.keys(data).map((item) => userNotes.push(data[item]))
     : '';
   console.log('userNotes', userNotes);
+  userNotes.sort(compare);
 
   const [filteredData, setFilteredData] = useState(userNotes);
   console.log(searchText);
@@ -220,7 +242,7 @@ export default function NotesDisplay() {
 
   const today = userNotesData
     ? userNotesData.filter((item, key) =>
-        item ? item.Date === Date(Date.now).toString().substr(0, 15) : ''
+        item ? item.Date.substr(0, 15) === Date(Date.now).toString().substr(0, 15) : ''
       )
     : '';
 
@@ -234,13 +256,13 @@ export default function NotesDisplay() {
   const yesDate = new Date().getDate() - 1;
   const yesterday = yesDay + ' ' + yesMon + ' ' + yesDate + ' ' + yesYear;
   const yesterdayuserNotesData = userNotesData
-    ? userNotesData.filter((item, key) => (item ? item.Date === yesterday : ''))
+    ? userNotesData.filter((item, key) => (item ? item.Date.substr(0, 15) === yesterday : ''))
     : '';
   const EarlieruserNotesData = userNotesData
     ? userNotesData.filter((item, key) =>
         item
-          ? item.Date != yesterday &&
-            item.Date != Date(Date.now).toString().substr(0, 15)
+          ? item.Date.substr(0, 15) != yesterday &&
+            item.Date.substr(0, 15) != Date(Date.now).toString().substr(0, 15)
           : ''
       )
     : '';
@@ -296,8 +318,7 @@ export default function NotesDisplay() {
               className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0 '
               variant='primary'
               style={{ width: '2.5rem' }}
-              // onClick={AddNote}
-              onClick={uploadImage}
+              onClick={AddNote}
             >
               <RiAddLine size='1x' />
             </Button>
@@ -305,7 +326,6 @@ export default function NotesDisplay() {
               <InputGroup className='mb-3'>
                 <FormControl
                   placeholder='Title'
-                  value={title}
                   aria-label='Default'
                   aria-describedby='inputGroup-sizing-default'
                   onChange={(e) => setTitle(e.target.value)}
@@ -317,14 +337,13 @@ export default function NotesDisplay() {
               >
                 <Form.Control
                   placeholder='Content'
-                  value={Content}
                   as='textarea'
                   name='content'
                   rows={3}
                   onChange={(e) => setContent(e.target.value)}
                 />
               </Form.Group>
-              {/* <div>
+              <div>
                 {imagesId.length > 0
                   ? imagesId.map((item) => (
                       <div>
@@ -339,7 +358,7 @@ export default function NotesDisplay() {
                       </div>
                     ))
                   : ''}
-              </div> */}
+              </div>
               <div
                 className='d-flex justify-content-between input-group'
                 style={{ backgroundColor: '#ffff' }}
@@ -347,16 +366,24 @@ export default function NotesDisplay() {
                 <input
                   type='file'
                   id='inputGroupFile01'
-                  // value={addImg ? addImg.name : ''}
                   onChange={(e) => setAddImg(e.target.files[0])}
                   aria-describedby='inputGroupFileAddon01'
                 />
+                <button
+                  className='input-group-text'
+                  id='inputGroupFileAddon01'
+                  onClick={uploadImage}
+                  disabled={addImg.length === 0 ? true : false}
+                  style={{ borderRadius: '5px' }}
+                >
+                  Upload
+                </button>
               </div>
             </Card.Body>
           </Card>
         </Row>
         <Row className='d-flex flex-row justify-content-center mt-3'>
-          <Button
+          {/* <Button
             variant='primary'
             className='m-1'
             style={{ maxWidth: '100px' }}
@@ -369,45 +396,58 @@ export default function NotesDisplay() {
             style={{ maxWidth: '100px' }}
           >
             Delete
-          </Button>
+          </Button> */}
         </Row>
 
         {/* <Notes data={filteredData} /> */}
       </Container>
       {userNotesData.length > 0 ? (
         <div className='row d-flex justify-content-around mt-2 p-0'>
-          <h4
+         
+          {today.length>0?(    <h4
             className='text-decoration-underline'
             style={{ textAlign: 'left' }}
           >
             Today
-          </h4>
+          </h4>):''}
           {today
             ? today.map((item, index) =>
                 item ? (
                   <>
-                    <Modal show={Object.keys(editItem).length > 0}>
-                      <Modal.Header>
+
+                  {/* Delete Modal */}
+                  <Modal show={Object.keys(deleteModal).length > 0}>
+                  <Modal.Header>
                         <Modal.Title>
-                          <textarea
-                            cols='30'
-                            rows='1'
-                            onChange={(e) => setEditTitle(e.target.value)}
-                          >
-                            {editItem.title}
-                          </textarea>
+                         Are you sure that you want to delete this note
                         </Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <textarea
-                          cols='48'
-                          rows='10'
-                          onChange={(e) => setEditContent(e.target.value)}
+                        <Modal.Footer>
+                        <Button
+                          variant='secondary'
+                          onClick={() => setDeleteModal({})}
                         >
-                          {editItem.Content}
-                        </textarea>
-                      </Modal.Body>
-                      <Modal.Footer>
+                          Cancel
+                        </Button>
+                        <Button variant='primary' onClick={Delete}>
+                          Delete
+                        </Button>
+                          </Modal.Footer>
+                    </Modal.Header>
+                    </Modal>
+                    
+                  {/* Edit Modal */}
+                    <Modal show={Object.keys(editItem).length > 0}>
+                    <Modal.Header>
+                        <Modal.Title>
+                            <textarea cols="30" rows="1" onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea>
+                        </Modal.Title>
+                    </Modal.Header>
+                  < Modal.Body>
+                    <textarea cols="48" rows="10" onChange={(e) => setEditContent(e.target.value)}>
+                    {editItem.Content}
+                    </textarea>
+                  </Modal.Body>
+                  <Modal.Footer>
                         <Button
                           variant='secondary'
                           onClick={() => setEditItem({})}
@@ -432,7 +472,7 @@ export default function NotesDisplay() {
                         ></input>
                         <Card.Title>{item.title}</Card.Title>
                         <Card.Text>{item.Content}</Card.Text>
-                        <Card.Link href='#' onClick={() => Delete(item.id)}>
+                        <Card.Link href='#' onClick={() => setDeleteModal({"id":item.id})}>
                           Delete
                         </Card.Link>
                         <Card.Link href='#' onClick={() => setEditItem(item)}>
@@ -446,46 +486,63 @@ export default function NotesDisplay() {
                 )
               )
             : ''}
-          <h4
+            {yesterdayuserNotesData.length>0?(    <h4
             className='text-decoration-underline'
             style={{ textAlign: 'left' }}
           >
             Yesterday
-          </h4>
+          </h4>):''}
+      
           {yesterdayuserNotesData.map((item, index) =>
             item ? (
               <>
-                <Modal show={Object.keys(editItem).length > 0}>
+
+              {/* Delete Modal */}
+                <Modal show={Object.keys(deleteModal).length > 0}>
                   <Modal.Header>
-                    <Modal.Title>
-                      <textarea
-                        cols='30'
-                        rows='1'
-                        onChange={(e) => setEditTitle(e.target.value)}
-                      >
-                        {editItem.title}
-                      </textarea>
-                    </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <textarea
-                      cols='48'
-                      rows='10'
-                      onChange={(e) => setEditContent(e.target.value)}
-                    >
-                      {editItem.Content}
+                        <Modal.Title>
+                         Are you sure that you want to delete this note
+                        </Modal.Title>
+                        <Modal.Footer>
+                        <Button
+                          variant='secondary'
+                          onClick={() => setDeleteModal({})}
+                        >
+                          Cancel
+                        </Button>
+                        <Button variant='primary' onClick={Delete}>
+                          Delete
+                        </Button>
+                          </Modal.Footer>
+                    </Modal.Header>
+                    </Modal>
+
+                    {/* Edit Modal */}
+                <Modal show={Object.keys(editItem).length > 0}>
+                    <Modal.Header>
+                        <Modal.Title>
+                            <textarea cols="30" rows="1" onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea>
+                        </Modal.Title>
+                    </Modal.Header>
+                  < Modal.Body>
+                    <textarea cols="48" rows="10" onChange={(e) => setEditContent(e.target.value)}>
+                    {editItem.Content}
                     </textarea>
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button variant='secondary' onClick={() => setEditItem({})}>
-                      Close
-                    </Button>
+                        <Button
+                          variant='secondary'
+                          onClick={() => setEditItem({})}
+                        >
+                          Close
+                        </Button>
 
-                    <Button variant='primary' onClick={UpdateNote}>
-                      Save changes
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
+                        <Button variant='primary' onClick={UpdateNote}>
+                          Save changes
+                        </Button>
+                    </Modal.Footer>
+                    </Modal>
+
 
                 <Card
                   style={{ width: '18rem', borderRadius: '15px' }}
@@ -498,7 +555,7 @@ export default function NotesDisplay() {
                     ></input>
                     <Card.Title>{item.title}</Card.Title>
                     <Card.Text>{item.Content}</Card.Text>
-                    <Card.Link href='#' onClick={() => Delete(item.id)}>
+                    <Card.Link href='#' onClick={() => setDeleteModal({"id":item.id})}>
                       Delete
                     </Card.Link>
                     <Card.Link href='#' onClick={() => setEditItem(item)}>
@@ -511,46 +568,62 @@ export default function NotesDisplay() {
               ''
             )
           )}
-          <h4
+          
+          {EarlieruserNotesData.length>0?(    <h4
             className='text-decoration-underline'
             style={{ textAlign: 'left' }}
           >
             Earlier Notes
-          </h4>
+          </h4>):''}
           {EarlieruserNotesData.map((item, index) =>
             item ? (
               <>
-                <Modal show={Object.keys(editItem).length > 0}>
+
+              {/* DeleteModal */}
+                <Modal show={Object.keys(deleteModal).length > 0}>
                   <Modal.Header>
-                    <Modal.Title>
-                      <textarea
-                        cols='30'
-                        rows='1'
-                        onChange={(e) => setEditTitle(e.target.value)}
-                      >
-                        {editItem.title}
-                      </textarea>
-                    </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <textarea
-                      cols='48'
-                      rows='10'
-                      onChange={(e) => setEditContent(e.target.value)}
-                    >
-                      {editItem.Content}
+                        <Modal.Title>
+                         Are you sure that you want to delete this note
+                        </Modal.Title>
+                        <Modal.Footer>
+                        <Button
+                          variant='secondary'
+                          onClick={() => setDeleteModal({})}
+                        >
+                          Cancel
+                        </Button>
+                        <Button variant='primary' onClick={Delete}>
+                          Delete
+                        </Button>
+                          </Modal.Footer>
+                    </Modal.Header>
+                    </Modal>
+
+                {/* EditModal */}
+                <Modal show={Object.keys(editItem).length > 0}>
+                    <Modal.Header>
+                        <Modal.Title>
+                            <textarea cols="30" rows="1" onChange={(e) => setEditTitle(e.target.value) }>{editItem.title}</textarea>
+                        </Modal.Title>
+                    </Modal.Header>
+                  < Modal.Body>
+                    <textarea cols="48" rows="10" onChange={(e) => setEditContent(e.target.value)}>
+                    {editItem.Content}
                     </textarea>
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button variant='secondary' onClick={() => setEditItem({})}>
-                      Close
-                    </Button>
+                        <Button
+                          variant='secondary'
+                          onClick={() => setEditItem({})}
+                        >
+                          Close
+                        </Button>
 
-                    <Button variant='primary' onClick={UpdateNote}>
-                      Save changes
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
+                        <Button variant='primary' onClick={UpdateNote}>
+                          Save changes
+                        </Button>
+                    </Modal.Footer>
+                    </Modal>
 
                 <Card
                   style={{ width: '18rem', borderRadius: '15px' }}
@@ -563,7 +636,7 @@ export default function NotesDisplay() {
                     ></input>
                     <Card.Title>{item.title}</Card.Title>
                     <Card.Text>{item.Content}</Card.Text>
-                    <Card.Link href='#' onClick={() => Delete(item.id)}>
+                    <Card.Link href='#' onClick={() => setDeleteModal({"id":item.id})}>
                       Delete
                     </Card.Link>
                     <Card.Link href='#' onClick={() => setEditItem(item)}>

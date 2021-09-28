@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { AuthContext } from "../../context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
+import Logo from '../../assets/iCons/Logo.png';
 
 const Header = () => {
   const auth = getAuth();
@@ -13,13 +14,13 @@ const Header = () => {
       <Container>
         <Navbar.Brand href="#home">
           <img
-            src="https://www.mediaagility.com/wp-content/uploads/2021/09/MediaAgility-logo-4-1.png"
+            src={Logo}
             width="100"
-            height="50"
+            height="100"
             className="d-inline-block align-bottom text-danger"
             alt="Logo"
           />
-          <span className="app-name">iKeep</span>
+          {/* <span className="app-name">iKeep</span> */}
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
