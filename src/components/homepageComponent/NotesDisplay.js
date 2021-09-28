@@ -430,11 +430,11 @@ export default function NotesDisplay() {
                       }}
                       className='m-2 p-0'
                     >
-                      <Card.Body>
-                        <input
-                          type='checkbox'
-                          className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
-                        ></input>
+                      <Card.Body style={{ width: 'auto' }}>
+                        {/* <input
+                      type='checkbox'
+                      className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
+                    ></input> */}
                         <div className='d-flex'>
                           {/* ////////////////////////////// */}
                           {imagesId && (
@@ -453,19 +453,21 @@ export default function NotesDisplay() {
                           <div style={{ marginLeft: '20px' }}>
                             <Card.Title>{item.title}</Card.Title>
                             <Card.Text>{item.Content}</Card.Text>
-                            <Card.Link
-                              href='#'
-                              onClick={() => setDeleteModal({ id: item.id })}
-                            >
-                              Delete
-                            </Card.Link>
-                            <Card.Link
-                              href='#'
-                              onClick={() => setEditItem(item)}
-                            >
-                              Edit
-                            </Card.Link>
                           </div>
+                        </div>
+                        <div
+                          className='d-flex justify-content-around '
+                          style={{ width: '100%' }}
+                        >
+                          <Card.Link
+                            href='#'
+                            onClick={() => setDeleteModal({ id: item.id })}
+                          >
+                            Delete
+                          </Card.Link>
+                          <Card.Link href='#' onClick={() => setEditItem(item)}>
+                            Edit
+                          </Card.Link>
                         </div>
                       </Card.Body>
                     </Card>
@@ -543,18 +545,17 @@ export default function NotesDisplay() {
                 </Modal>
 
                 <Card
-                  style={{ width: 'auto' }}
                   style={{
                     width: 'auto',
                     borderRadius: '15px',
                   }}
                   className='m-2 p-0'
                 >
-                  <Card.Body>
-                    <input
+                  <Card.Body style={{ width: 'auto' }}>
+                    {/* <input
                       type='checkbox'
                       className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
-                    ></input>
+                    ></input> */}
                     <div className='d-flex'>
                       {/* ////////////////////////////// */}
                       {imagesId && (
@@ -573,16 +574,21 @@ export default function NotesDisplay() {
                       <div style={{ marginLeft: '20px' }}>
                         <Card.Title>{item.title}</Card.Title>
                         <Card.Text>{item.Content}</Card.Text>
-                        <Card.Link
-                          href='#'
-                          onClick={() => setDeleteModal({ id: item.id })}
-                        >
-                          Delete
-                        </Card.Link>
-                        <Card.Link href='#' onClick={() => setEditItem(item)}>
-                          Edit
-                        </Card.Link>
                       </div>
+                    </div>
+                    <div
+                      className='d-flex justify-content-around '
+                      style={{ width: '100%' }}
+                    >
+                      <Card.Link
+                        href='#'
+                        onClick={() => setDeleteModal({ id: item.id })}
+                      >
+                        Delete
+                      </Card.Link>
+                      <Card.Link href='#' onClick={() => setEditItem(item)}>
+                        Edit
+                      </Card.Link>
                     </div>
                   </Card.Body>
                 </Card>
@@ -666,10 +672,10 @@ export default function NotesDisplay() {
                   className='m-2 p-0'
                 >
                   <Card.Body style={{ width: 'auto' }}>
-                    <input
+                    {/* <input
                       type='checkbox'
                       className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
-                    ></input>
+                    ></input> */}
                     <div className='d-flex'>
                       {/* ////////////////////////////// */}
                       {imagesId && (
@@ -691,8 +697,8 @@ export default function NotesDisplay() {
                       </div>
                     </div>
                     <div
-                      classname='d-flex justify-content-around'
-                      // style={{ width: 'auto', margin: 'auto' }}
+                      className='d-flex justify-content-around '
+                      style={{ width: '100%' }}
                     >
                       <Card.Link
                         href='#'
