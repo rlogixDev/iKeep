@@ -436,7 +436,7 @@ export default function Signup() {
                 <Col sm={8} className="d-flex justify-content-start">
                   <Button
                     type="submit"
-                    className="m-0"
+                    className=" btn-info  m-0"
                     disabled={loading}
                     onClick={(e) => handleSubmit(e)}
                   >

@@ -60,8 +60,7 @@ export default function InputNote() {
         }}
       >
         <Button
-          className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0 '
-          variant='primary'
+          className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0 btn-info'
           style={{ width: '2.5rem' }}
           onClick={AddNote} 
         >

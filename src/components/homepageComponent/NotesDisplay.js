@@ -513,7 +513,7 @@ export default function NotesDisplay() {
                       Close
                     </Button>
 
-                    <Button variant='primary' onClick={UpdateNote}>
+                    <Button variant='primary' className="btn-info" onClick={UpdateNote}>
                       Save changes
                     </Button>
                   </Modal.Footer>

@@ -30,7 +30,7 @@ const ResetPassword = () => {
             <h3>Rest your Password</h3>
             <div className="row justify-content-start login-row pt-4">
               <div className="col align-self-start pt-1">
-                <div className="form-group">
+                <div className="form-group p-2 ">
                   <label>Email address</label>
                 </div>
               </div>
@@ -53,7 +53,7 @@ const ResetPassword = () => {
                 <button
                   variant="primary"
                   type="button"
-                  className="btn btn-primary btn-lg btn-block"
+                  className="btn btn-info btn-lg btn-block"
                   onClick={(e) => handleSubmit(e)}
                   disabled={!username}
                 >

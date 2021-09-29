@@ -188,7 +188,7 @@ export const Login = () => {
                     }}
                     variant='primary'
                     type='button'
-                    className='btn btn-primary btn-lg btn-block'
+                    className='btn btn-info btn-lg btn-block'
                     onClick={() => otpCheck()}
                   >
                     verify
@@ -203,7 +203,7 @@ export const Login = () => {
               <button
                 variant='primary'
                 type='button'
-                className='btn btn-primary btn-lg btn-block'
+                className='btn btn-info btn-lg btn-block'
                 onClick={(e) => handleSubmit(e)}
                 disabled={!username | !password}
               >
