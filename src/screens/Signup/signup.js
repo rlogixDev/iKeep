@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
-import { Row, Container, Col, Toast } from 'react-bootstrap';
+import { Row, Container, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import './signup.css';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
+  // updatePhoneNumber,
 } from 'firebase/auth';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../../context/AuthContext';
 
 export default function Signup() {
   const history = useHistory();
@@ -21,15 +25,16 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [gender, setGender] = useState('');
+
   const [zip, setZip] = useState('');
   const [state, setState] = useState('');
   const [country, setCountry] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
-
-  const validEmail = new RegExp('@mediaagility.com$');
-
+  const [pincodes, setPincodes] = useState([]);
+  const validEmail = new RegExp('@rlogix.com$');
+  let flag = true;
   // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
 
   const validPassword = new RegExp(
@@ -69,40 +74,61 @@ export default function Signup() {
       validEmail.test(email)
     ) {
       setLoading(true);
-      try {
-        await createUserWithEmailAndPassword(auth, email, password).then(
-          (userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            // ...
-            toast.success('Signup Successful', {
-              autoClose: 5000,
-              hideProgressBar: false,
-              draggable: false,
-              progress: undefined,
-              position: 'top-right',
-              pauseOnHover: true,
-              closeOnClick: true,
-            });
-            history.push('/');
-          }
-        );
-        updateProfile(auth.currentUser, {
-          displayName: name,
-          phoneNumber: String(phone),
-        });
-      } catch (error) {
-        const errorMessage = error.message.slice(22, 42);
-        setError(errorMessage);
-        setLoading(false);
+      ////////local storage///////
+
+      let a = [];
+      a = JSON.parse(localStorage.getItem('session')) || [];
+      let b = a.map((item) => {
+        if (item.Phone === phone) {
+          setError('Mobile Number already exist');
+          setLoading(false);
+          flag = false;
+        } else {
+          flag = true;
+        }
+      });
+      if (flag == true) {
+        ////////local storage///////
+        try {
+          await createUserWithEmailAndPassword(auth, email, password).then(
+            (userCredential) => {
+              // Signed in
+              const user = userCredential.user;
+              // ...
+              toast.success('Account Created', {
+                autoClose: 5000,
+                hideProgressBar: false,
+                draggable: false,
+                progress: undefined,
+                position: 'top-right',
+                pauseOnHover: true,
+                closeOnClick: true,
+              });
+              a.push({ Email: email, Phone: phone });
+              localStorage.setItem('session', JSON.stringify(a));
+              history.push('/');
+            }
+          );
+          updateProfile(auth.currentUser, {
+            displayName: name,
+          });
+          ////////local storage///////
+          // let a = [];
+          // a = JSON.parse(localStorage.getItem('session')) || [];
+          // a.push({ Email: email, Phone: phone });
+          // localStorage.setItem('session', JSON.stringify(a));
+          ////////local storage///////
+        } catch (error) {
+          const errorMessage = error.message.slice(22, 42);
+          setError(errorMessage);
+          setLoading(false);
+        }
       }
+      setLoading(false);
     } else {
       setError('Please fill all the Fields');
     }
   };
-
-  console.log('error', error);
-  console.log('email and apassword', email, password);
 
   return (
     <>
@@ -235,7 +261,7 @@ export default function Signup() {
                           marginBottom: '5px',
                         }}
                       >
-                        *should end with @mediaagility.com
+                        *should end with @rlogix.com
                       </p>
                     )}
                   </Row>

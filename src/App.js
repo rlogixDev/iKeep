@@ -9,6 +9,7 @@ import  AuthProvider from './context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import  ProtectedRoute  from './protected.routes';
 import PublicRoute from './public.routes';
+import ResetPassword from './screens/resetPassword'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
       <Switch>
         <PublicRoute exact path='/' component={Login} />
         <PublicRoute exact path='/signup' component={Signup} />
+        <PublicRoute exact path='/resetPassword' component={ResetPassword} />
         {/* <Route exact path='/homepage' component={HomePage} /> */}
         <ProtectedRoute exact path='/homepage' component={HomePage} />
       </Switch>

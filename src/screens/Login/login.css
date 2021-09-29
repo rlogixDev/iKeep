@@ -18,7 +18,9 @@
 .app-name {
   color: #d4220e;
   font-weight: 600;
+  float: right;
   padding-left: 0.3em;
+  padding-top: 2em;
 }
 
 .link {
