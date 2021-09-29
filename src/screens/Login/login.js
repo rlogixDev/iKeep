@@ -84,7 +84,8 @@ export const Login = () => {
     console.log('createOtp');
   };
 
-  function handleGoogleSignIn() {
+  function handleGoogleSignIn(e) {
+    e.preventDefault();
     const provider = new GoogleAuthProvider();
     // signInWithRedirect(auth, provider);
     signInWithPopup(auth, provider)
@@ -219,9 +220,8 @@ export const Login = () => {
             <div>
               <button
                 variant='primary'
-                type='submit'
                 className='btn btn-light btn-md pr-10'
-                onClick={() => handleGoogleSignIn()}
+                onClick={(e) => handleGoogleSignIn(e)}
               >
                 <img
                   src='https://e7.pngegg.com/pngimages/114/607/png-clipart-g-suite-pearl-river-middle-school-google-software-suite-email-sign-up-button-text-logo-thumbnail.png'
