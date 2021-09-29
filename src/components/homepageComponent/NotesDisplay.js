@@ -276,6 +276,22 @@ export default function NotesDisplay() {
                 onChange={(e) => setSearch(e.target.value)}
                 style={{ maxWidth: '500px' }}
               />
+              <Dropdown style={{ margin: '0px 10px' }} as={ButtonGroup}>
+                <Button variant='outline-info'>Sort</Button>
+
+                <Dropdown.Toggle
+                  split
+                  variant='outline-info'
+                  id='dropdown-split-basic'
+                />
+
+                <Dropdown.Menu>
+                  <Dropdown.Item href='#/action-1'>Date Wise</Dropdown.Item>
+                  <Dropdown.Item href='#/action-2'>
+                    Alphabetical Wise
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </Form>
           </div>
         </Row>
