@@ -8,6 +8,11 @@ const Header = () => {
   const auth = getAuth();
   const { activeUser } = useContext(AuthContext);
   console.log('User present in head', activeUser);
+  // const [activeUserName, setactiveUserName] = useState();
+  // useEffect(() => {
+    
+  //   // activeUser?.length?setactiveUserName(activeUser.displayName):''
+  // }, activeUser);
 
   return (
     <Navbar collapseOnSelect expand='lg' bg='light' variant='light'>
@@ -27,7 +32,7 @@ const Header = () => {
           <Navbar.Text>
             {activeUser && (
               <p className='m-0 font-weight-bold'>
-                Welcome: {activeUser.displayName}{' '}
+                Welcome: {activeUser?.displayName}
               </p>
             )}
           </Navbar.Text>

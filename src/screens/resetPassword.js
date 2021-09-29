@@ -1,13 +1,27 @@
 import React from "react";
 import { useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { toast } from 'react-toastify';
+
 
 const ResetPassword = () => {
   const [username, setUserName] = useState();
+  const auth = getAuth();
   const handleSubmit = (e, currentUser) => {
     e.preventDefault();
-    console.log("reset password");
+    sendPasswordResetEmail(auth, username)
+      .then(() => {
+        // Password reset email sent!
+        toast.success('Password reset email sent!');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        toast.error(errorMessage);
+      });
   };
+
   return (
     <div>
       <div>
@@ -16,7 +30,7 @@ const ResetPassword = () => {
             <h3>Rest your Password</h3>
             <div className="row justify-content-start login-row pt-4">
               <div className="col align-self-start pt-1">
-                <div className="form-group p-2 ">
+                <div className="form-group">
                   <label>Email address</label>
                 </div>
               </div>
@@ -34,7 +48,6 @@ const ResetPassword = () => {
               </div>
             </div>
 
-
             <div id="login-buttons" className="row justify-content-center">
               <div>
                 <button
@@ -49,7 +62,7 @@ const ResetPassword = () => {
                 </button>
               </div>
               <p className="link">
-               Login now.. <Link to="/">Login</Link>
+                Login now.. <Link to="/">Login</Link>
               </p>
             </div>
           </form>
