@@ -32,7 +32,6 @@ export default function NotesDisplay() {
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
   const [deleteModal, setDeleteModal] = useState({});
-  console.log('uid', uid);
 
   function compare(a, b) {
     // Use toUpperCase() to ignore character casing
@@ -51,12 +50,6 @@ export default function NotesDisplay() {
   const UpdateNote = () => {
     const title = editTitle ? editTitle : editItem.title;
     const Content = editContent ? editContent : editItem.Content;
-    console.log(title);
-    console.log(Content);
-    console.log(editItem.Email);
-    console.log(editItem.id);
-    console.log(editItem.Date);
-    console.log(uid);
     const userId = editItem.id;
 
     const updatedNote = {
@@ -75,9 +68,7 @@ export default function NotesDisplay() {
           '.json',
         updatedNote
       )
-      .then(
-        () => (console.log('Updated Successfully'), setNewNote(updatedNote))
-      )
+      .then(() => setNewNote(updatedNote))
       .catch(() => console.log('Error'));
     setEditItem({});
   };
@@ -95,18 +86,21 @@ export default function NotesDisplay() {
   };
 
   const AddNote = () => {
-    console.log('addnotes akejofeojfoejfoefjoj');
     const db = getDatabase();
     const id = Math.round(Math.random() * 100);
+    console.log(Date(Date.now).toString());
+  //  console.log ("add img",imagesId!=''?imagesId:'')
+  console.log ("add img",imagesId?imagesId:'')
+  
     set(ref(db, 'notes/' + activeUser.uid + '/' + id), {
       id: id,
       title: title,
       Content: Content,
       Email: activeUser.email,
-      Date: Date(Date.now).toString().substr(0, 15),
+      Date: Date(Date.now).toString().substr(0, 24),
+      img: (imagesId!=''?imagesId:'')
     })
       .then(
-        () => console.log('Added successfully'),
         setNewNote({
           id: id,
           title: title,
@@ -114,9 +108,9 @@ export default function NotesDisplay() {
           Email: activeUser,
           Date: Date(Date.now).toString().substr(0, 15),
         })
-        // console.log('newNote', newNote);
       )
       .then(() => {
+        UpdateNewNote();
         setTitle('');
         setContent('');
         setAddImg('');
@@ -125,17 +119,21 @@ export default function NotesDisplay() {
   };
 
   const uploadImage = async () => {
-    const formData = new FormData();
-    formData.append('file', addImg);
-    formData.append('upload_preset', 'lmx0ng0b');
-    await axios
-      .post('https://api.cloudinary.com/v1_1/adarsh022/image/upload', formData)
-      .then((res) => {
-        setImagesId([...imagesId, res.data.url]);
-        console.log('imagesId', imagesId);
-        console.log('res', res.data.url);
-      })
-      .then(() => AddNote());
+    if (addImg) {
+      const formData = new FormData();
+      formData.append('file', addImg);
+      formData.append('upload_preset', 'lmx0ng0b');
+      await axios
+        .post(
+          'https://api.cloudinary.com/v1_1/adarsh022/image/upload',
+          formData
+        )
+        .then((res) => {
+          setImagesId(res.data.url);
+        });
+    }
+    AddNote();
+    console.log(imagesId);
   };
 
   const delImage = (index) => {
@@ -152,15 +150,11 @@ export default function NotesDisplay() {
           id +
           '.json'
       )
-      .then(
-        () => (
-          console.log('deleted Successfully'), setNewNote({ delete: true })
-        )
-      )
+      .then(() => setNewNote({ delete: true }))
       .catch(() => console.log('Error Occurred'));
     setDeleteModal({});
   };
-  console.log(addImg);
+
   useEffect(() => {
     axios
       .get(
@@ -179,16 +173,13 @@ export default function NotesDisplay() {
   //       .then((res) => setData(res.data));
   //   }, []);
 
-  console.log('data', data);
   let userNotes = [];
   let a = data
     ? Object.keys(data).map((item) => userNotes.push(data[item]))
     : '';
-  console.log('userNotes', userNotes);
   userNotes.sort(compare);
 
   const [filteredData, setFilteredData] = useState(userNotes);
-  console.log(searchText);
 
   useEffect(() => {
     const lowercasedValue = searchText?.toLowerCase().trim();
@@ -199,7 +190,6 @@ export default function NotesDisplay() {
           ? item.title.includes(searchText) || item.Content.includes(searchText)
           : ''
       );
-      console.log('filteredData', filteredData);
       setFilteredData(filteredData);
     }
   }, [searchText]);
@@ -215,8 +205,6 @@ export default function NotesDisplay() {
       <p>No results found..</p>
     );
   }
-
-  console.log('Notes userNotesData', userNotesData);
 
   var days = [
     'Sunday',
@@ -272,7 +260,6 @@ export default function NotesDisplay() {
           : ''
       )
     : '';
-  console.log('yesterday', yesterday);
   return (
     <>
       <Container>
@@ -333,22 +320,7 @@ export default function NotesDisplay() {
                   onChange={(e) => setContent(e.target.value)}
                 />
               </Form.Group>
-              {/* <div>
-                {imagesId.length > 0
-                  ? imagesId.map((item) => (
-                      <div>
-                        <Image
-                          style={{
-                            maxWidth: '100px',
-                          }}
-                          onClick={() => delImage(item)}
-                          cloudName='adarsh022'
-                          publicId={item}
-                        />
-                      </div>
-                    ))
-                  : ''}
-              </div> */}
+
               <div
                 className='d-flex justify-content-between input-group'
                 style={{ backgroundColor: '#ffff' }}
@@ -439,25 +411,49 @@ export default function NotesDisplay() {
                     </Modal>
 
                     <Card
-                      style={{ width: '18rem', borderRadius: '15px' }}
-                      className='m-2'
+                      style={{
+                        width: 'auto',
+                        borderRadius: '15px',
+                      }}
+                      className='m-2 p-0'
                     >
-                      <Card.Body>
-                        <input
-                          type='checkbox'
-                          className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
-                        ></input>
-                        <Card.Title>{item.title}</Card.Title>
-                        <Card.Text>{item.Content}</Card.Text>
-                        <Card.Link
-                          href='#'
-                          onClick={() => setDeleteModal({ id: item.id })}
+                      {console.log("img",item.img?item.img:'')}
+                      <Card.Body style={{ width: 'auto' }}>
+                        <div className='d-flex'>
+                          {console.log("item",item)}
+                          {item.img && (
+                            <div>
+                              {console.log(item.img)}
+                              <Image
+                                style={{
+                                  maxWidth: '100px',
+                                }}
+                                onClick={() => delImage(item)}
+                                cloudName='adarsh022'
+                                publicId={item.img}
+                              />
+                              {console.log("item.img",item.img)}
+                            </div>
+                          )}
+                          <div style={{ marginLeft: '20px' }}>
+                            <Card.Title>{item.title}</Card.Title>
+                            <Card.Text>{item.Content}</Card.Text>
+                          </div>
+                        </div>
+                        <div
+                          className='d-flex justify-content-around '
+                          style={{ width: '100%' }}
                         >
-                          Delete
-                        </Card.Link>
-                        <Card.Link href='#' onClick={() => setEditItem(item)}>
-                          Edit
-                        </Card.Link>
+                          <Card.Link
+                            href='#'
+                            onClick={() => setDeleteModal({ id: item.id })}
+                          >
+                            Delete
+                          </Card.Link>
+                          <Card.Link href='#' onClick={() => setEditItem(item)}>
+                            Edit
+                          </Card.Link>
+                        </div>
                       </Card.Body>
                     </Card>
                   </>
@@ -534,25 +530,45 @@ export default function NotesDisplay() {
                 </Modal>
 
                 <Card
-                  style={{ width: '18rem', borderRadius: '15px' }}
-                  className='m-2'
+                  style={{
+                    width: 'auto',
+                    borderRadius: '15px',
+                  }}
+                  className='m-2 p-0'
                 >
-                  <Card.Body>
-                    <input
-                      type='checkbox'
-                      className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
-                    ></input>
-                    <Card.Title>{item.title}</Card.Title>
-                    <Card.Text>{item.Content}</Card.Text>
-                    <Card.Link
-                      href='#'
-                      onClick={() => setDeleteModal({ id: item.id })}
+                  <Card.Body style={{ width: 'auto' }}>
+                    <div className='d-flex'>
+                      {imagesId && (
+                        <div>
+                          <Image
+                            style={{
+                              maxWidth: '100px',
+                            }}
+                            onClick={() => delImage(item)}
+                            cloudName='adarsh022'
+                            publicId='http://res.cloudinary.com/adarsh022/image/upload/v1632822910/iKeep/ntbl13xecgkutcljkkjo.png'
+                          />
+                        </div>
+                      )}
+                      <div style={{ marginLeft: '20px' }}>
+                        <Card.Title>{item.title}</Card.Title>
+                        <Card.Text>{item.Content}</Card.Text>
+                      </div>
+                    </div>
+                    <div
+                      className='d-flex justify-content-around '
+                      style={{ width: '100%' }}
                     >
-                      Delete
-                    </Card.Link>
-                    <Card.Link href='#' onClick={() => setEditItem(item)}>
-                      Edit
-                    </Card.Link>
+                      <Card.Link
+                        href='#'
+                        onClick={() => setDeleteModal({ id: item.id })}
+                      >
+                        Delete
+                      </Card.Link>
+                      <Card.Link href='#' onClick={() => setEditItem(item)}>
+                        Edit
+                      </Card.Link>
+                    </div>
                   </Card.Body>
                 </Card>
               </>
@@ -628,25 +644,45 @@ export default function NotesDisplay() {
                 </Modal>
 
                 <Card
-                  style={{ width: '18rem', borderRadius: '15px' }}
-                  className='m-2'
+                  style={{
+                    width: 'auto',
+                    borderRadius: '15px',
+                  }}
+                  className='m-2 p-0'
                 >
-                  <Card.Body>
-                    <input
-                      type='checkbox'
-                      className='position-absolute top-0 start-100 translate-middle rounded-circle p-0 border-0'
-                    ></input>
-                    <Card.Title>{item.title}</Card.Title>
-                    <Card.Text>{item.Content}</Card.Text>
-                    <Card.Link
-                      href='#'
-                      onClick={() => setDeleteModal({ id: item.id })}
+                  <Card.Body style={{ width: 'auto' }}>
+                    <div className='d-flex'>
+                      {imagesId && (
+                        <div>
+                          <Image
+                            style={{
+                              maxWidth: '100px',
+                            }}
+                            onClick={() => delImage(item)}
+                            cloudName='adarsh022'
+                            publicId='http://res.cloudinary.com/adarsh022/image/upload/v1632822910/iKeep/ntbl13xecgkutcljkkjo.png'
+                          />
+                        </div>
+                      )}
+                      <div style={{ marginLeft: '20px' }}>
+                        <Card.Title>{item.title}</Card.Title>
+                        <Card.Text>{item.Content}</Card.Text>
+                      </div>
+                    </div>
+                    <div
+                      className='d-flex justify-content-around '
+                      style={{ width: '100%' }}
                     >
-                      Delete
-                    </Card.Link>
-                    <Card.Link href='#' onClick={() => setEditItem(item)}>
-                      Edit
-                    </Card.Link>
+                      <Card.Link
+                        href='#'
+                        onClick={() => setDeleteModal({ id: item.id })}
+                      >
+                        Delete
+                      </Card.Link>
+                      <Card.Link href='#' onClick={() => setEditItem(item)}>
+                        Edit
+                      </Card.Link>
+                    </div>
                   </Card.Body>
                 </Card>
               </>
