@@ -32,6 +32,7 @@ export default function NotesDisplay() {
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
   const [deleteModal, setDeleteModal] = useState({});
+  const [delImg, setDelImg] = useState(false);
   let imagesId = '';
 
   function compare(a, b) {
@@ -59,7 +60,7 @@ export default function NotesDisplay() {
       Content: Content,
       Email: editItem.Email,
       Date: editItem.Date,
-      img: editItem.img,
+      img: delImg ? '' : editItem.img,
     };
     axios
       .put(
@@ -73,6 +74,7 @@ export default function NotesDisplay() {
       .then(() => setNewNote(updatedNote))
       .catch(() => console.log('Error'));
     setEditItem({});
+    setDelImg(false);
   };
 
   const UpdateNewNote = () => {
@@ -372,18 +374,28 @@ export default function NotesDisplay() {
                     {/* Edit Modal */}
                     <Modal show={Object.keys(editItem).length > 0}>
                       <Modal.Header>
-                        <Modal.Title>
-                          <textarea
-                            cols='30'
-                            rows='1'
+                        <Modal.Title style={{ width: '100%' }}>
+                          <input
+                            style={{ width: '100%' }}
+                            value={editItem.title}
                             onChange={(e) => setEditTitle(e.target.value)}
-                          >
-                            {editItem.title}
-                          </textarea>
+                          ></input>
                         </Modal.Title>
                       </Modal.Header>
+                      {editItem.img && (
+                        <div className='d-flex justify-content-center align-item-center'>
+                          <Image
+                            style={{
+                              maxWidth: '300px',
+                            }}
+                            cloudName='adarsh022'
+                            publicId={editItem.img}
+                          />
+                        </div>
+                      )}
                       <Modal.Body>
                         <textarea
+                          style={{ width: '100%' }}
                           cols='48'
                           rows='10'
                           onChange={(e) => setEditContent(e.target.value)}
@@ -391,6 +403,7 @@ export default function NotesDisplay() {
                           {editItem.Content}
                         </textarea>
                       </Modal.Body>
+
                       <Modal.Footer>
                         <Button
                           variant='secondary'
@@ -398,7 +411,14 @@ export default function NotesDisplay() {
                         >
                           Close
                         </Button>
-
+                        {editItem.img && (
+                          <Button
+                            variant={!delImg ? 'secondary' : 'info'}
+                            onClick={() => setDelImg(!delImg)}
+                          >
+                            Delete Image
+                          </Button>
+                        )}
                         <Button variant='primary' onClick={UpdateNote}>
                           Save changes
                         </Button>
@@ -412,37 +432,47 @@ export default function NotesDisplay() {
                       }}
                       className='m-2 p-0'
                     >
-                      <Card.Body style={{ width: 'auto' }}>
-                        <div className='d-flex'>
-                          {item.img && (
-                            <div>
-                              <Image
-                                style={{
-                                  maxWidth: '100px',
-                                }}
-                                cloudName='adarsh022'
-                                publicId={item.img}
-                              />
-                            </div>
-                          )}
-                          <div style={{ marginLeft: '20px' }}>
-                            <Card.Title>{item.title}</Card.Title>
-                            <Card.Text>{item.Content}</Card.Text>
+                      <Card.Body className='d-flex' style={{ width: 'auto' }}>
+                        {item.img && (
+                          <div>
+                            <Image
+                              style={{
+                                maxWidth: '150px',
+                              }}
+                              cloudName='adarsh022'
+                              publicId={item.img}
+                            />
                           </div>
-                        </div>
-                        <div
-                          className='d-flex justify-content-around '
-                          style={{ width: '100%' }}
-                        >
-                          <Card.Link
-                            href='#'
-                            onClick={() => setDeleteModal({ id: item.id })}
+                        )}
+                        <div className='d-flex row justify-content-between align-item-center'>
+                          <div
+                            className=' text-center'
+                            // style={{ marginLeft: '20px' }}
                           >
-                            Delete
-                          </Card.Link>
-                          <Card.Link href='#' onClick={() => setEditItem(item)}>
-                            Edit
-                          </Card.Link>
+                            <Card.Title className='p-0'>
+                              {item.title}
+                            </Card.Title>
+                            <Card.Text className='p-0'>
+                              {item.Content}
+                            </Card.Text>
+                          </div>
+                          <div
+                            className='d-flex justify-content-around '
+                            style={{ width: '100%' }}
+                          >
+                            <Card.Link
+                              href='#'
+                              onClick={() => setDeleteModal({ id: item.id })}
+                            >
+                              Delete
+                            </Card.Link>
+                            <Card.Link
+                              href='#'
+                              onClick={() => setEditItem(item)}
+                            >
+                              Edit
+                            </Card.Link>
+                          </div>
                         </div>
                       </Card.Body>
                     </Card>
@@ -489,18 +519,28 @@ export default function NotesDisplay() {
                 {/* Edit Modal */}
                 <Modal show={Object.keys(editItem).length > 0}>
                   <Modal.Header>
-                    <Modal.Title>
-                      <textarea
-                        cols='30'
-                        rows='1'
+                    <Modal.Title style={{ width: '100%' }}>
+                      <input
+                        style={{ width: '100%' }}
+                        value={editItem.title}
                         onChange={(e) => setEditTitle(e.target.value)}
-                      >
-                        {editItem.title}
-                      </textarea>
+                      ></input>
                     </Modal.Title>
                   </Modal.Header>
+                  {editItem.img && (
+                    <div className='d-flex justify-content-center align-item-center'>
+                      <Image
+                        style={{
+                          maxWidth: '300px',
+                        }}
+                        cloudName='adarsh022'
+                        publicId={editItem.img}
+                      />
+                    </div>
+                  )}
                   <Modal.Body>
                     <textarea
+                      style={{ width: '100%' }}
                       cols='48'
                       rows='10'
                       onChange={(e) => setEditContent(e.target.value)}
@@ -508,11 +548,19 @@ export default function NotesDisplay() {
                       {editItem.Content}
                     </textarea>
                   </Modal.Body>
+
                   <Modal.Footer>
                     <Button variant='secondary' onClick={() => setEditItem({})}>
                       Close
                     </Button>
-
+                    {editItem.img && (
+                      <Button
+                        variant={!delImg ? 'secondary' : 'info'}
+                        onClick={() => setDelImg(!delImg)}
+                      >
+                        Delete Image
+                      </Button>
+                    )}
                     <Button variant='primary' onClick={UpdateNote}>
                       Save changes
                     </Button>
@@ -526,37 +574,40 @@ export default function NotesDisplay() {
                   }}
                   className='m-2 p-0'
                 >
-                  <Card.Body style={{ width: 'auto' }}>
-                    <div className='d-flex'>
-                      {item.img && (
-                        <div>
-                          <Image
-                            style={{
-                              maxWidth: '100px',
-                            }}
-                            cloudName='adarsh022'
-                            publicId={item.img}
-                          />
-                        </div>
-                      )}
-                      <div style={{ marginLeft: '20px' }}>
-                        <Card.Title>{item.title}</Card.Title>
-                        <Card.Text>{item.Content}</Card.Text>
+                  <Card.Body className='d-flex' style={{ width: 'auto' }}>
+                    {item.img && (
+                      <div>
+                        <Image
+                          style={{
+                            maxWidth: '150px',
+                          }}
+                          cloudName='adarsh022'
+                          publicId={item.img}
+                        />
                       </div>
-                    </div>
-                    <div
-                      className='d-flex justify-content-around '
-                      style={{ width: '100%' }}
-                    >
-                      <Card.Link
-                        href='#'
-                        onClick={() => setDeleteModal({ id: item.id })}
+                    )}
+                    <div className='d-flex row justify-content-between align-item-center'>
+                      <div
+                        className=' text-center'
+                        // style={{ marginLeft: '20px' }}
                       >
-                        Delete
-                      </Card.Link>
-                      <Card.Link href='#' onClick={() => setEditItem(item)}>
-                        Edit
-                      </Card.Link>
+                        <Card.Title className='p-0'>{item.title}</Card.Title>
+                        <Card.Text className='p-0'>{item.Content}</Card.Text>
+                      </div>
+                      <div
+                        className='d-flex justify-content-around '
+                        style={{ width: '100%' }}
+                      >
+                        <Card.Link
+                          href='#'
+                          onClick={() => setDeleteModal({ id: item.id })}
+                        >
+                          Delete
+                        </Card.Link>
+                        <Card.Link href='#' onClick={() => setEditItem(item)}>
+                          Edit
+                        </Card.Link>
+                      </div>
                     </div>
                   </Card.Body>
                 </Card>
@@ -602,18 +653,28 @@ export default function NotesDisplay() {
                 {/* EditModal */}
                 <Modal show={Object.keys(editItem).length > 0}>
                   <Modal.Header>
-                    <Modal.Title>
-                      <textarea
-                        cols='30'
-                        rows='1'
+                    <Modal.Title style={{ width: '100%' }}>
+                      <input
+                        style={{ width: '100%' }}
+                        value={editItem.title}
                         onChange={(e) => setEditTitle(e.target.value)}
-                      >
-                        {editItem.title}
-                      </textarea>
+                      ></input>
                     </Modal.Title>
                   </Modal.Header>
+                  {editItem.img && (
+                    <div className='d-flex justify-content-center align-item-center'>
+                      <Image
+                        style={{
+                          maxWidth: '300px',
+                        }}
+                        cloudName='adarsh022'
+                        publicId={editItem.img}
+                      />
+                    </div>
+                  )}
                   <Modal.Body>
                     <textarea
+                      style={{ width: '100%' }}
                       cols='48'
                       rows='10'
                       onChange={(e) => setEditContent(e.target.value)}
@@ -621,10 +682,19 @@ export default function NotesDisplay() {
                       {editItem.Content}
                     </textarea>
                   </Modal.Body>
+
                   <Modal.Footer>
                     <Button variant='secondary' onClick={() => setEditItem({})}>
                       Close
                     </Button>
+                    {editItem.img && (
+                      <Button
+                        variant={!delImg ? 'secondary' : 'info'}
+                        onClick={() => setDelImg(!delImg)}
+                      >
+                        Delete Image
+                      </Button>
+                    )}
 
                     <Button variant='primary' onClick={UpdateNote}>
                       Save changes
@@ -639,37 +709,40 @@ export default function NotesDisplay() {
                   }}
                   className='m-2 p-0'
                 >
-                  <Card.Body style={{ width: 'auto' }}>
-                    <div className='d-flex'>
-                      {item.img && (
-                        <div>
-                          <Image
-                            style={{
-                              maxWidth: '100px',
-                            }}
-                            cloudName='adarsh022'
-                            publicId={item.img}
-                          />
-                        </div>
-                      )}
-                      <div style={{ marginLeft: '20px' }}>
-                        <Card.Title>{item.title}</Card.Title>
-                        <Card.Text>{item.Content}</Card.Text>
+                  <Card.Body className='d-flex' style={{ width: 'auto' }}>
+                    {item.img && (
+                      <div>
+                        <Image
+                          style={{
+                            maxWidth: '150px',
+                          }}
+                          cloudName='adarsh022'
+                          publicId={item.img}
+                        />
                       </div>
-                    </div>
-                    <div
-                      className='d-flex justify-content-around '
-                      style={{ width: '100%' }}
-                    >
-                      <Card.Link
-                        href='#'
-                        onClick={() => setDeleteModal({ id: item.id })}
+                    )}
+                    <div className='d-flex row justify-content-between align-item-center'>
+                      <div
+                        className=' text-center'
+                        // style={{ marginLeft: '20px' }}
                       >
-                        Delete
-                      </Card.Link>
-                      <Card.Link href='#' onClick={() => setEditItem(item)}>
-                        Edit
-                      </Card.Link>
+                        <Card.Title className='p-0'>{item.title}</Card.Title>
+                        <Card.Text className='p-0'>{item.Content}</Card.Text>
+                      </div>
+                      <div
+                        className='d-flex justify-content-around '
+                        style={{ width: '100%' }}
+                      >
+                        <Card.Link
+                          href='#'
+                          onClick={() => setDeleteModal({ id: item.id })}
+                        >
+                          Delete
+                        </Card.Link>
+                        <Card.Link href='#' onClick={() => setEditItem(item)}>
+                          Edit
+                        </Card.Link>
+                      </div>
                     </div>
                   </Card.Body>
                 </Card>
