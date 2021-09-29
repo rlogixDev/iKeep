@@ -33,20 +33,33 @@ export default function NotesDisplay() {
   const [editContent, setEditContent] = useState('');
   const [deleteModal, setDeleteModal] = useState({});
   const [delImg, setDelImg] = useState(false);
+  const [sort,setSort] =useState(false);
   let imagesId = '';
 
   function compare(a, b) {
-    // Use toUpperCase() to ignore character casing
-    const DateA = a.Date;
-    const DateB = b.Date;
 
-    let comparison = 0;
-    if (DateA < DateB) {
+    if(sort)
+    {
+      let ContentA = a.title.toUpperCase();
+      let ContentB = b.title.toUpperCase();
+    return (ContentA < ContentB) ? -1 : (ContentA > ContentB) ? 1 : 0;
+    } 
+    
+    else
+    {
+      const DateA = a.Date;
+      const DateB = b.Date;
+
+      let comparison = 0;
+      if (DateA < DateB) {
       comparison = 1;
-    } else if (DateA > DateB) {
+      } else if (DateA > DateB) {
       comparison = -1;
     }
     return comparison;
+  }   // Use toUpperCase() to ignore character casing
+    
+   
   }
 
   const UpdateNote = () => {
@@ -277,7 +290,7 @@ export default function NotesDisplay() {
                 style={{ maxWidth: '500px' }}
               />
               <Dropdown style={{ margin: '0px 10px' }} as={ButtonGroup}>
-                <Button variant='outline-info'>Sort</Button>
+                <Button variant='outline-info'>{sort?  'Alphabetical Wise':'Date Wise' }</Button>
 
                 <Dropdown.Toggle
                   split
@@ -286,12 +299,13 @@ export default function NotesDisplay() {
                 />
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href='#/action-1'>Date Wise</Dropdown.Item>
-                  <Dropdown.Item href='#/action-2'>
+                  <Dropdown.Item href='#/action-1' onClick={() => setSort(false)}>Date Wise</Dropdown.Item>
+                  <Dropdown.Item href='#/action-2' onClick={() => setSort(true)}>
                     Alphabetical Wise
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
+              {console.log("sort",sort)}
             </Form>
           </div>
         </Row>
