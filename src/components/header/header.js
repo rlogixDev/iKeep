@@ -10,7 +10,7 @@ const Header = () => {
   console.log('User present in head', activeUser);
   // const [activeUserName, setactiveUserName] = useState();
   // useEffect(() => {
-    
+
   //   // activeUser?.length?setactiveUserName(activeUser.displayName):''
   // }, activeUser);
 

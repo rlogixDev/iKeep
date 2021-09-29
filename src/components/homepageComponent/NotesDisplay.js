@@ -59,6 +59,7 @@ export default function NotesDisplay() {
       Content: Content,
       Email: editItem.Email,
       Date: editItem.Date,
+      img: editItem.img,
     };
     axios
       .put(
