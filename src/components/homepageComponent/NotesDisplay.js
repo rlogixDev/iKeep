@@ -28,10 +28,11 @@ export default function NotesDisplay() {
   const [editItem, setEditItem] = useState({});
   let userNotesData = [];
   const [addImg, setAddImg] = useState('');
-  const [imagesId, setImagesId] = useState([]);
+  // const [imagesId, setImagesId] = useState('');
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
   const [deleteModal, setDeleteModal] = useState({});
+  let imagesId = '';
 
   function compare(a, b) {
     // Use toUpperCase() to ignore character casing
@@ -88,17 +89,14 @@ export default function NotesDisplay() {
   const AddNote = () => {
     const db = getDatabase();
     const id = Math.round(Math.random() * 100);
-    console.log(Date(Date.now).toString());
-  //  console.log ("add img",imagesId!=''?imagesId:'')
-  console.log ("add img",imagesId?imagesId:'')
-  
+
     set(ref(db, 'notes/' + activeUser.uid + '/' + id), {
       id: id,
       title: title,
       Content: Content,
       Email: activeUser.email,
       Date: Date(Date.now).toString().substr(0, 24),
-      img: (imagesId!=''?imagesId:'')
+      img: imagesId ? imagesId : '',
     })
       .then(
         setNewNote({
@@ -114,6 +112,7 @@ export default function NotesDisplay() {
         setTitle('');
         setContent('');
         setAddImg('');
+        imagesId = '';
       })
       .catch(() => console.log('Error'));
   };
@@ -129,15 +128,10 @@ export default function NotesDisplay() {
           formData
         )
         .then((res) => {
-          setImagesId(res.data.url);
+          imagesId = res.data.url;
         });
     }
     AddNote();
-    console.log(imagesId);
-  };
-
-  const delImage = (index) => {
-    setImagesId(imagesId.filter((item) => item != index));
   };
 
   const Delete = () => {
@@ -417,22 +411,17 @@ export default function NotesDisplay() {
                       }}
                       className='m-2 p-0'
                     >
-                      {console.log("img",item.img?item.img:'')}
                       <Card.Body style={{ width: 'auto' }}>
                         <div className='d-flex'>
-                          {console.log("item",item)}
                           {item.img && (
                             <div>
-                              {console.log(item.img)}
                               <Image
                                 style={{
                                   maxWidth: '100px',
                                 }}
-                                onClick={() => delImage(item)}
                                 cloudName='adarsh022'
                                 publicId={item.img}
                               />
-                              {console.log("item.img",item.img)}
                             </div>
                           )}
                           <div style={{ marginLeft: '20px' }}>
@@ -538,15 +527,14 @@ export default function NotesDisplay() {
                 >
                   <Card.Body style={{ width: 'auto' }}>
                     <div className='d-flex'>
-                      {imagesId && (
+                      {item.img && (
                         <div>
                           <Image
                             style={{
                               maxWidth: '100px',
                             }}
-                            onClick={() => delImage(item)}
                             cloudName='adarsh022'
-                            publicId='http://res.cloudinary.com/adarsh022/image/upload/v1632822910/iKeep/ntbl13xecgkutcljkkjo.png'
+                            publicId={item.img}
                           />
                         </div>
                       )}
@@ -652,15 +640,14 @@ export default function NotesDisplay() {
                 >
                   <Card.Body style={{ width: 'auto' }}>
                     <div className='d-flex'>
-                      {imagesId && (
+                      {item.img && (
                         <div>
                           <Image
                             style={{
                               maxWidth: '100px',
                             }}
-                            onClick={() => delImage(item)}
                             cloudName='adarsh022'
-                            publicId='http://res.cloudinary.com/adarsh022/image/upload/v1632822910/iKeep/ntbl13xecgkutcljkkjo.png'
+                            publicId={item.img}
                           />
                         </div>
                       )}
