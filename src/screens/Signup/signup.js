@@ -167,8 +167,8 @@ export default function Signup() {
                 <Col sm="1">
                   <img
                     src={user}
-                    width="40"
-                    height="40"
+                    width="30"
+                    height="30"
                     className="d-inline-block align-bottom text-danger"
                     alt="Logo"
                   />
@@ -210,8 +210,8 @@ export default function Signup() {
                 <Col sm="1">
                   <img
                     src={passwordimg}
-                    width="40"
-                    height="40"
+                    width="30"
+                    height="30"
                     className="d-inline-block align-bottom text-danger"
                     alt="Logo"
                   />
@@ -255,8 +255,8 @@ export default function Signup() {
                 <Col sm="1">
                   <img
                     src={mobile}
-                    width="40"
-                    height="40"
+                    width="30"
+                    height="30"
                     className="d-inline-block align-bottom text-danger"
                     alt="Logo"
                   />
@@ -300,8 +300,8 @@ export default function Signup() {
                 <Col sm="1">
                   <img
                     src={mailimg}
-                    width="40"
-                    height="40"
+                    width="30"
+                    height="30"
                     className="d-inline-block align-bottom text-danger"
                     alt="Logo"
                   />
@@ -336,10 +336,13 @@ export default function Signup() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Row className="justify-content-center">
-                <Col sm="4">
+              <Row>
+              <Col className="justify-content-center" sm="4">
+         
                   <Form.Label>Gender</Form.Label>
+              
                 </Col>
+                <Col className="d-flex">
                 <Col sm='2'>
                   <Form.Check
                     type='radio'
@@ -349,7 +352,7 @@ export default function Signup() {
                     onChange={(e) => setGender(e.target.value)}
                   />
                 </Col>
-                <Col sm='3'>
+                <Col sm='2  '>
                   <Form.Check
                     type='radio'
                     name='Gender'
@@ -358,7 +361,7 @@ export default function Signup() {
                     onChange={(e) => setGender(e.target.value)}
                   />
                 </Col>
-                <Col sm='3'>
+                <Col sm='2'>
                   <Form.Check
                     type='radio'
                     name='Gender'
@@ -367,6 +370,7 @@ export default function Signup() {
                     onChange={(e) => setGender(e.target.value)}
                   />
                 </Col>
+              </Col>
               </Row>
             </Form.Group>
             <Form.Group className="mb-3">
@@ -378,8 +382,8 @@ export default function Signup() {
                 <Col sm="1">
                   <img
                     src={zipImg}
-                    width="40"
-                    height="40"
+                    width="30"
+                    height="30"
                     className="d-inline-block align-bottom text-danger"
                     alt="Logo"
                   />
@@ -425,8 +429,8 @@ export default function Signup() {
                 <Col sm="1">
                   <img
                     src={stateImg}
-                    width="40"
-                    height="40"
+                    width="30"
+                    height="30"
                     className="d-inline-block align-bottom text-danger"
                     alt="Logo"
                   />
@@ -463,8 +467,8 @@ export default function Signup() {
                 <Col sm="1">
                   <img
                     src={countryImg}
-                    width="40"
-                    height="40"
+                    width="30"
+                    height="30"
                     className="d-inline-block align-bottom text-danger"
                     alt="Logo"
                   />
