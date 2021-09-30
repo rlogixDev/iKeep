@@ -105,7 +105,9 @@ export default function NotesDisplay() {
       Content: Content,
       Email: activeUser.email,
       Date: Date(Date.now).toString().substr(0, 24),
-      img: imagesId ? imagesId : '',
+      img: imagesId
+        ? imagesId
+        : 'https://res.cloudinary.com/adarsh022/image/upload/v1632991217/iKeep/pblfmxmj3oxp3y8mqb91.jpg',
     })
       .then(
         setNewNote({
@@ -406,18 +408,12 @@ export default function NotesDisplay() {
 
                     {/* Edit Modal */}
                     <Modal show={Object.keys(editItem).length > 0}>
-                      <Modal.Header>
-                        <Modal.Title style={{ width: '100%' }}>
-                          <textarea
-                            style={{ width: '100%' }}
-                            onChange={(e) => setEditTitle(e.target.value)}
-                          >
-                            {editItem.title}
-                          </textarea>
-                        </Modal.Title>
-                      </Modal.Header>
+                      {' '}
                       {editItem.img && (
-                        <div className='d-flex justify-content-center align-item-center'>
+                        <div
+                          style={{ paddingTop: '16px' }}
+                          className='d-flex justify-content-center align-item-center'
+                        >
                           <Image
                             style={{
                               maxWidth: '300px',
@@ -427,7 +423,20 @@ export default function NotesDisplay() {
                           />
                         </div>
                       )}
+                      <Modal.Header>
+                        <Modal.Title style={{ width: '100%' }}>
+                          <p style={{ fontWeight: 'bold' }}>Title</p>
+                          <textarea
+                            style={{ width: '100%' }}
+                            onChange={(e) => setEditTitle(e.target.value)}
+                          >
+                            {editItem.title}
+                          </textarea>
+                        </Modal.Title>
+                      </Modal.Header>
                       <Modal.Body>
+                        <p style={{ fontWeight: 'bold' }}>Content</p>
+
                         <textarea
                           style={{ width: '100%' }}
                           cols='48'
@@ -437,7 +446,6 @@ export default function NotesDisplay() {
                           {editItem.Content}
                         </textarea>
                       </Modal.Body>
-
                       <Modal.Footer>
                         <Button
                           variant='secondary'
@@ -466,7 +474,7 @@ export default function NotesDisplay() {
                       }}
                       className='m-0 p-0'
                     >
-                      <Card.Body className=' d-grid gap-2 row  justify-content-center align-item-center'>
+                      <Card.Body className=' d-flex  justify-content-center align-item-center'>
                         {item.img && (
                           // <div>
                           <Image
@@ -478,7 +486,10 @@ export default function NotesDisplay() {
                           />
                           // </div>
                         )}
-                        <div className='d-grid  justify-content-center align-item-center'>
+                        <div
+                          style={{ marginLeft: '16px' }}
+                          className='d-grid  justify-content-center align-item-center'
+                        >
                           <div
                             className=' text-center p-0 '
                             style={{ maxWidth: '225px' }}
@@ -552,18 +563,12 @@ export default function NotesDisplay() {
 
                 {/* Edit Modal */}
                 <Modal show={Object.keys(editItem).length > 0}>
-                  <Modal.Header>
-                    <Modal.Title style={{ width: '100%' }}>
-                      <textarea
-                        style={{ width: '100%' }}
-                        onChange={(e) => setEditTitle(e.target.value)}
-                      >
-                        {editItem.title}
-                      </textarea>
-                    </Modal.Title>
-                  </Modal.Header>
+                  {' '}
                   {editItem.img && (
-                    <div className='d-flex justify-content-center align-item-center'>
+                    <div
+                      style={{ paddingTop: '16px' }}
+                      className='d-flex justify-content-center align-item-center'
+                    >
                       <Image
                         style={{
                           maxWidth: '300px',
@@ -573,7 +578,20 @@ export default function NotesDisplay() {
                       />
                     </div>
                   )}
+                  <Modal.Header>
+                    <Modal.Title style={{ width: '100%' }}>
+                      <p style={{ fontWeight: 'bold' }}>Title</p>
+                      <textarea
+                        style={{ width: '100%' }}
+                        onChange={(e) => setEditTitle(e.target.value)}
+                      >
+                        {editItem.title}
+                      </textarea>
+                    </Modal.Title>
+                  </Modal.Header>
                   <Modal.Body>
+                    <p style={{ fontWeight: 'bold' }}>Content</p>
+
                     <textarea
                       style={{ width: '100%' }}
                       cols='48'
@@ -583,7 +601,6 @@ export default function NotesDisplay() {
                       {editItem.Content}
                     </textarea>
                   </Modal.Body>
-
                   <Modal.Footer>
                     <Button variant='secondary' onClick={() => setEditItem({})}>
                       Close
@@ -607,24 +624,27 @@ export default function NotesDisplay() {
                     width: 'auto',
                     borderRadius: '15px',
                   }}
-                  className='m-2 p-0'
+                  className='m-0 p-0'
                 >
-                  <Card.Body className=' d-grid gap-2 row  justify-content-center align-item-center'>
+                  <Card.Body className=' d-flex  justify-content-center align-item-center'>
                     {item.img && (
-                      <div>
-                        <Image
-                          style={{
-                            maxWidth: '150px',
-                          }}
-                          cloudName='adarsh022'
-                          publicId={item.img}
-                        />
-                      </div>
+                      // <div>
+                      <Image
+                        style={{
+                          maxWidth: '150px',
+                        }}
+                        cloudName='adarsh022'
+                        publicId={item.img}
+                      />
+                      // </div>
                     )}
-                    <div className='d-flex row justify-content-between align-item-center'>
+                    <div
+                      style={{ marginLeft: '16px' }}
+                      className='d-grid  justify-content-center align-item-center'
+                    >
                       <div
-                        className=' text-center'
-                        // style={{ marginLeft: '20px' }}
+                        className=' text-center p-0 '
+                        style={{ maxWidth: '225px' }}
                       >
                         <Card.Title className='p-0'>{item.title}</Card.Title>
                         <Card.Text className='p-0'>{item.Content}</Card.Text>
@@ -687,18 +707,12 @@ export default function NotesDisplay() {
 
                 {/* EditModal */}
                 <Modal show={Object.keys(editItem).length > 0}>
-                  <Modal.Header>
-                    <Modal.Title style={{ width: '100%' }}>
-                      <textarea
-                        style={{ width: '100%' }}
-                        onChange={(e) => setEditTitle(e.target.value)}
-                      >
-                        {editItem.title}
-                      </textarea>
-                    </Modal.Title>
-                  </Modal.Header>
+                  {' '}
                   {editItem.img && (
-                    <div className='d-flex justify-content-center align-item-center'>
+                    <div
+                      style={{ paddingTop: '16px' }}
+                      className='d-flex justify-content-center align-item-center'
+                    >
                       <Image
                         style={{
                           maxWidth: '300px',
@@ -708,7 +722,20 @@ export default function NotesDisplay() {
                       />
                     </div>
                   )}
+                  <Modal.Header>
+                    <Modal.Title style={{ width: '100%' }}>
+                      <p style={{ fontWeight: 'bold' }}>Title</p>
+                      <textarea
+                        style={{ width: '100%' }}
+                        onChange={(e) => setEditTitle(e.target.value)}
+                      >
+                        {editItem.title}
+                      </textarea>
+                    </Modal.Title>
+                  </Modal.Header>
                   <Modal.Body>
+                    <p style={{ fontWeight: 'bold' }}>Content</p>
+
                     <textarea
                       style={{ width: '100%' }}
                       cols='48'
@@ -718,7 +745,6 @@ export default function NotesDisplay() {
                       {editItem.Content}
                     </textarea>
                   </Modal.Body>
-
                   <Modal.Footer>
                     <Button variant='secondary' onClick={() => setEditItem({})}>
                       Close
@@ -731,34 +757,38 @@ export default function NotesDisplay() {
                         Delete Image
                       </Button>
                     )}
-
                     <Button variant='primary' onClick={UpdateNote}>
                       Save changes
                     </Button>
                   </Modal.Footer>
                 </Modal>
-
                 <Card
                   style={{
                     width: 'auto',
                     borderRadius: '15px',
                   }}
-                  className='m-2 p-0'
+                  className='m-0 p-0'
                 >
-                  <Card.Body className=' d-grid gap-2 row  justify-content-center align-item-center'>
+                  <Card.Body className=' d-flex  justify-content-center align-item-center'>
                     {item.img && (
-                      <div>
-                        <Image
-                          style={{
-                            maxWidth: '150px',
-                          }}
-                          cloudName='adarsh022'
-                          publicId={item.img}
-                        />
-                      </div>
+                      // <div>
+                      <Image
+                        style={{
+                          maxWidth: '150px',
+                        }}
+                        cloudName='adarsh022'
+                        publicId={item.img}
+                      />
+                      // </div>
                     )}
-                    <div className='d-flex row justify-content-between align-item-center'>
-                      <div className=' text-center'>
+                    <div
+                      style={{ marginLeft: '16px' }}
+                      className='d-grid  justify-content-center align-item-center'
+                    >
+                      <div
+                        className=' text-center p-0 '
+                        style={{ maxWidth: '225px' }}
+                      >
                         <Card.Title className='p-0'>{item.title}</Card.Title>
                         <Card.Text className='p-0'>{item.Content}</Card.Text>
                       </div>
