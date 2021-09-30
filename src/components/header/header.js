@@ -24,7 +24,7 @@ const Header = () => {
             width='70'
             height='70'
             className='d-inline-block align-bottom text-danger'
-            alt='Logo'  
+            alt='Logo'
           />
           {/* <span className="app-name">iKeep</span> */}
         </Navbar.Brand>
@@ -33,7 +33,8 @@ const Header = () => {
           <Navbar.Text>
             {activeUser && (
               <p className='m-0 font-weight-bold'>
-                Welcome: {activeUser?.displayName}
+                Welcome:{' '}
+                {activeUser?.displayName ? activeUser.displayName : ' New User'}
               </p>
             )}
           </Navbar.Text>
