@@ -43,10 +43,6 @@ export default function Signup() {
   const [selected, setSelected] = useState([]);
   let flag = true;
 
-  // if(selected && selected.length>0){
-  //   console.log('selecte',selected, selected[0][Object.getOwnPropertyNames(selected[Object.keys(selected)])[0]]);
-  //   setCountry(selected[0][Object.getOwnPropertyNames(selected[Object.keys(selected)])[0]].country)
-  // }
   // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
 
   const validPassword = new RegExp(
@@ -138,9 +134,6 @@ export default function Signup() {
       setError('Please fill all the Fields');
     }
   };
-
-  console.log('error', error);
-  console.log('email and apassword', email, password);
 
   useEffect(() => {
     axios

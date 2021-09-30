@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import authApp from '../../firebase';
 import { useHistory, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import google from '../../assets/google.png'
 
 export const Login = () => {
   const [username, setUserName] = useState();
@@ -224,8 +225,9 @@ export const Login = () => {
                 onClick={(e) => handleGoogleSignIn(e)}
               >
                 <img
-                  src='https://e7.pngegg.com/pngimages/114/607/png-clipart-g-suite-pearl-river-middle-school-google-software-suite-email-sign-up-button-text-logo-thumbnail.png'
-                  width='50'
+                  src={google}
+                  srcSet={google}
+                  width='40'
                   radius='10'
                   alt='google'
                 />

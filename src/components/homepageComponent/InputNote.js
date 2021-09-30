@@ -11,7 +11,6 @@ import NotesDisplay from './NotesDisplay';
 export default function InputNote() {
   
   const {activeUser} = useContext(AuthContext);
-  console.log(activeUser.uid);
   const [title,setTitle] =useState('');
   const [Content,setContent] =useState('');
   
@@ -44,12 +43,8 @@ export default function InputNote() {
         method: 'POST',
         body: formData,
       })
-      .then((res) => {
-        console.log('res', res);
-      });
+      .then((res) =>{});
   };
-
-  console.log(addImg);
 
   return (
     <>
