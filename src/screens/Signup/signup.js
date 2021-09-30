@@ -7,6 +7,13 @@ import "./signup.css";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Typeahead, TypeaheadMenu } from "react-bootstrap-typeahead";
+import user from "../../assets/iCons/user.png";
+import passwordimg from "../../assets/iCons/password.png";
+import mobile from "../../assets/iCons/phone.png";
+import mailimg from "../../assets/iCons/mail.png";
+import stateImg from "../../assets/iCons/state.png";
+import countryImg from "../../assets/iCons/globe.png";
+import zipImg from "../../assets/iCons/zip.png";
 
 import {
   getAuth,
@@ -62,11 +69,10 @@ export default function Signup() {
     //     setZip(e.target.value);
     //   }
     // }
-     setSelected();
-    console.log('selecte', selected)
+    setSelected();
+    console.log("selecte", selected);
     //  selected[0][Object.getOwnPropertyNames(selected[Object.keys(selected)])[0]]);
     // setCountry(selected[0][Object.getOwnPropertyNames(selected[Object.keys(selected)])[0]].country)
-  
   }
 
   const handleSubmit = async (e) => {
@@ -161,8 +167,19 @@ export default function Signup() {
                 <Form.Label column sm="4">
                   Username
                 </Form.Label>
-                <Col sm="8">
+
+                <Col sm="1">
+                  <img
+                    src={user}
+                    width="40"
+                    height="40"
+                    className="d-inline-block align-bottom text-danger"
+                    alt="Logo"
+                  />
+                </Col>
+                <Col>
                   <Row>
+                    {" "}
                     <Form.Control
                       type="text"
                       placeholder="Enter Username"
@@ -170,7 +187,8 @@ export default function Signup() {
                       onChange={(e) => setName(e.target.value)}
                     />
                   </Row>
-                  <Row>
+
+                  <Row sm="8">
                     {name.length === 0 && (
                       <p
                         style={{
@@ -189,13 +207,22 @@ export default function Signup() {
             </Form.Group>
             <Form.Group className="mb-3">
               <Row className="justify-content-center">
-                <Col sm="4">
-                  {" "}
-                  <Form.Label>Password</Form.Label>
+                <Form.Label column sm="4">
+                  Mobile Number
+                </Form.Label>
+
+                <Col sm="1">
+                  <img
+                    src={passwordimg}
+                    width="40"
+                    height="40"
+                    className="d-inline-block align-bottom text-danger"
+                    alt="Logo"
+                  />
                 </Col>
-                <Col sm="8">
-                  {" "}
+                <Col>
                   <Row>
+                    {" "}
                     <Form.Control
                       type="password"
                       placeholder="Enter Password"
@@ -203,7 +230,8 @@ export default function Signup() {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </Row>
-                  <Row>
+
+                  <Row sm="8">
                     {!validPassword.test(password) && (
                       <p
                         style={{
@@ -224,11 +252,22 @@ export default function Signup() {
             </Form.Group>
             <Form.Group className="mb-3">
               <Row className="justify-content-center">
-                <Col sm="4">
-                  <Form.Label>Mobile Number</Form.Label>
+                <Form.Label column sm="4">
+                  Password
+                </Form.Label>
+
+                <Col sm="1">
+                  <img
+                    src={mobile}
+                    width="40"
+                    height="40"
+                    className="d-inline-block align-bottom text-danger"
+                    alt="Logo"
+                  />
                 </Col>
-                <Col sm="8">
+                <Col>
                   <Row>
+                    {" "}
                     <Form.Control
                       type="text"
                       placeholder="Enter Mobile Number"
@@ -237,33 +276,43 @@ export default function Signup() {
                       onChange={phoneNumberCheck}
                     />
                   </Row>
-                  <Row>
-                    <Row>
-                      {phone.length !== 10 && (
-                        <p
-                          style={{
-                            textAlign: "left",
-                            color: "red",
-                            fontSize: "10px",
-                            marginBottom: "5px",
-                          }}
-                        >
-                          *Please enter 10 digit Mobile Number
-                        </p>
-                      )}
-                    </Row>
+
+                  <Row sm="8">
+                    {phone.length !== 10 && (
+                      <p
+                        style={{
+                          textAlign: "left",
+                          color: "red",
+                          fontSize: "10px",
+                          marginBottom: "5px",
+                        }}
+                      >
+                        *Please enter 10 digit Mobile Number
+                      </p>
+                    )}
                   </Row>
                 </Col>
               </Row>
             </Form.Group>
+
             <Form.Group className="mb-3">
               <Row className="justify-content-center">
-                <Col sm="4">
-                  {" "}
-                  <Form.Label>E-mail</Form.Label>
+                <Form.Label column sm="4">
+                  E-mail
+                </Form.Label>
+
+                <Col sm="1">
+                  <img
+                    src={mailimg}
+                    width="40"
+                    height="40"
+                    className="d-inline-block align-bottom text-danger"
+                    alt="Logo"
+                  />
                 </Col>
-                <Col sm="8">
+                <Col>
                   <Row>
+                    {" "}
                     <Form.Control
                       type="text"
                       required
@@ -271,7 +320,8 @@ export default function Signup() {
                       onChange={(e) => setEmail(e.target.value)}
                     />
                   </Row>
-                  <Row>
+
+                  <Row sm="8">
                     {!validEmail.test(email) && (
                       <p
                         style={{
@@ -288,6 +338,7 @@ export default function Signup() {
                 </Col>
               </Row>
             </Form.Group>
+
             <Form.Group className="mb-3">
               <Row className="justify-content-center">
                 <Col sm="4">
@@ -324,18 +375,22 @@ export default function Signup() {
             </Form.Group>
             <Form.Group className="mb-3">
               <Row className="justify-content-center">
-                <Col sm="4">
-                  <Form.Label>Zip Code</Form.Label>
+                <Form.Label column sm="4">
+                  Zip Code
+                </Form.Label>
+
+                <Col sm="1">
+                  <img
+                    src={zipImg}
+                    width="40"
+                    height="40"
+                    className="d-inline-block align-bottom text-danger"
+                    alt="Logo"
+                  />
                 </Col>
-                <Col sm="8">
+                <Col>
                   <Row>
-                    {/* <Form.Control
-                      type="text"
-                      placeholder="Enter Zip Code"
-                      value={zip}
-                      required
-                      onChange={zipCodeCheck}
-                    /> */}
+                    {" "}
                     <Typeahead
                       id="basic-example"
                       onChange={setSelected}
@@ -346,7 +401,8 @@ export default function Signup() {
                       value={zip}
                     />
                   </Row>
-                  <Row>
+
+                  <Row sm="8">
                     {!selected && (
                       <p
                         style={{
@@ -363,70 +419,79 @@ export default function Signup() {
                 </Col>
               </Row>
             </Form.Group>
+
             <Form.Group className="mb-3">
               <Row className="justify-content-center">
-                <Col sm="4">
-                  {" "}
-                  <Form.Label>State</Form.Label>
+                <Form.Label column sm="4">
+                  State
+                </Form.Label>
+
+                <Col sm="1">
+                  <img
+                    src={stateImg}
+                    width="40"
+                    height="40"
+                    className="d-inline-block align-bottom text-danger"
+                    alt="Logo"
+                  />
                 </Col>
-                <Col sm="8">
-                  {" "}
+                <Col>
                   <Row>
+                    {" "}
                     <Form.Control
                       type="text"
                       placeholder="Enter State"
                       required
                       readOnly
-                      value={selected?.length>0?selected[0][Object.getOwnPropertyNames(selected[Object.keys(selected)])[0]].state:''}
+                      value={
+                        selected?.length > 0
+                          ? selected[0][
+                              Object.getOwnPropertyNames(
+                                selected[Object.keys(selected)]
+                              )[0]
+                            ].state
+                          : ""
+                      }
                     />
                   </Row>
-                  {/* <Row>
-                    {state.length === 0 && (
-                      <p
-                        style={{
-                          textAlign: "left",
-                          color: "red",
-                          fontSize: "10px",
-                          marginBottom: "5px",
-                        }}
-                      >
-                        *Enter State
-                      </p>
-                    )}
-                  </Row> */}
                 </Col>
               </Row>
             </Form.Group>
+
             <Form.Group className="mb-3">
               <Row className="justify-content-center">
-                <Col sm="4">
-                  {" "}
-                  <Form.Label>Country</Form.Label>
+                <Form.Label column sm="4">
+                  Country
+                </Form.Label>
+
+                <Col sm="1">
+                  <img
+                    src={countryImg}
+                    width="40"
+                    height="40"
+                    className="d-inline-block align-bottom text-danger"
+                    alt="Logo"
+                  />
                 </Col>
-                <Col sm="8">
+                <Col>
                   <Row>
+                    {" "}
                     <Form.Control
                       type="text"
                       placeholder="Enter Country"
                       required
                       readOnly
-                      value={selected?.length>0?selected[0][Object.getOwnPropertyNames(selected[Object.keys(selected)])[0]].country:''}
+                      value={
+                        selected?.length > 0
+                          ? selected[0][
+                              Object.getOwnPropertyNames(
+                                selected[Object.keys(selected)]
+                              )[0]
+                            ].country
+                          : ""
+                      }
                     />
                   </Row>
-                  {/* <Row>
-                    {country.length === 0 && (
-                      <p
-                        style={{
-                          textAlign: "left",
-                          color: "red",
-                          fontSize: "10px",
-                          marginBottom: "5px",
-                        }}
-                      >
-                        *Enter Country
-                      </p>
-                    )}
-                  </Row> */}
                 </Col>
               </Row>
             </Form.Group>

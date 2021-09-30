@@ -6,8 +6,8 @@ import { Alert } from 'react-bootstrap';
 import {
   signInWithPopup,
   GoogleAuthProvider,
-  signInWithRedirect,
 } from 'firebase/auth';
+
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import authApp from '../../firebase';
