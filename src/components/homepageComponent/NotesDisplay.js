@@ -481,6 +481,7 @@ export default function NotesDisplay() {
                           <Image
                             style={{
                               maxWidth: '150px',
+                              maxHeight:'150px'
                             }}
                             cloudName='adarsh022'
                             publicId={item.img}
@@ -506,6 +507,10 @@ export default function NotesDisplay() {
                                 {item.Content}
                               </ReactReadMoreReadLess>
                             </Card.Text>
+                            <Card.Text>
+                             <strong> {item.Date.substr(0,15)}</strong>
+                            </Card.Text>
+                           
                           </div>
                           <div
                             className='d-flex justify-content-around '
@@ -578,6 +583,7 @@ export default function NotesDisplay() {
                       <Image
                         style={{
                           maxWidth: '300px',
+                          maxHeight:'150px'
                         }}
                         cloudName='adarsh022'
                         publicId={editItem.img}
@@ -639,6 +645,7 @@ export default function NotesDisplay() {
                       <Image
                         style={{
                           maxWidth: '150px',
+                          maxHeight:'150px'
                         }}
                         cloudName='adarsh022'
                         publicId={item.img}
@@ -662,6 +669,10 @@ export default function NotesDisplay() {
                             {item.Content}
                           </ReactReadMoreReadLess>
                         </Card.Text>
+                        <Card.Text>
+                             <strong> {item.Date.substr(0,15)}</strong>
+                            </Card.Text>
+
                       </div>
                       <div
                         className='d-flex justify-content-around '
@@ -790,6 +801,7 @@ export default function NotesDisplay() {
                       <Image
                         style={{
                           maxWidth: '150px',
+                          maxHeight:'150px'
                         }}
                         cloudName='adarsh022'
                         publicId={item.img}
@@ -813,6 +825,9 @@ export default function NotesDisplay() {
                             {item.Content}
                           </ReactReadMoreReadLess>
                         </Card.Text>
+                        <Card.Text>
+                             <strong> {item.Date.substr(0,15)}</strong>
+                            </Card.Text>
                       </div>
                       <div
                         className='d-flex justify-content-around '
