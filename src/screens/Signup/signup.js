@@ -159,10 +159,10 @@ export default function Signup() {
                 <Col sm='1'>
                   <img
                     src={user}
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-bottom text-danger"
-                    alt="Logo"
+                    width='30'
+                    height='30'
+                    className='d-inline-block align-bottom text-danger'
+                    alt='Logo'
                   />
                 </Col>
                 <Col>
@@ -202,17 +202,10 @@ export default function Signup() {
                 <Col sm='1'>
                   <img
                     src={passwordimg}
-<<<<<<< HEAD
-                    width='40'
-                    height='40'
+                    width='30'
+                    height='30'
                     className='d-inline-block align-bottom text-danger'
                     alt='Logo'
-=======
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-bottom text-danger"
-                    alt="Logo"
->>>>>>> be305deb5e3106a2749d59ddf979286b982f37eb
                   />
                 </Col>
                 <Col>
@@ -254,17 +247,10 @@ export default function Signup() {
                 <Col sm='1'>
                   <img
                     src={mobile}
-<<<<<<< HEAD
-                    width='40'
-                    height='40'
+                    width='30'
+                    height='30'
                     className='d-inline-block align-bottom text-danger'
                     alt='Logo'
-=======
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-bottom text-danger"
-                    alt="Logo"
->>>>>>> be305deb5e3106a2749d59ddf979286b982f37eb
                   />
                 </Col>
                 <Col>
@@ -306,17 +292,10 @@ export default function Signup() {
                 <Col sm='1'>
                   <img
                     src={mailimg}
-<<<<<<< HEAD
-                    width='40'
-                    height='40'
+                    width='30'
+                    height='30'
                     className='d-inline-block align-bottom text-danger'
                     alt='Logo'
-=======
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-bottom text-danger"
-                    alt="Logo"
->>>>>>> be305deb5e3106a2749d59ddf979286b982f37eb
                   />
                 </Col>
                 <Col>
@@ -348,48 +327,40 @@ export default function Signup() {
               </Row>
             </Form.Group>
 
-<<<<<<< HEAD
             <Form.Group className='mb-3'>
-              <Row className='justify-content-center'>
-                <Col sm='4'>
-=======
-            <Form.Group className="mb-3">
               <Row>
-              <Col className="justify-content-center" sm="4">
-         
->>>>>>> be305deb5e3106a2749d59ddf979286b982f37eb
+                <Col className='justify-content-center' sm='4'>
                   <Form.Label>Gender</Form.Label>
-              
                 </Col>
-                <Col className="d-flex">
-                <Col sm='2'>
-                  <Form.Check
-                    type='radio'
-                    name='Gender'
-                    label='M'
-                    value='male'
-                    onChange={(e) => setGender(e.target.value)}
-                  />
+                <Col className='d-flex'>
+                  <Col sm='2'>
+                    <Form.Check
+                      type='radio'
+                      name='Gender'
+                      label='M'
+                      value='male'
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                  </Col>
+                  <Col sm='2  '>
+                    <Form.Check
+                      type='radio'
+                      name='Gender'
+                      label='F'
+                      value='female'
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                  </Col>
+                  <Col sm='2'>
+                    <Form.Check
+                      type='radio'
+                      name='Gender'
+                      label='Others'
+                      value='others'
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                  </Col>
                 </Col>
-                <Col sm='2  '>
-                  <Form.Check
-                    type='radio'
-                    name='Gender'
-                    label='F'
-                    value='female'
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                </Col>
-                <Col sm='2'>
-                  <Form.Check
-                    type='radio'
-                    name='Gender'
-                    label='Others'
-                    value='others'
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                </Col>
-              </Col>
               </Row>
             </Form.Group>
             <Form.Group className='mb-3'>
@@ -401,17 +372,10 @@ export default function Signup() {
                 <Col sm='1'>
                   <img
                     src={zipImg}
-<<<<<<< HEAD
-                    width='40'
-                    height='40'
+                    width='30'
+                    height='30'
                     className='d-inline-block align-bottom text-danger'
                     alt='Logo'
-=======
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-bottom text-danger"
-                    alt="Logo"
->>>>>>> be305deb5e3106a2749d59ddf979286b982f37eb
                   />
                 </Col>
                 <Col>
@@ -455,17 +419,10 @@ export default function Signup() {
                 <Col sm='1'>
                   <img
                     src={stateImg}
-<<<<<<< HEAD
-                    width='40'
-                    height='40'
+                    width='30'
+                    height='30'
                     className='d-inline-block align-bottom text-danger'
                     alt='Logo'
-=======
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-bottom text-danger"
-                    alt="Logo"
->>>>>>> be305deb5e3106a2749d59ddf979286b982f37eb
                   />
                 </Col>
                 <Col>
@@ -500,17 +457,10 @@ export default function Signup() {
                 <Col sm='1'>
                   <img
                     src={countryImg}
-<<<<<<< HEAD
-                    width='40'
-                    height='40'
+                    width='30'
+                    height='30'
                     className='d-inline-block align-bottom text-danger'
                     alt='Logo'
-=======
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-bottom text-danger"
-                    alt="Logo"
->>>>>>> be305deb5e3106a2749d59ddf979286b982f37eb
                   />
                 </Col>
                 <Col>
