@@ -33,33 +33,26 @@ export default function NotesDisplay() {
   const [editContent, setEditContent] = useState('');
   const [deleteModal, setDeleteModal] = useState({});
   const [delImg, setDelImg] = useState(false);
-  const [sort,setSort] =useState(false);
+  const [sort, setSort] = useState(false);
   let imagesId = '';
 
   function compare(a, b) {
-
-    if(sort)
-    {
+    if (sort) {
       let ContentA = a.title.toUpperCase();
       let ContentB = b.title.toUpperCase();
-    return (ContentA < ContentB) ? -1 : (ContentA > ContentB) ? 1 : 0;
-    } 
-    
-    else
-    {
+      return ContentA < ContentB ? -1 : ContentA > ContentB ? 1 : 0;
+    } else {
       const DateA = a.Date;
       const DateB = b.Date;
 
       let comparison = 0;
       if (DateA < DateB) {
-      comparison = 1;
+        comparison = 1;
       } else if (DateA > DateB) {
-      comparison = -1;
-    }
-    return comparison;
-  }   // Use toUpperCase() to ignore character casing
-    
-   
+        comparison = -1;
+      }
+      return comparison;
+    } // Use toUpperCase() to ignore character casing
   }
 
   const UpdateNote = () => {
@@ -290,7 +283,9 @@ export default function NotesDisplay() {
                 style={{ maxWidth: '500px' }}
               />
               <Dropdown style={{ margin: '0px 10px' }} as={ButtonGroup}>
-                <Button variant='outline-info'>{sort?  'Alphabetical Wise':'Date Wise' }</Button>
+                <Button variant='outline-info'>
+                  {sort ? 'Alphabetical Wise' : 'Date Wise'}
+                </Button>
 
                 <Dropdown.Toggle
                   split
@@ -299,13 +294,21 @@ export default function NotesDisplay() {
                 />
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href='#/action-1' onClick={() => setSort(false)}>Date Wise</Dropdown.Item>
-                  <Dropdown.Item href='#/action-2' onClick={() => setSort(true)}>
+                  <Dropdown.Item
+                    href='#/action-1'
+                    onClick={() => setSort(false)}
+                  >
+                    Date Wise
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    href='#/action-2'
+                    onClick={() => setSort(true)}
+                  >
                     Alphabetical Wise
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              {console.log("sort",sort)}
+              {console.log('sort', sort)}
             </Form>
           </div>
         </Row>
@@ -405,11 +408,12 @@ export default function NotesDisplay() {
                     <Modal show={Object.keys(editItem).length > 0}>
                       <Modal.Header>
                         <Modal.Title style={{ width: '100%' }}>
-                          <input
+                          <textarea
                             style={{ width: '100%' }}
-                            value={editItem.title}
                             onChange={(e) => setEditTitle(e.target.value)}
-                          ></input>
+                          >
+                            {editItem.title}
+                          </textarea>
                         </Modal.Title>
                       </Modal.Header>
                       {editItem.img && (
@@ -460,24 +464,24 @@ export default function NotesDisplay() {
                         width: 'auto',
                         borderRadius: '15px',
                       }}
-                      className='m-2 p-0'
+                      className='m-0 p-0'
                     >
-                      <Card.Body className='d-flex' style={{ width: 'auto' }}>
+                      <Card.Body className=' d-grid gap-2 row  justify-content-center align-item-center'>
                         {item.img && (
-                          <div>
-                            <Image
-                              style={{
-                                maxWidth: '150px',
-                              }}
-                              cloudName='adarsh022'
-                              publicId={item.img}
-                            />
-                          </div>
+                          // <div>
+                          <Image
+                            style={{
+                              maxWidth: '150px',
+                            }}
+                            cloudName='adarsh022'
+                            publicId={item.img}
+                          />
+                          // </div>
                         )}
-                        <div className='d-flex row justify-content-between align-item-center'>
+                        <div className='d-grid  justify-content-center align-item-center'>
                           <div
-                            className=' text-center'
-                            // style={{ marginLeft: '20px' }}
+                            className=' text-center p-0 '
+                            style={{ maxWidth: '225px' }}
                           >
                             <Card.Title className='p-0'>
                               {item.title}
@@ -550,11 +554,12 @@ export default function NotesDisplay() {
                 <Modal show={Object.keys(editItem).length > 0}>
                   <Modal.Header>
                     <Modal.Title style={{ width: '100%' }}>
-                      <input
+                      <textarea
                         style={{ width: '100%' }}
-                        value={editItem.title}
                         onChange={(e) => setEditTitle(e.target.value)}
-                      ></input>
+                      >
+                        {editItem.title}
+                      </textarea>
                     </Modal.Title>
                   </Modal.Header>
                   {editItem.img && (
@@ -604,7 +609,7 @@ export default function NotesDisplay() {
                   }}
                   className='m-2 p-0'
                 >
-                  <Card.Body className='d-flex' style={{ width: 'auto' }}>
+                  <Card.Body className=' d-grid gap-2 row  justify-content-center align-item-center'>
                     {item.img && (
                       <div>
                         <Image
@@ -684,11 +689,12 @@ export default function NotesDisplay() {
                 <Modal show={Object.keys(editItem).length > 0}>
                   <Modal.Header>
                     <Modal.Title style={{ width: '100%' }}>
-                      <input
+                      <textarea
                         style={{ width: '100%' }}
-                        value={editItem.title}
                         onChange={(e) => setEditTitle(e.target.value)}
-                      ></input>
+                      >
+                        {editItem.title}
+                      </textarea>
                     </Modal.Title>
                   </Modal.Header>
                   {editItem.img && (
@@ -739,7 +745,7 @@ export default function NotesDisplay() {
                   }}
                   className='m-2 p-0'
                 >
-                  <Card.Body className='d-flex' style={{ width: 'auto' }}>
+                  <Card.Body className=' d-grid gap-2 row  justify-content-center align-item-center'>
                     {item.img && (
                       <div>
                         <Image
@@ -752,10 +758,7 @@ export default function NotesDisplay() {
                       </div>
                     )}
                     <div className='d-flex row justify-content-between align-item-center'>
-                      <div
-                        className=' text-center'
-                        // style={{ marginLeft: '20px' }}
-                      >
+                      <div className=' text-center'>
                         <Card.Title className='p-0'>{item.title}</Card.Title>
                         <Card.Text className='p-0'>{item.Content}</Card.Text>
                       </div>
