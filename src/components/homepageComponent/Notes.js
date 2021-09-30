@@ -2,7 +2,6 @@ import React, { useState, useEffect} from 'react';
 import { Card } from 'react-bootstrap';
 
 export default function Notes({data}) {
-  console.log("Notes data",data);
  
   var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
@@ -17,7 +16,6 @@ export default function Notes({data}) {
   const yesterday=yesDay + " " + yesMon + " " + yesDate + " " + yesYear;
   const yesterdayData=data.filter((item,key) =>  (item? item.Date  === yesterday :'' ) )
   const EarlierData=data.filter((item,key) => (item? ((item.Date!=yesterday) && (item.Date!=Date(Date.now).toString().substr(0,15)) ):''))
-  console.log("yesterday",yesterday);
   return (
     
     <div className='row d-flex justify-content-around mt-2 p-0'>
