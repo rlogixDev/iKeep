@@ -20,28 +20,28 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   // updatePhoneNumber,
-} from "firebase/auth";
-import { useHistory } from "react-router-dom";
-import { toast } from "react-toastify";
-import { AuthContext } from "../../context/AuthContext";
+} from 'firebase/auth';
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../context/AuthContext';
 
 export default function Signup() {
   const history = useHistory();
   const auth = getAuth();
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [gender, setGender] = useState("");
-  const [flag, setFlag] = useState(true);
-  const [zip, setZip] = useState("");
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
+  const [gender, setGender] = useState('');
+  const [zip, setZip] = useState('');
+  const [state, setState] = useState('');
+  const [country, setCountry] = useState('');
+  const [email, setEmail] = useState('');
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [pincodes, setPincodes] = useState([]);
-  const validEmail = new RegExp("@rlogix.com$");
+  const validEmail = new RegExp('@rlogix.com$');
   const [selected, setSelected] = useState([]);
+  let flag = true;
 
   // if(selected && selected.length>0){
   //   console.log('selecte',selected, selected[0][Object.getOwnPropertyNames(selected[Object.keys(selected)])[0]]);
@@ -50,39 +50,34 @@ export default function Signup() {
   // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
 
   const validPassword = new RegExp(
-    "^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{8,16}$"
+    '^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{8,16}$'
   );
 
   function phoneNumberCheck(e) {
     const re = /^[0-9\b]+$/;
-    if (e.target.value === "" || re.test(e.target.value)) {
+    if (e.target.value === '' || re.test(e.target.value)) {
       if (e.target.value.length < 11) {
         setPhone(e.target.value);
       }
     }
   }
 
-  function zipCodeCheck(e) {
-    //const re = /^[0-9\b]+$/;
-    // if (e.target.value === "" || re.test(e.target.value)) {
-    //   if (e.target.value.length < 7) {
-    //     setZip(e.target.value);
-    //   }
-    // }
-    setSelected();
-    console.log("selecte", selected);
-    //  selected[0][Object.getOwnPropertyNames(selected[Object.keys(selected)])[0]]);
-    // setCountry(selected[0][Object.getOwnPropertyNames(selected[Object.keys(selected)])[0]].country)
-  }
+  // function zipCodeCheck(e) {
+  //   const re = /^[0-9\b]+$/;
+  //   if (e.target.value === "" || re.test(e.target.value)) {
+  //     if (e.target.value.length < 7) {
+  //       setZip(e.target.value);
+  //     }
+  //   }
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
     if (
       name &&
       password &&
       phone &&
-      selected &&
       email &&
       validPassword.test(password) &&
       validEmail.test(email)
@@ -91,16 +86,17 @@ export default function Signup() {
       ////////local storage///////
 
       let a = [];
-      a = JSON.parse(localStorage.getItem("session")) || [];
+      a = JSON.parse(localStorage.getItem('session')) || [];
       let b = a.map((item) => {
         if (item.Phone === phone) {
-          setError("Mobile Number already exist");
+          setError('Mobile Number already exist');
           setLoading(false);
-          setFlag(false);
-          return;
+          flag = false;
+        } else {
+          flag = true;
         }
       });
-      if (!loading) {
+      if (flag == true) {
         ////////local storage///////
         try {
           await createUserWithEmailAndPassword(auth, email, password).then(
@@ -108,18 +104,18 @@ export default function Signup() {
               // Signed in
               const user = userCredential.user;
               // ...
-              toast.success("Account Created", {
+              toast.success('Account Created', {
                 autoClose: 5000,
                 hideProgressBar: false,
                 draggable: false,
                 progress: undefined,
-                position: "top-right",
+                position: 'top-right',
                 pauseOnHover: true,
                 closeOnClick: true,
               });
               a.push({ Email: email, Phone: phone });
-              localStorage.setItem("session", JSON.stringify(a));
-              history.push("/");
+              localStorage.setItem('session', JSON.stringify(a));
+              history.push('/');
             }
           );
           updateProfile(auth.currentUser, {
@@ -139,17 +135,17 @@ export default function Signup() {
       }
       setLoading(false);
     } else {
-      setError("Please fill all the Fields");
+      setError('Please fill all the Fields');
     }
   };
 
-  console.log("error", error);
-  console.log("email and apassword", email, password);
+  console.log('error', error);
+  console.log('email and apassword', email, password);
 
   useEffect(() => {
     axios
       .get(
-        "https://rlogixx-33270-default-rtdb.firebaseio.com/zipcode_details.json"
+        'https://rlogixx-33270-default-rtdb.firebaseio.com/zipcode_details.json'
       )
       .then((res) => {
         setPincodes(res.data);
@@ -158,13 +154,13 @@ export default function Signup() {
 
   return (
     <>
-      <div className="form mt-4">
-        <Form className="contain mx-auto p-4 ">
-          <h3 className="d-flex justify-content-center mb-3">SignUp</h3>
+      <div className='form mt-4'>
+        <Form className='contain mx-auto p-4 '>
+          <h3 className='d-flex justify-content-center mb-3'>SignUp</h3>
           <Container>
-            <Form.Group className="mb-3">
-              <Row className="justify-content-center">
-                <Form.Label column sm="4">
+            <Form.Group className='mb-3'>
+              <Row className='justify-content-center'>
+                <Form.Label column sm='4'>
                   Username
                 </Form.Label>
 
@@ -181,8 +177,8 @@ export default function Signup() {
                   <Row>
                     {" "}
                     <Form.Control
-                      type="text"
-                      placeholder="Enter Username"
+                      type='text'
+                      placeholder='Enter Username'
                       required
                       onChange={(e) => setName(e.target.value)}
                     />
@@ -192,10 +188,10 @@ export default function Signup() {
                     {name.length === 0 && (
                       <p
                         style={{
-                          textAlign: "left",
-                          color: "red",
-                          fontSize: "10px",
-                          marginBottom: "5px",
+                          textAlign: 'left',
+                          color: 'red',
+                          fontSize: '10px',
+                          marginBottom: '5px',
                         }}
                       >
                         *Enter Username
@@ -224,8 +220,8 @@ export default function Signup() {
                   <Row>
                     {" "}
                     <Form.Control
-                      type="password"
-                      placeholder="Enter Password"
+                      type='password'
+                      placeholder='Enter Password'
                       required
                       onChange={(e) => setPassword(e.target.value)}
                     />
@@ -235,10 +231,10 @@ export default function Signup() {
                     {!validPassword.test(password) && (
                       <p
                         style={{
-                          textAlign: "left",
-                          color: "red",
-                          fontSize: "10px",
-                          marginBottom: "5px",
+                          textAlign: 'left',
+                          color: 'red',
+                          fontSize: '10px',
+                          marginBottom: '5px',
                         }}
                       >
                         *Minimum eight characters, at least one uppercase
@@ -269,8 +265,8 @@ export default function Signup() {
                   <Row>
                     {" "}
                     <Form.Control
-                      type="text"
-                      placeholder="Enter Mobile Number"
+                      type='text'
+                      placeholder='Enter Mobile Number'
                       value={phone}
                       required
                       onChange={phoneNumberCheck}
@@ -314,9 +310,9 @@ export default function Signup() {
                   <Row>
                     {" "}
                     <Form.Control
-                      type="text"
+                      type='text'
                       required
-                      placeholder="Enter E-mail"
+                      placeholder='Enter E-mail'
                       onChange={(e) => setEmail(e.target.value)}
                     />
                   </Row>
@@ -325,10 +321,10 @@ export default function Signup() {
                     {!validEmail.test(email) && (
                       <p
                         style={{
-                          textAlign: "left",
-                          color: "red",
-                          fontSize: "10px",
-                          marginBottom: "5px",
+                          textAlign: 'left',
+                          color: 'red',
+                          fontSize: '10px',
+                          marginBottom: '5px',
                         }}
                       >
                         *should end with @rlogix.com
@@ -344,30 +340,30 @@ export default function Signup() {
                 <Col sm="4">
                   <Form.Label>Gender</Form.Label>
                 </Col>
-                <Col sm="2">
+                <Col sm='2'>
                   <Form.Check
-                    type="radio"
-                    name="Gender"
-                    label="M"
-                    value="male"
+                    type='radio'
+                    name='Gender'
+                    label='M'
+                    value='male'
                     onChange={(e) => setGender(e.target.value)}
                   />
                 </Col>
-                <Col sm="3">
+                <Col sm='3'>
                   <Form.Check
-                    type="radio"
-                    name="Gender"
-                    label="F"
-                    value="female"
+                    type='radio'
+                    name='Gender'
+                    label='F'
+                    value='female'
                     onChange={(e) => setGender(e.target.value)}
                   />
                 </Col>
-                <Col sm="3">
+                <Col sm='3'>
                   <Form.Check
-                    type="radio"
-                    name="Gender"
-                    label="Others"
-                    value="others"
+                    type='radio'
+                    name='Gender'
+                    label='Others'
+                    value='others'
                     onChange={(e) => setGender(e.target.value)}
                   />
                 </Col>
@@ -392,11 +388,11 @@ export default function Signup() {
                   <Row>
                     {" "}
                     <Typeahead
-                      id="basic-example"
+                      id='basic-example'
                       onChange={setSelected}
                       labelKey={(option, i) => `${Object.keys(option)}`}
                       options={pincodes}
-                      placeholder="enter pincode"
+                      placeholder='enter pincode'
                       selected={selected}
                       value={zip}
                     />
@@ -406,10 +402,10 @@ export default function Signup() {
                     {!selected && (
                       <p
                         style={{
-                          textAlign: "left",
-                          color: "red",
-                          fontSize: "10px",
-                          marginBottom: "5px",
+                          textAlign: 'left',
+                          color: 'red',
+                          fontSize: '10px',
+                          marginBottom: '5px',
                         }}
                       >
                         *Enter ZipCode
@@ -439,8 +435,8 @@ export default function Signup() {
                   <Row>
                     {" "}
                     <Form.Control
-                      type="text"
-                      placeholder="Enter State"
+                      type='text'
+                      placeholder='Enter State'
                       required
                       readOnly
                       value={
@@ -477,8 +473,8 @@ export default function Signup() {
                   <Row>
                     {" "}
                     <Form.Control
-                      type="text"
-                      placeholder="Enter Country"
+                      type='text'
+                      placeholder='Enter Country'
                       required
                       readOnly
                       value={
@@ -495,13 +491,13 @@ export default function Signup() {
                 </Col>
               </Row>
             </Form.Group>
-            <Form.Group className="mb-3">
-              <Row className="justify-content-start ">
-                <Col sm="4"></Col>
-                <Col sm={8} className="d-flex justify-content-start">
+            <Form.Group className='mb-3'>
+              <Row className='justify-content-start '>
+                <Col sm='4'></Col>
+                <Col sm={8} className='d-flex justify-content-start'>
                   <Button
-                    type="submit"
-                    className=" btn-info  m-0"
+                    type='submit'
+                    className=' btn-info  m-0'
                     disabled={loading}
                     onClick={(e) => handleSubmit(e)}
                   >
@@ -510,12 +506,12 @@ export default function Signup() {
                 </Col>
               </Row>
             </Form.Group>
-            <Form.Group className="m-0 d-flex justify-content-center">
-              <p className="error p-0 m-0">{error}</p>
+            <Form.Group className='m-0 d-flex justify-content-center'>
+              <p className='error p-0 m-0'>{error}</p>
             </Form.Group>
 
-            <p className="link">
-              Already have an account? <Link to="/">Login</Link>
+            <p className='link'>
+              Already have an account? <Link to='/'>Login</Link>
             </p>
           </Container>
         </Form>
