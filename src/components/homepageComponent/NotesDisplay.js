@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Notes from './Notes';
 import { RiAddLine, RiDeleteBack2Fill } from 'react-icons/ri';
+import ReactReadMoreReadLess from 'react-read-more-read-less';
 import {
   Row,
   Container,
@@ -310,7 +311,6 @@ export default function NotesDisplay() {
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              {console.log('sort', sort)}
             </Form>
           </div>
         </Row>
@@ -385,7 +385,7 @@ export default function NotesDisplay() {
           {today
             ? today.map((item, index) =>
                 item ? (
-                  <>
+                  <React.Fragment key={index}>
                     {/* Delete Modal */}
                     <Modal show={Object.keys(deleteModal).length > 0}>
                       <Modal.Header>
@@ -471,8 +471,9 @@ export default function NotesDisplay() {
                       style={{
                         width: 'auto',
                         borderRadius: '15px',
+                        height: 'auto',
                       }}
-                      className='m-0 p-0'
+                      className='m-1 p-0'
                     >
                       <Card.Body className=' d-flex  justify-content-center align-item-center'>
                         {item.img && (
@@ -490,15 +491,20 @@ export default function NotesDisplay() {
                           style={{ marginLeft: '16px' }}
                           className='d-grid  justify-content-center align-item-center'
                         >
-                          <div
-                            className=' text-center p-0 '
-                            style={{ maxWidth: '225px' }}
-                          >
+                          <div className='  p-0 ' style={{ maxWidth: '225px' }}>
                             <Card.Title className='p-0'>
                               {item.title}
                             </Card.Title>
                             <Card.Text className='p-0'>
-                              {item.Content}
+                              <ReactReadMoreReadLess
+                                charLimit={15}
+                                readMoreText={'Read more ▼'}
+                                readLessText={'Read less ▲'}
+                                readMoreClassName='read-more-less--more'
+                                readLessClassName='read-more-less--less'
+                              >
+                                {item.Content}
+                              </ReactReadMoreReadLess>
                             </Card.Text>
                           </div>
                           <div
@@ -521,7 +527,7 @@ export default function NotesDisplay() {
                         </div>
                       </Card.Body>
                     </Card>
-                  </>
+                  </React.Fragment>
                 ) : (
                   ''
                 )
@@ -540,7 +546,7 @@ export default function NotesDisplay() {
 
           {yesterdayuserNotesData.map((item, index) =>
             item ? (
-              <>
+              <React.Fragment key={index}>
                 {/* Delete Modal */}
                 <Modal show={Object.keys(deleteModal).length > 0}>
                   <Modal.Header>
@@ -623,8 +629,9 @@ export default function NotesDisplay() {
                   style={{
                     width: 'auto',
                     borderRadius: '15px',
+                    height: 'auto',
                   }}
-                  className='m-0 p-0'
+                  className='m-1 p-0'
                 >
                   <Card.Body className=' d-flex  justify-content-center align-item-center'>
                     {item.img && (
@@ -642,12 +649,19 @@ export default function NotesDisplay() {
                       style={{ marginLeft: '16px' }}
                       className='d-grid  justify-content-center align-item-center'
                     >
-                      <div
-                        className=' text-center p-0 '
-                        style={{ maxWidth: '225px' }}
-                      >
+                      <div className='  p-0 ' style={{ maxWidth: '225px' }}>
                         <Card.Title className='p-0'>{item.title}</Card.Title>
-                        <Card.Text className='p-0'>{item.Content}</Card.Text>
+                        <Card.Text className='p-0'>
+                          <ReactReadMoreReadLess
+                            charLimit={15}
+                            readMoreText={'Read more ▼'}
+                            readLessText={'Read less ▲'}
+                            readMoreClassName='read-more-less--more'
+                            readLessClassName='read-more-less--less'
+                          >
+                            {item.Content}
+                          </ReactReadMoreReadLess>
+                        </Card.Text>
                       </div>
                       <div
                         className='d-flex justify-content-around '
@@ -666,7 +680,7 @@ export default function NotesDisplay() {
                     </div>
                   </Card.Body>
                 </Card>
-              </>
+              </React.Fragment>
             ) : (
               ''
             )
@@ -684,7 +698,7 @@ export default function NotesDisplay() {
           )}
           {EarlieruserNotesData.map((item, index) =>
             item ? (
-              <>
+              <React.Fragment key={index}>
                 {/* DeleteModal */}
                 <Modal show={Object.keys(deleteModal).length > 0}>
                   <Modal.Header>
@@ -766,8 +780,9 @@ export default function NotesDisplay() {
                   style={{
                     width: 'auto',
                     borderRadius: '15px',
+                    height: 'auto',
                   }}
-                  className='m-0 p-0'
+                  className='m-1 p-0'
                 >
                   <Card.Body className=' d-flex  justify-content-center align-item-center'>
                     {item.img && (
@@ -785,12 +800,19 @@ export default function NotesDisplay() {
                       style={{ marginLeft: '16px' }}
                       className='d-grid  justify-content-center align-item-center'
                     >
-                      <div
-                        className=' text-center p-0 '
-                        style={{ maxWidth: '225px' }}
-                      >
+                      <div className='  p-0 ' style={{ maxWidth: '225px' }}>
                         <Card.Title className='p-0'>{item.title}</Card.Title>
-                        <Card.Text className='p-0'>{item.Content}</Card.Text>
+                        <Card.Text className='p-0'>
+                          <ReactReadMoreReadLess
+                            charLimit={15}
+                            readMoreText={'Read more ▼'}
+                            readLessText={'Read less ▲'}
+                            readMoreClassName='read-more-less--more'
+                            readLessClassName='read-more-less--less'
+                          >
+                            {item.Content}
+                          </ReactReadMoreReadLess>
+                        </Card.Text>
                       </div>
                       <div
                         className='d-flex justify-content-around '
@@ -809,7 +831,7 @@ export default function NotesDisplay() {
                     </div>
                   </Card.Body>
                 </Card>
-              </>
+              </React.Fragment>
             ) : (
               ''
             )
