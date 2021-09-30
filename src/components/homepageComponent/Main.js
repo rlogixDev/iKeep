@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import { Row } from 'react-bootstrap';
-import NotesDisplay from './NotesDisplay';
+import InputNote from './InputNote';
 import { AuthContext } from '../../context/AuthContext';
 
 export default function Main() {
@@ -10,7 +10,7 @@ export default function Main() {
   return (
     <div>
       <Row className='m-5'>
-        <NotesDisplay />
+        <InputNote />
       </Row>
     </div>
   );
