@@ -71,7 +71,7 @@ export default function NotesDisplay() {
     };
     axios
       .put(
-        'https://react-project-1443c-default-rtdb.firebaseio.com/notes/' +
+        'https://rlogixnoteapp-default-rtdb.firebaseio.com/notes/' +
           uid +
           '/' +
           userId +
@@ -87,7 +87,7 @@ export default function NotesDisplay() {
   const UpdateNewNote = () => {
     axios
       .get(
-        'https://react-project-1443c-default-rtdb.firebaseio.com/notes/' +
+        'https://rlogixnoteapp-default-rtdb.firebaseio.com/notes/' +
           uid +
           '.json'
       )
@@ -150,7 +150,7 @@ export default function NotesDisplay() {
     const id = deleteModal.id;
     axios
       .delete(
-        'https://react-project-1443c-default-rtdb.firebaseio.com/notes/' +
+        'https://rlogixnoteapp-default-rtdb.firebaseio.com/notes/' +
           uid +
           '/' +
           id +
@@ -164,7 +164,7 @@ export default function NotesDisplay() {
   useEffect(() => {
     axios
       .get(
-        'https://react-project-1443c-default-rtdb.firebaseio.com/notes/' +
+        'https://rlogixnoteapp-default-rtdb.firebaseio.com/notes/' +
           uid +
           '.json'
       )
