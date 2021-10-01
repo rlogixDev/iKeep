@@ -39,7 +39,7 @@ export default function Signup() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [pincodes, setPincodes] = useState([]);
-  const validEmail = new RegExp('@rlogix.com$');
+  const validEmail = new RegExp('@gmail.com$');
   const [selected, setSelected] = useState([]);
   let flag = true;
 
@@ -319,7 +319,7 @@ export default function Signup() {
                           marginBottom: '5px',
                         }}
                       >
-                        *should end with @rlogix.com
+                        *should end with @gmail.com
                       </p>
                     )}
                   </Row>
@@ -505,7 +505,10 @@ export default function Signup() {
             </Form.Group>
 
             <p className='link'>
-              Already have an account? <Link to='/'>Login</Link>
+              Already have an account?
+              <Link to='/' className='text-info'>
+                Login
+              </Link>
             </p>
           </Container>
         </Form>

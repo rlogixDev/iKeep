@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import Notes from './Notes';
 import { RiAddLine, RiDeleteBack2Fill } from 'react-icons/ri';
 import ReactReadMoreReadLess from 'react-read-more-read-less';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import {
   Row,
   Container,
@@ -130,20 +132,32 @@ export default function NotesDisplay() {
   };
 
   const uploadImage = async () => {
-    if (addImg) {
-      const formData = new FormData();
-      formData.append('file', addImg);
-      formData.append('upload_preset', 'lmx0ng0b');
-      await axios
-        .post(
-          'https://api.cloudinary.com/v1_1/adarsh022/image/upload',
-          formData
-        )
-        .then((res) => {
-          imagesId = res.data.url;
-        });
+    if (title === '') {
+      toast.error('All fields empty', {
+        autoClose: 5000,
+        hideProgressBar: false,
+        draggable: false,
+        progress: undefined,
+        position: 'top-right',
+        pauseOnHover: true,
+        closeOnClick: true,
+      });
+    } else {
+      if (addImg) {
+        const formData = new FormData();
+        formData.append('file', addImg);
+        formData.append('upload_preset', 'lmx0ng0b');
+        await axios
+          .post(
+            'https://api.cloudinary.com/v1_1/adarsh022/image/upload',
+            formData
+          )
+          .then((res) => {
+            imagesId = res.data.url;
+          });
+      }
+      AddNote();
     }
-    AddNote();
   };
 
   const Delete = () => {
@@ -481,7 +495,7 @@ export default function NotesDisplay() {
                           <Image
                             style={{
                               maxWidth: '150px',
-                              maxHeight:'150px'
+                              maxHeight: '150px',
                             }}
                             cloudName='adarsh022'
                             publicId={item.img}
@@ -494,11 +508,19 @@ export default function NotesDisplay() {
                         >
                           <div className='  p-0 ' style={{ maxWidth: '225px' }}>
                             <Card.Title className='p-0'>
-                              {item.title}
+                              <ReactReadMoreReadLess
+                                charLimit={45}
+                                readMoreText={'Read more ▼'}
+                                readLessText={'Read less ▲'}
+                                readMoreClassName='read-more-less--more'
+                                readLessClassName='read-more-less--less'
+                              >
+                                {item.title}
+                              </ReactReadMoreReadLess>
                             </Card.Title>
                             <Card.Text className='p-0'>
                               <ReactReadMoreReadLess
-                                charLimit={15}
+                                charLimit={45}
                                 readMoreText={'Read more ▼'}
                                 readLessText={'Read less ▲'}
                                 readMoreClassName='read-more-less--more'
@@ -508,9 +530,8 @@ export default function NotesDisplay() {
                               </ReactReadMoreReadLess>
                             </Card.Text>
                             <Card.Text>
-                             <strong> {item.Date.substr(0,15)}</strong>
+                              <strong> {item.Date.substr(0, 15)}</strong>
                             </Card.Text>
-                           
                           </div>
                           <div
                             className='d-flex justify-content-around '
@@ -583,7 +604,7 @@ export default function NotesDisplay() {
                       <Image
                         style={{
                           maxWidth: '300px',
-                          maxHeight:'150px'
+                          maxHeight: '150px',
                         }}
                         cloudName='adarsh022'
                         publicId={editItem.img}
@@ -645,7 +666,7 @@ export default function NotesDisplay() {
                       <Image
                         style={{
                           maxWidth: '150px',
-                          maxHeight:'150px'
+                          maxHeight: '150px',
                         }}
                         cloudName='adarsh022'
                         publicId={item.img}
@@ -657,10 +678,21 @@ export default function NotesDisplay() {
                       className='d-grid  justify-content-center align-item-center'
                     >
                       <div className='  p-0 ' style={{ maxWidth: '225px' }}>
-                        <Card.Title className='p-0'>{item.title}</Card.Title>
+                        <Card.Title className='p-0'>
+                          {' '}
+                          <ReactReadMoreReadLess
+                            charLimit={45}
+                            readMoreText={'Read more ▼'}
+                            readLessText={'Read less ▲'}
+                            readMoreClassName='read-more-less--more'
+                            readLessClassName='read-more-less--less'
+                          >
+                            {item.title}
+                          </ReactReadMoreReadLess>
+                        </Card.Title>
                         <Card.Text className='p-0'>
                           <ReactReadMoreReadLess
-                            charLimit={15}
+                            charLimit={45}
                             readMoreText={'Read more ▼'}
                             readLessText={'Read less ▲'}
                             readMoreClassName='read-more-less--more'
@@ -670,9 +702,8 @@ export default function NotesDisplay() {
                           </ReactReadMoreReadLess>
                         </Card.Text>
                         <Card.Text>
-                             <strong> {item.Date.substr(0,15)}</strong>
-                            </Card.Text>
-
+                          <strong> {item.Date.substr(0, 15)}</strong>
+                        </Card.Text>
                       </div>
                       <div
                         className='d-flex justify-content-around '
@@ -801,7 +832,7 @@ export default function NotesDisplay() {
                       <Image
                         style={{
                           maxWidth: '150px',
-                          maxHeight:'150px'
+                          maxHeight: '150px',
                         }}
                         cloudName='adarsh022'
                         publicId={item.img}
@@ -813,10 +844,20 @@ export default function NotesDisplay() {
                       className='d-grid  justify-content-center align-item-center'
                     >
                       <div className='  p-0 ' style={{ maxWidth: '225px' }}>
-                        <Card.Title className='p-0'>{item.title}</Card.Title>
+                        <Card.Title className='p-0'>
+                          <ReactReadMoreReadLess
+                            charLimit={45}
+                            readMoreText={'Read more ▼'}
+                            readLessText={'Read less ▲'}
+                            readMoreClassName='read-more-less--more'
+                            readLessClassName='read-more-less--less'
+                          >
+                            {item.title}
+                          </ReactReadMoreReadLess>
+                        </Card.Title>
                         <Card.Text className='p-0'>
                           <ReactReadMoreReadLess
-                            charLimit={15}
+                            charLimit={45}
                             readMoreText={'Read more ▼'}
                             readLessText={'Read less ▲'}
                             readMoreClassName='read-more-less--more'
@@ -826,8 +867,8 @@ export default function NotesDisplay() {
                           </ReactReadMoreReadLess>
                         </Card.Text>
                         <Card.Text>
-                             <strong> {item.Date.substr(0,15)}</strong>
-                            </Card.Text>
+                          <strong> {item.Date.substr(0, 15)}</strong>
+                        </Card.Text>
                       </div>
                       <div
                         className='d-flex justify-content-around '
@@ -855,7 +896,22 @@ export default function NotesDisplay() {
       ) : (
         ''
       )}
-      {userNotesData.length>0?'':<div style={{ display: "flex", justifyContent: "center", alignItems: "center",marginTop:"100px"}} ><strong><h1>No Notes to Display</h1></strong></div>}
+      {userNotesData.length > 0 ? (
+        ''
+      ) : (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '100px',
+          }}
+        >
+          <strong>
+            <h1>No Notes to Display</h1>
+          </strong>
+        </div>
+      )}
     </>
   );
 }

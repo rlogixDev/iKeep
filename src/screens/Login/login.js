@@ -3,17 +3,14 @@ import './login.css';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { Alert } from 'react-bootstrap';
 
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-} from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import authApp from '../../firebase';
 import { useHistory, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import google from '../../assets/google.png'
+import google from '../../assets/google.png';
 
 export const Login = () => {
   const [username, setUserName] = useState();
@@ -125,7 +122,7 @@ export const Login = () => {
           <div className='row justify-content-start login-row pt-4'>
             <div className='col align-self-start pt-1'>
               <div className='form-group p-2 '>
-                <label>Email address</label>
+                <label>Username / Mobile</label>
               </div>
             </div>
             <div className='col-8'>
@@ -235,7 +232,10 @@ export const Login = () => {
               </button>
             </div>
             <p className='link'>
-              New to IKeep? <Link to='/signup'>Join now</Link>
+              New to IKeep?{' '}
+              <Link to='/signup' className='text-info'>
+                Join now
+              </Link>
             </p>
           </div>
         </form>
