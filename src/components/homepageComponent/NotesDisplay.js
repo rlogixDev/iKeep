@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import Notes from './Notes';
 import { RiAddLine, RiDeleteBack2Fill } from 'react-icons/ri';
 import ReactReadMoreReadLess from 'react-read-more-read-less';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import {
   Row,
   Container,
@@ -130,20 +132,32 @@ export default function NotesDisplay() {
   };
 
   const uploadImage = async () => {
-    if (addImg) {
-      const formData = new FormData();
-      formData.append('file', addImg);
-      formData.append('upload_preset', 'lmx0ng0b');
-      await axios
-        .post(
-          'https://api.cloudinary.com/v1_1/adarsh022/image/upload',
-          formData
-        )
-        .then((res) => {
-          imagesId = res.data.url;
-        });
+    if (title === '') {
+      toast.error('All fields empty', {
+        autoClose: 5000,
+        hideProgressBar: false,
+        draggable: false,
+        progress: undefined,
+        position: 'top-right',
+        pauseOnHover: true,
+        closeOnClick: true,
+      });
+    } else {
+      if (addImg) {
+        const formData = new FormData();
+        formData.append('file', addImg);
+        formData.append('upload_preset', 'lmx0ng0b');
+        await axios
+          .post(
+            'https://api.cloudinary.com/v1_1/adarsh022/image/upload',
+            formData
+          )
+          .then((res) => {
+            imagesId = res.data.url;
+          });
+      }
+      AddNote();
     }
-    AddNote();
   };
 
   const Delete = () => {
