@@ -31,7 +31,6 @@ export default function NotesDisplay() {
   const [editItem, setEditItem] = useState({});
   let userNotesData = [];
   const [addImg, setAddImg] = useState('');
-  // const [imagesId, setImagesId] = useState('');
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
   const [deleteModal, setDeleteModal] = useState({});
@@ -132,7 +131,7 @@ export default function NotesDisplay() {
   };
 
   const uploadImage = async () => {
-    if (title === '') {
+    if (title === '' && Content === '') {
       toast.error('All fields empty', {
         autoClose: 5000,
         hideProgressBar: false,
