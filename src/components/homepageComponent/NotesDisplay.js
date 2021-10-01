@@ -132,7 +132,7 @@ export default function NotesDisplay() {
   };
 
   const uploadImage = async () => {
-    if (title === '') {
+    if (title === '' && Content === '') {
       toast.error('All fields empty', {
         autoClose: 5000,
         hideProgressBar: false,
