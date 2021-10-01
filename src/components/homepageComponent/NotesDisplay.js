@@ -882,6 +882,7 @@ export default function NotesDisplay() {
       ) : (
         ''
       )}
+      {userNotesData.length>0?'':<div style={{ display: "flex", justifyContent: "center", alignItems: "center",marginTop:"100px"}} ><strong><h1>No Notes to Display</h1></strong></div>}
     </>
   );
 }
