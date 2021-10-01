@@ -481,7 +481,7 @@ export default function NotesDisplay() {
                           <Image
                             style={{
                               maxWidth: '150px',
-                              maxHeight:'150px'
+                              maxHeight: '150px',
                             }}
                             cloudName='adarsh022'
                             publicId={item.img}
@@ -494,7 +494,15 @@ export default function NotesDisplay() {
                         >
                           <div className='  p-0 ' style={{ maxWidth: '225px' }}>
                             <Card.Title className='p-0'>
-                              {item.title}
+                              <ReactReadMoreReadLess
+                                charLimit={15}
+                                readMoreText={'Read more ▼'}
+                                readLessText={'Read less ▲'}
+                                readMoreClassName='read-more-less--more'
+                                readLessClassName='read-more-less--less'
+                              >
+                                {item.title}
+                              </ReactReadMoreReadLess>
                             </Card.Title>
                             <Card.Text className='p-0'>
                               <ReactReadMoreReadLess
@@ -508,9 +516,8 @@ export default function NotesDisplay() {
                               </ReactReadMoreReadLess>
                             </Card.Text>
                             <Card.Text>
-                             <strong> {item.Date.substr(0,15)}</strong>
+                              <strong> {item.Date.substr(0, 15)}</strong>
                             </Card.Text>
-                           
                           </div>
                           <div
                             className='d-flex justify-content-around '
@@ -583,7 +590,7 @@ export default function NotesDisplay() {
                       <Image
                         style={{
                           maxWidth: '300px',
-                          maxHeight:'150px'
+                          maxHeight: '150px',
                         }}
                         cloudName='adarsh022'
                         publicId={editItem.img}
@@ -645,7 +652,7 @@ export default function NotesDisplay() {
                       <Image
                         style={{
                           maxWidth: '150px',
-                          maxHeight:'150px'
+                          maxHeight: '150px',
                         }}
                         cloudName='adarsh022'
                         publicId={item.img}
@@ -657,7 +664,18 @@ export default function NotesDisplay() {
                       className='d-grid  justify-content-center align-item-center'
                     >
                       <div className='  p-0 ' style={{ maxWidth: '225px' }}>
-                        <Card.Title className='p-0'>{item.title}</Card.Title>
+                        <Card.Title className='p-0'>
+                          {' '}
+                          <ReactReadMoreReadLess
+                            charLimit={15}
+                            readMoreText={'Read more ▼'}
+                            readLessText={'Read less ▲'}
+                            readMoreClassName='read-more-less--more'
+                            readLessClassName='read-more-less--less'
+                          >
+                            {item.title}
+                          </ReactReadMoreReadLess>
+                        </Card.Title>
                         <Card.Text className='p-0'>
                           <ReactReadMoreReadLess
                             charLimit={15}
@@ -670,9 +688,8 @@ export default function NotesDisplay() {
                           </ReactReadMoreReadLess>
                         </Card.Text>
                         <Card.Text>
-                             <strong> {item.Date.substr(0,15)}</strong>
-                            </Card.Text>
-
+                          <strong> {item.Date.substr(0, 15)}</strong>
+                        </Card.Text>
                       </div>
                       <div
                         className='d-flex justify-content-around '
@@ -801,7 +818,7 @@ export default function NotesDisplay() {
                       <Image
                         style={{
                           maxWidth: '150px',
-                          maxHeight:'150px'
+                          maxHeight: '150px',
                         }}
                         cloudName='adarsh022'
                         publicId={item.img}
@@ -813,7 +830,17 @@ export default function NotesDisplay() {
                       className='d-grid  justify-content-center align-item-center'
                     >
                       <div className='  p-0 ' style={{ maxWidth: '225px' }}>
-                        <Card.Title className='p-0'>{item.title}</Card.Title>
+                        <Card.Title className='p-0'>
+                          <ReactReadMoreReadLess
+                            charLimit={15}
+                            readMoreText={'Read more ▼'}
+                            readLessText={'Read less ▲'}
+                            readMoreClassName='read-more-less--more'
+                            readLessClassName='read-more-less--less'
+                          >
+                            {item.title}
+                          </ReactReadMoreReadLess>
+                        </Card.Title>
                         <Card.Text className='p-0'>
                           <ReactReadMoreReadLess
                             charLimit={15}
@@ -826,8 +853,8 @@ export default function NotesDisplay() {
                           </ReactReadMoreReadLess>
                         </Card.Text>
                         <Card.Text>
-                             <strong> {item.Date.substr(0,15)}</strong>
-                            </Card.Text>
+                          <strong> {item.Date.substr(0, 15)}</strong>
+                        </Card.Text>
                       </div>
                       <div
                         className='d-flex justify-content-around '
