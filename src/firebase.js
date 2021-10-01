@@ -3,13 +3,14 @@ import { initializeApp } from 'firebase/app';
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDBPuoiq8GlTWZzp_VxZXFgZezWNo_NMsE",
-  authDomain: "react-project-1443c.firebaseapp.com",
-  projectId: "react-project-1443c",
-  storageBucket: "react-project-1443c.appspot.com",
-  messagingSenderId: "401616856383",
-  appId: "1:401616856383:web:2c9da16e4e0bb8bc099f8a",
-  measurementId: "G-9SNYE0QB54"
+  apiKey: "AIzaSyCn0Wq7P0Jy-xVa4qfv_K9Lma9-xIj8AE8",
+  authDomain: "rlogixnoteapp.firebaseapp.com",
+  databaseURL: "https://rlogixnoteapp-default-rtdb.firebaseio.com",
+  projectId: "rlogixnoteapp",
+  storageBucket: "rlogixnoteapp.appspot.com",
+  messagingSenderId: "612693668312",
+  appId: "1:612693668312:web:ad87eb416a76b3440442ad",
+  measurementId: "G-YEYHBSXRNZ"
 };
 
 const authApp = initializeApp(firebaseConfig);
