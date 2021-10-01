@@ -122,7 +122,7 @@ export const Login = () => {
           <div className='row justify-content-start login-row pt-4'>
             <div className='col align-self-start pt-1'>
               <div className='form-group p-2 '>
-                <label>Username / Phone Number</label>
+                <label>Username / Mobile</label>
               </div>
             </div>
             <div className='col-8'>
@@ -232,7 +232,10 @@ export const Login = () => {
               </button>
             </div>
             <p className='link'>
-              New to IKeep? <Link to='/signup'>Join now</Link>
+              New to IKeep?{' '}
+              <Link to='/signup' className='text-info'>
+                Join now
+              </Link>
             </p>
           </div>
         </form>

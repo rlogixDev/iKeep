@@ -495,7 +495,7 @@ export default function NotesDisplay() {
                           <div className='  p-0 ' style={{ maxWidth: '225px' }}>
                             <Card.Title className='p-0'>
                               <ReactReadMoreReadLess
-                                charLimit={15}
+                                charLimit={45}
                                 readMoreText={'Read more ▼'}
                                 readLessText={'Read less ▲'}
                                 readMoreClassName='read-more-less--more'
@@ -506,7 +506,7 @@ export default function NotesDisplay() {
                             </Card.Title>
                             <Card.Text className='p-0'>
                               <ReactReadMoreReadLess
-                                charLimit={15}
+                                charLimit={45}
                                 readMoreText={'Read more ▼'}
                                 readLessText={'Read less ▲'}
                                 readMoreClassName='read-more-less--more'
@@ -667,7 +667,7 @@ export default function NotesDisplay() {
                         <Card.Title className='p-0'>
                           {' '}
                           <ReactReadMoreReadLess
-                            charLimit={15}
+                            charLimit={45}
                             readMoreText={'Read more ▼'}
                             readLessText={'Read less ▲'}
                             readMoreClassName='read-more-less--more'
@@ -678,7 +678,7 @@ export default function NotesDisplay() {
                         </Card.Title>
                         <Card.Text className='p-0'>
                           <ReactReadMoreReadLess
-                            charLimit={15}
+                            charLimit={45}
                             readMoreText={'Read more ▼'}
                             readLessText={'Read less ▲'}
                             readMoreClassName='read-more-less--more'
@@ -832,7 +832,7 @@ export default function NotesDisplay() {
                       <div className='  p-0 ' style={{ maxWidth: '225px' }}>
                         <Card.Title className='p-0'>
                           <ReactReadMoreReadLess
-                            charLimit={15}
+                            charLimit={45}
                             readMoreText={'Read more ▼'}
                             readLessText={'Read less ▲'}
                             readMoreClassName='read-more-less--more'
@@ -843,7 +843,7 @@ export default function NotesDisplay() {
                         </Card.Title>
                         <Card.Text className='p-0'>
                           <ReactReadMoreReadLess
-                            charLimit={15}
+                            charLimit={45}
                             readMoreText={'Read more ▼'}
                             readLessText={'Read less ▲'}
                             readMoreClassName='read-more-less--more'
@@ -882,7 +882,22 @@ export default function NotesDisplay() {
       ) : (
         ''
       )}
-      {userNotesData.length>0?'':<div style={{ display: "flex", justifyContent: "center", alignItems: "center",marginTop:"100px"}} ><strong><h1>No Notes to Display</h1></strong></div>}
+      {userNotesData.length > 0 ? (
+        ''
+      ) : (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '100px',
+          }}
+        >
+          <strong>
+            <h1>No Notes to Display</h1>
+          </strong>
+        </div>
+      )}
     </>
   );
 }
