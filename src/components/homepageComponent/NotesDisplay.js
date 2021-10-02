@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Notes from './Notes';
-import { RiAddLine, RiDeleteBack2Fill } from 'react-icons/ri';
+import { RiAddLine } from 'react-icons/ri';
 import ReactReadMoreReadLess from 'react-read-more-read-less';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -12,7 +11,7 @@ import {
   InputGroup,
   Modal,
 } from 'react-bootstrap';
-import { Image, CloudinaryContext } from 'cloudinary-react';
+import { Image } from 'cloudinary-react';
 import { getDatabase, ref, set } from 'firebase/database';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
@@ -20,7 +19,6 @@ import { AuthContext } from '../../context/AuthContext';
 import { Form, FormControl, Dropdown, ButtonGroup } from 'react-bootstrap';
 
 export default function NotesDisplay() {
-  const [editModal, setEditModal] = useState(false);
   const [searchText, setSearch] = useState();
   const [data, setData] = useState([]);
   const { activeUser } = useContext(AuthContext);
@@ -31,7 +29,6 @@ export default function NotesDisplay() {
   const [editItem, setEditItem] = useState({});
   let userNotesData = [];
   const [addImg, setAddImg] = useState('');
-  // const [imagesId, setImagesId] = useState('');
   const [editTitle, setEditTitle] = useState('');
   const [editContent, setEditContent] = useState('');
   const [deleteModal, setDeleteModal] = useState({});
@@ -403,10 +400,13 @@ export default function NotesDisplay() {
                     {/* Delete Modal */}
                     <Modal show={Object.keys(deleteModal).length > 0}>
                       <Modal.Header>
-                        <Modal.Title>
-                          Are you sure that you want to delete this note
+                        <Modal.Title style={{ fontSize: '1.1rem' }}>
+                          Are you sure you want to delete
                         </Modal.Title>
-                        <Modal.Footer>
+                        <Modal.Footer
+                          style={{ borderTop: '0px' }}
+                          className='p-0 '
+                        >
                           <Button
                             variant='secondary'
                             onClick={() => setDeleteModal({})}
@@ -437,7 +437,7 @@ export default function NotesDisplay() {
                           />
                         </div>
                       )}
-                      <Modal.Header>
+                      <Modal.Header style={{ borderBottom: '0px' }}>
                         <Modal.Title style={{ width: '100%' }}>
                           <p style={{ fontWeight: 'bold' }}>Title</p>
                           <textarea
@@ -448,8 +448,13 @@ export default function NotesDisplay() {
                           </textarea>
                         </Modal.Title>
                       </Modal.Header>
-                      <Modal.Body>
-                        <p style={{ fontWeight: 'bold' }}>Content</p>
+                      <Modal.Body style={{ padding: '0 16px' }}>
+                        <p
+                          className='p-0'
+                          style={{ fontWeight: 'bold', padding: '0 16px' }}
+                        >
+                          Content
+                        </p>
 
                         <textarea
                           style={{ width: '100%' }}
@@ -460,7 +465,7 @@ export default function NotesDisplay() {
                           {editItem.Content}
                         </textarea>
                       </Modal.Body>
-                      <Modal.Footer>
+                      <Modal.Footer style={{ borderTop: '0px' }}>
                         <Button
                           variant='secondary'
                           onClick={() => setEditItem({})}
@@ -486,21 +491,21 @@ export default function NotesDisplay() {
                         width: 'auto',
                         borderRadius: '15px',
                         height: 'auto',
+                        margin: '16px',
                       }}
-                      className='m-1 p-0'
+                      className=' p-0'
                     >
-                      <Card.Body className=' d-flex  justify-content-center align-item-center'>
+                      <Card.Body className=' d-flex m-3 p-0 justify-content-center align-item-center'>
                         {item.img && (
-                          // <div>
                           <Image
                             style={{
+                              width: 'auto',
                               maxWidth: '150px',
                               maxHeight: '150px',
                             }}
                             cloudName='adarsh022'
                             publicId={item.img}
                           />
-                          // </div>
                         )}
                         <div
                           style={{ marginLeft: '16px' }}
@@ -530,7 +535,9 @@ export default function NotesDisplay() {
                               </ReactReadMoreReadLess>
                             </Card.Text>
                             <Card.Text>
-                              <strong> {item.Date.substr(0, 15)}</strong>
+                              <p style={{ fontSize: '.8rem' }}>
+                                {item.Date.substr(4, 11)}
+                              </p>
                             </Card.Text>
                           </div>
                           <div
@@ -611,7 +618,7 @@ export default function NotesDisplay() {
                       />
                     </div>
                   )}
-                  <Modal.Header>
+                  <Modal.Header style={{ borderBottom: '0px' }}>
                     <Modal.Title style={{ width: '100%' }}>
                       <p style={{ fontWeight: 'bold' }}>Title</p>
                       <textarea
@@ -622,8 +629,13 @@ export default function NotesDisplay() {
                       </textarea>
                     </Modal.Title>
                   </Modal.Header>
-                  <Modal.Body>
-                    <p style={{ fontWeight: 'bold' }}>Content</p>
+                  <Modal.Body style={{ padding: '0 16px' }}>
+                    <p
+                      className='p-0'
+                      style={{ fontWeight: 'bold', padding: '0 16px' }}
+                    >
+                      Content
+                    </p>
 
                     <textarea
                       style={{ width: '100%' }}
@@ -634,7 +646,7 @@ export default function NotesDisplay() {
                       {editItem.Content}
                     </textarea>
                   </Modal.Body>
-                  <Modal.Footer>
+                  <Modal.Footer style={{ borderTop: '0px' }}>
                     <Button variant='secondary' onClick={() => setEditItem({})}>
                       Close
                     </Button>
@@ -702,7 +714,9 @@ export default function NotesDisplay() {
                           </ReactReadMoreReadLess>
                         </Card.Text>
                         <Card.Text>
-                          <strong> {item.Date.substr(0, 15)}</strong>
+                          <p style={{ fontSize: '.8rem' }}>
+                            {item.Date.substr(4, 11)}
+                          </p>
                         </Card.Text>
                       </div>
                       <div
@@ -778,7 +792,7 @@ export default function NotesDisplay() {
                       />
                     </div>
                   )}
-                  <Modal.Header>
+                  <Modal.Header style={{ borderBottom: '0px' }}>
                     <Modal.Title style={{ width: '100%' }}>
                       <p style={{ fontWeight: 'bold' }}>Title</p>
                       <textarea
@@ -789,8 +803,10 @@ export default function NotesDisplay() {
                       </textarea>
                     </Modal.Title>
                   </Modal.Header>
-                  <Modal.Body>
-                    <p style={{ fontWeight: 'bold' }}>Content</p>
+                  <Modal.Body style={{ padding: '0 16px' }}>
+                    <p className='p-0' style={{ fontWeight: 'bold' }}>
+                      Content
+                    </p>
 
                     <textarea
                       style={{ width: '100%' }}
@@ -801,7 +817,7 @@ export default function NotesDisplay() {
                       {editItem.Content}
                     </textarea>
                   </Modal.Body>
-                  <Modal.Footer>
+                  <Modal.Footer style={{ borderTop: '0px' }}>
                     <Button variant='secondary' onClick={() => setEditItem({})}>
                       Close
                     </Button>
@@ -867,7 +883,9 @@ export default function NotesDisplay() {
                           </ReactReadMoreReadLess>
                         </Card.Text>
                         <Card.Text>
-                          <strong> {item.Date.substr(0, 15)}</strong>
+                          <p style={{ fontSize: '.8rem' }}>
+                            {item.Date.substr(4, 11)}
+                          </p>
                         </Card.Text>
                       </div>
                       <div
