@@ -4,6 +4,7 @@ import { RiAddLine, RiDeleteBack2Fill } from 'react-icons/ri';
 import ReactReadMoreReadLess from 'react-read-more-read-less';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+
 import {
   Row,
   Container,
@@ -308,17 +309,12 @@ export default function NotesDisplay() {
           <Modal.Header>
             <Modal.Title style={{ width: '100%' }}>
               <p style={{ fontWeight: 'bold' }}>Title</p>
-              {/* <p style={{ width: '100%' }}></p> */}
-              <Card.Text>{readMore.title}</Card.Text>
+              <p className='pp-break'>{readMore.title}</p>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p style={{ fontWeight: 'bold' }}>Content</p>
-
-            <p>{readMore.Content}</p>
-            {/* <Card.Text style={{ maxWidth: '5rem' }}>
-              {readMore.Content}
-            </Card.Text> */}
+            <p className='pp-break'>{readMore.Content}</p>
           </Modal.Body>
           <Modal.Footer>
             <Button variant='secondary' onClick={() => setReadMore({})}>
@@ -326,6 +322,7 @@ export default function NotesDisplay() {
             </Button>
           </Modal.Footer>
         </Modal>
+
         {/* /////////////////// */}
         <Row>
           <div className='d-flex justify-content-center'>
