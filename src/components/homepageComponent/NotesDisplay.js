@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import Notes from './Notes';
 import { RiAddLine, RiDeleteBack2Fill } from 'react-icons/ri';
 import ReactReadMoreReadLess from 'react-read-more-read-less';
@@ -41,6 +41,8 @@ export default function NotesDisplay() {
   const [loading, setloading] = useState(false);
   const [readMore, setReadMore] = useState({});
   let imagesId = '';
+
+  const fileInput = useRef();
 
   function compare(a, b) {
     if (sort) {
@@ -131,6 +133,7 @@ export default function NotesDisplay() {
         setAddImg('');
         imagesId = '';
         setloading(false);
+        fileInput.current.value = '';
       })
       .catch(() => console.log('Error'));
   };
@@ -138,7 +141,7 @@ export default function NotesDisplay() {
   const uploadImage = async () => {
     setloading(true);
     if (title === '' || Content === '') {
-      toast.error('All fields empty', {
+      toast.error('Fields Empty', {
         autoClose: 5000,
         hideProgressBar: false,
         draggable: false,
@@ -414,6 +417,7 @@ export default function NotesDisplay() {
               >
                 <input
                   type='file'
+                  ref={fileInput}
                   id='inputGroupFile01'
                   onChange={(e) => setAddImg(e.target.files[0])}
                   aria-describedby='inputGroupFileAddon01'
@@ -913,7 +917,6 @@ export default function NotesDisplay() {
           }}
         >
           <strong>
-            <h1>No Notes to Display</h1>
             {loading ? (
               <Spinner
                 animation='border'
@@ -921,7 +924,7 @@ export default function NotesDisplay() {
                 style={{ marginLeft: '2rem' }}
               />
             ) : (
-              ''
+              <h1>No Notes to Display</h1>
             )}
           </strong>
         </div>
