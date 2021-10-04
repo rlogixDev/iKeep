@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext,useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Notes from './Notes';
 import { RiAddLine, RiDeleteBack2Fill } from 'react-icons/ri';
 import ReactReadMoreReadLess from 'react-read-more-read-less';
@@ -22,7 +22,6 @@ import { AuthContext } from '../../context/AuthContext';
 import { Form, FormControl, Dropdown, ButtonGroup } from 'react-bootstrap';
 
 export default function NotesDisplay() {
-  const fileInput=useRef();
   const [editModal, setEditModal] = useState(false);
   const [searchText, setSearch] = useState();
   const [data, setData] = useState([]);
@@ -132,7 +131,6 @@ export default function NotesDisplay() {
         setAddImg('');
         imagesId = '';
         setloading(false);
-        fileInput.current.value='';
       })
       .catch(() => console.log('Error'));
   };
@@ -417,8 +415,7 @@ export default function NotesDisplay() {
                 <input
                   type='file'
                   id='inputGroupFile01'
-                  ref={fileInput}
-                  onChange={(e) => setAddImg(e.target.files[0]) }
+                  onChange={(e) => setAddImg(e.target.files[0])}
                   aria-describedby='inputGroupFileAddon01'
                 />
               </div>
@@ -575,9 +572,8 @@ export default function NotesDisplay() {
                                 readMoreClassName='read-more-less--more'
                                 readLessClassName='read-more-less--less'
                               > */}
-                              
                               {(a = item.Content.slice(0, 20))}
-                            {/* {a} */}
+                              {a}
                               {/* {item.Content.length > 20 ? { a } + '...' : { a }} */}
                               {/* </ReactReadMoreReadLess> */}
                             </Card.Text>
