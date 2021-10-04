@@ -576,7 +576,7 @@ export default function NotesDisplay() {
                                 readLessClassName='read-more-less--less'
                               > */}
                               
-                              {(a = item.Content.slice(0, 20))}
+                              {(a = item.Content.length>20?item.Content.slice(0, 20)+'...':item.Content.slice(0, 20))}
                             {/* {a} */}
                               {/* {item.Content.length > 20 ? { a } + '...' : { a }} */}
                               {/* </ReactReadMoreReadLess> */}
@@ -595,12 +595,13 @@ export default function NotesDisplay() {
                             >
                               Delete
                             </Card.Link>
-                            <Card.Link
+                          { item.Content.length>20 &&  <Card.Link
                               href='#'
                               onClick={() => setReadMore(item)}
                             >
+                              
                               Show More
-                            </Card.Link>
+                            </Card.Link>}
                             <Card.Link
                               href='#'
                               onClick={() => setEditItem(item)}
