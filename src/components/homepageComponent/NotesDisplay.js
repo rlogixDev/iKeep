@@ -85,7 +85,7 @@ export default function NotesDisplay() {
           '.json',
         updatedNote
       )
-      .then(() => setNewNote(updatedNote))
+      .then(() => (setNewNote(updatedNote),setEditContent(''),setEditTitle('')))
       .catch(() => console.log('Error'));
     setEditItem({});
     setDelImg(false);
