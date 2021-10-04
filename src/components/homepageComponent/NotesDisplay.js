@@ -11,6 +11,7 @@ import {
   Card,
   InputGroup,
   Modal,
+  Spinner,
 } from 'react-bootstrap';
 import { Image, CloudinaryContext } from 'cloudinary-react';
 import { getDatabase, ref, set } from 'firebase/database';
@@ -36,6 +37,8 @@ export default function NotesDisplay() {
   const [deleteModal, setDeleteModal] = useState({});
   const [delImg, setDelImg] = useState(false);
   const [sort, setSort] = useState(false);
+  const [loading, setloading] = useState(false);
+  const [readMore, setReadMore] = useState({});
   let imagesId = '';
 
   function compare(a, b) {
@@ -126,12 +129,14 @@ export default function NotesDisplay() {
         setContent('');
         setAddImg('');
         imagesId = '';
+        setloading(false);
       })
       .catch(() => console.log('Error'));
   };
 
   const uploadImage = async () => {
-    if (title === '' && Content === '') {
+    setloading(true);
+    if (title === '' || Content === '') {
       toast.error('All fields empty', {
         autoClose: 5000,
         hideProgressBar: false,
@@ -141,6 +146,7 @@ export default function NotesDisplay() {
         pauseOnHover: true,
         closeOnClick: true,
       });
+      setloading(false);
     } else {
       if (addImg) {
         const formData = new FormData();
@@ -282,6 +288,45 @@ export default function NotesDisplay() {
   return (
     <>
       <Container>
+        {/* /////////////////// */}
+        <Modal show={Object.keys(readMore).length > 0}>
+          {' '}
+          {readMore.img && (
+            <div
+              style={{ paddingTop: '16px' }}
+              className='d-flex justify-content-center align-item-center'
+            >
+              <Image
+                style={{
+                  maxWidth: '300px',
+                }}
+                cloudName='adarsh022'
+                publicId={readMore.img}
+              />
+            </div>
+          )}
+          <Modal.Header>
+            <Modal.Title style={{ width: '100%' }}>
+              <p style={{ fontWeight: 'bold' }}>Title</p>
+              {/* <p style={{ width: '100%' }}></p> */}
+              <Card.Text>{readMore.title}</Card.Text>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p style={{ fontWeight: 'bold' }}>Content</p>
+
+            <p>{readMore.Content}</p>
+            {/* <Card.Text style={{ maxWidth: '5rem' }}>
+              {readMore.Content}
+            </Card.Text> */}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={() => setReadMore({})}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        {/* /////////////////// */}
         <Row>
           <div className='d-flex justify-content-center'>
             <Form
@@ -386,12 +431,23 @@ export default function NotesDisplay() {
       {userNotesData.length > 0 ? (
         <div className='row d-flex justify-content-around mt-2 p-0'>
           {today.length > 0 ? (
-            <h4
-              className='text-decoration-underline'
-              style={{ textAlign: 'left' }}
-            >
-              Today
-            </h4>
+            <div className='d-flex'>
+              <h4
+                className='text-decoration-underline'
+                style={{ textAlign: 'left' }}
+              >
+                Today
+              </h4>
+              {loading ? (
+                <Spinner
+                  animation='border'
+                  size='lg'
+                  style={{ marginLeft: '2rem' }}
+                />
+              ) : (
+                ''
+              )}
+            </div>
           ) : (
             ''
           )}
@@ -466,20 +522,14 @@ export default function NotesDisplay() {
                         >
                           Close
                         </Button>
-                        {editItem.img && (
-                          <Button
-                            variant={!delImg ? 'secondary' : 'info'}
-                            onClick={() => setDelImg(!delImg)}
-                          >
-                            Delete Image
-                          </Button>
-                        )}
                         <Button variant='primary' onClick={UpdateNote}>
                           Save changes
                         </Button>
                       </Modal.Footer>
                     </Modal>
-
+                    {/* <div>
+  
+</div> */}
                     <Card
                       style={{
                         width: 'auto',
@@ -507,26 +557,28 @@ export default function NotesDisplay() {
                         >
                           <div className='  p-0 ' style={{ maxWidth: '225px' }}>
                             <Card.Title className='p-0'>
-                              <ReactReadMoreReadLess
+                              {/* <ReactReadMoreReadLess
                                 charLimit={45}
                                 readMoreText={'Read more ▼'}
                                 readLessText={'Read less ▲'}
                                 readMoreClassName='read-more-less--more'
                                 readLessClassName='read-more-less--less'
-                              >
-                                {item.title}
-                              </ReactReadMoreReadLess>
+                              > */}
+                              {item.title}
+                              {/* </ReactReadMoreReadLess> */}
                             </Card.Title>
                             <Card.Text className='p-0'>
-                              <ReactReadMoreReadLess
+                              {/* <ReactReadMoreReadLess
                                 charLimit={45}
                                 readMoreText={'Read more ▼'}
                                 readLessText={'Read less ▲'}
                                 readMoreClassName='read-more-less--more'
                                 readLessClassName='read-more-less--less'
-                              >
-                                {item.Content}
-                              </ReactReadMoreReadLess>
+                              > */}
+                              {(a = item.Content.slice(0, 20))}
+                              {a}
+                              {/* {item.Content.length > 20 ? { a } + '...' : { a }} */}
+                              {/* </ReactReadMoreReadLess> */}
                             </Card.Text>
                             <Card.Text>
                               <strong> {item.Date.substr(0, 15)}</strong>
@@ -541,6 +593,12 @@ export default function NotesDisplay() {
                               onClick={() => setDeleteModal({ id: item.id })}
                             >
                               Delete
+                            </Card.Link>
+                            <Card.Link
+                              href='#'
+                              onClick={() => setReadMore(item)}
+                            >
+                              Show More
                             </Card.Link>
                             <Card.Link
                               href='#'
@@ -637,14 +695,6 @@ export default function NotesDisplay() {
                     <Button variant='secondary' onClick={() => setEditItem({})}>
                       Close
                     </Button>
-                    {editItem.img && (
-                      <Button
-                        variant={!delImg ? 'secondary' : 'info'}
-                        onClick={() => setDelImg(!delImg)}
-                      >
-                        Delete Image
-                      </Button>
-                    )}
                     <Button variant='primary' onClick={UpdateNote}>
                       Save changes
                     </Button>
@@ -804,14 +854,6 @@ export default function NotesDisplay() {
                     <Button variant='secondary' onClick={() => setEditItem({})}>
                       Close
                     </Button>
-                    {editItem.img && (
-                      <Button
-                        variant={!delImg ? 'secondary' : 'info'}
-                        onClick={() => setDelImg(!delImg)}
-                      >
-                        Delete Image
-                      </Button>
-                    )}
                     <Button variant='primary' onClick={UpdateNote}>
                       Save changes
                     </Button>
