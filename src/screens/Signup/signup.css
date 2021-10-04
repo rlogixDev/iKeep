@@ -8,3 +8,12 @@
     background-color: #e4e4e4;
     border-radius: 20px;
   }
+
+  .gender{
+    padding-left: 8.5%;
+  }
+
+  .typeahead{
+    padding-left: 0%;
+    padding-right: 0%;
+  }

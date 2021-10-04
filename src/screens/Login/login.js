@@ -54,7 +54,8 @@ export const Login = () => {
           })
           .catch((error) => {
             const errorMessage = error.message;
-            toast.error("Invalid credentials");
+            toast.error('User login failed')
+            // toast.error(errorMessage);
           });
         return;
       }
@@ -67,11 +68,11 @@ export const Login = () => {
         })
         .catch((error) => {
           const errorMessage = error.message;
-          toast.error("Invalid credentials");
+          toast.error('Please enter valid username/password ');
         });
     } else {
       const errorMessage = 'Wrong OTP';
-      toast.error(errorMessage);
+      toast.error('Please make sure your OTP is valid');
     }
   };
 
@@ -99,7 +100,7 @@ export const Login = () => {
         const email = error.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
         console.log('error on signin', errorMessage);
-        toast.error(errorMessage);
+        toast.error('Sign In Failed');
       });
   }
 
