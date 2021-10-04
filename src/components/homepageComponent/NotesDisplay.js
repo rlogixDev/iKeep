@@ -385,7 +385,12 @@ export default function NotesDisplay() {
               style={{ width: '2.5rem' }}
               onClick={uploadImage}
             >
-              <RiAddLine size='1x' />
+              <RiAddLine
+                variant='primary'
+                className='btn-info'
+                style={{ borderRadius: '50px' }}
+                size='1x'
+              />
             </Button>
             <Card.Body>
               <InputGroup className='mb-3'>
