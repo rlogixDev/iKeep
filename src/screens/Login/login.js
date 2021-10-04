@@ -54,7 +54,7 @@ export const Login = () => {
           })
           .catch((error) => {
             const errorMessage = error.message;
-            toast.error(errorMessage);
+            toast.error("Invalid credentials");
           });
         return;
       }
@@ -67,7 +67,7 @@ export const Login = () => {
         })
         .catch((error) => {
           const errorMessage = error.message;
-          toast.error(errorMessage);
+          toast.error("Invalid credentials");
         });
     } else {
       const errorMessage = 'Wrong OTP';
