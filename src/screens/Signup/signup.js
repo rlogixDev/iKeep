@@ -196,7 +196,7 @@ export default function Signup() {
             <Form.Group className="mb-3">
               <Row className="justify-content-center">
                 <Form.Label column sm="4">
-                  Mobile Number
+                  Password
                 </Form.Label>
 
                 <Col sm="1">
@@ -241,7 +241,7 @@ export default function Signup() {
             <Form.Group className="mb-3">
               <Row className="justify-content-center">
                 <Form.Label column sm="4">
-                  Password
+                  Mobile Number
                 </Form.Label>
 
                 <Col sm="1">
