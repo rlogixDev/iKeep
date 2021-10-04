@@ -452,27 +452,25 @@ export default function NotesDisplay() {
             ? today.map((item, index) =>
                 item ? (
                   <React.Fragment key={index}>
-                    {/* Delete Modal */}
                     <Modal show={Object.keys(deleteModal).length > 0}>
                       <Modal.Header>
-                        <Modal.Title>
-                          Are you sure that you want to delete this note
-                        </Modal.Title>
-                        <Modal.Footer>
-                          <Button
-                            variant='secondary'
-                            onClick={() => setDeleteModal({})}
-                          >
-                            Cancel
-                          </Button>
-                          <Button variant='primary' onClick={Delete}>
-                            Delete
-                          </Button>
-                        </Modal.Footer>
+                        <Modal.Title>Sure you want to delete ? </Modal.Title>
+                        <Button
+                          variant='secondary'
+                          onClick={() => setDeleteModal({})}
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          variant='primary'
+                          className='btn-info'
+                          onClick={Delete}
+                        >
+                          Delete
+                        </Button>
                       </Modal.Header>
                     </Modal>
 
-                    {/* Edit Modal */}
                     <Modal show={Object.keys(editItem).length > 0}>
                       {' '}
                       {editItem.img && (
@@ -519,14 +517,15 @@ export default function NotesDisplay() {
                         >
                           Close
                         </Button>
-                        <Button variant='primary' onClick={UpdateNote}>
+                        <Button
+                          variant='primary'
+                          className='btn-info'
+                          onClick={UpdateNote}
+                        >
                           Save changes
                         </Button>
                       </Modal.Footer>
                     </Modal>
-                    {/* <div>
-  
-</div> */}
                     <Card
                       style={{
                         width: 'auto',
@@ -537,7 +536,6 @@ export default function NotesDisplay() {
                     >
                       <Card.Body className=' d-flex  justify-content-center align-item-center'>
                         {item.img && (
-                          // <div>
                           <Image
                             style={{
                               maxWidth: '150px',
@@ -546,7 +544,6 @@ export default function NotesDisplay() {
                             cloudName='adarsh022'
                             publicId={item.img}
                           />
-                          // </div>
                         )}
                         <div
                           style={{ marginLeft: '16px' }}
@@ -554,28 +551,15 @@ export default function NotesDisplay() {
                         >
                           <div className='  p-0 ' style={{ maxWidth: '225px' }}>
                             <Card.Title className='p-0'>
-                              {/* <ReactReadMoreReadLess
-                                charLimit={45}
-                                readMoreText={'Read more ▼'}
-                                readLessText={'Read less ▲'}
-                                readMoreClassName='read-more-less--more'
-                                readLessClassName='read-more-less--less'
-                              > */}
                               {item.title}
-                              {/* </ReactReadMoreReadLess> */}
                             </Card.Title>
                             <Card.Text className='p-0'>
-                              {/* <ReactReadMoreReadLess
-                                charLimit={45}
-                                readMoreText={'Read more ▼'}
-                                readLessText={'Read less ▲'}
-                                readMoreClassName='read-more-less--more'
-                                readLessClassName='read-more-less--less'
-                              > */}
-                              {(a = item.Content.slice(0, 20))}
-                              {a}
-                              {/* {item.Content.length > 20 ? { a } + '...' : { a }} */}
-                              {/* </ReactReadMoreReadLess> */}
+                              {
+                                (a =
+                                  item.Content.length > 20
+                                    ? item.Content.slice(0, 20) + '...'
+                                    : item.Content.slice(0, 20))
+                              }
                             </Card.Text>
                             <Card.Text>
                               <strong> {item.Date.substr(0, 15)}</strong>
@@ -591,12 +575,14 @@ export default function NotesDisplay() {
                             >
                               Delete
                             </Card.Link>
-                            <Card.Link
-                              href='#'
-                              onClick={() => setReadMore(item)}
-                            >
-                              Show More
-                            </Card.Link>
+                            {item.Content.length > 20 && (
+                              <Card.Link
+                                href='#'
+                                onClick={() => setReadMore(item)}
+                              >
+                                Show More
+                              </Card.Link>
+                            )}
                             <Card.Link
                               href='#'
                               onClick={() => setEditItem(item)}
@@ -627,27 +613,25 @@ export default function NotesDisplay() {
           {yesterdayuserNotesData.map((item, index) =>
             item ? (
               <React.Fragment key={index}>
-                {/* Delete Modal */}
                 <Modal show={Object.keys(deleteModal).length > 0}>
                   <Modal.Header>
-                    <Modal.Title>
-                      Are you sure that you want to delete this note
-                    </Modal.Title>
-                    <Modal.Footer>
-                      <Button
-                        variant='secondary'
-                        onClick={() => setDeleteModal({})}
-                      >
-                        Cancel
-                      </Button>
-                      <Button variant='primary' onClick={Delete}>
-                        Delete
-                      </Button>
-                    </Modal.Footer>
+                    <Modal.Title>Sure you want to delete ? </Modal.Title>
+                    <Button
+                      variant='secondary'
+                      onClick={() => setDeleteModal({})}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      variant='primary'
+                      className='btn-info'
+                      onClick={Delete}
+                    >
+                      Delete
+                    </Button>
                   </Modal.Header>
                 </Modal>
 
-                {/* Edit Modal */}
                 <Modal show={Object.keys(editItem).length > 0}>
                   {' '}
                   {editItem.img && (
@@ -658,7 +642,6 @@ export default function NotesDisplay() {
                       <Image
                         style={{
                           maxWidth: '300px',
-                          maxHeight: '150px',
                         }}
                         cloudName='adarsh022'
                         publicId={editItem.img}
@@ -692,12 +675,15 @@ export default function NotesDisplay() {
                     <Button variant='secondary' onClick={() => setEditItem({})}>
                       Close
                     </Button>
-                    <Button variant='primary' onClick={UpdateNote}>
+                    <Button
+                      variant='primary'
+                      className='btn-info'
+                      onClick={UpdateNote}
+                    >
                       Save changes
                     </Button>
                   </Modal.Footer>
                 </Modal>
-
                 <Card
                   style={{
                     width: 'auto',
@@ -708,7 +694,6 @@ export default function NotesDisplay() {
                 >
                   <Card.Body className=' d-flex  justify-content-center align-item-center'>
                     {item.img && (
-                      // <div>
                       <Image
                         style={{
                           maxWidth: '150px',
@@ -717,35 +702,20 @@ export default function NotesDisplay() {
                         cloudName='adarsh022'
                         publicId={item.img}
                       />
-                      // </div>
                     )}
                     <div
                       style={{ marginLeft: '16px' }}
                       className='d-grid  justify-content-center align-item-center'
                     >
                       <div className='  p-0 ' style={{ maxWidth: '225px' }}>
-                        <Card.Title className='p-0'>
-                          {' '}
-                          <ReactReadMoreReadLess
-                            charLimit={45}
-                            readMoreText={'Read more ▼'}
-                            readLessText={'Read less ▲'}
-                            readMoreClassName='read-more-less--more'
-                            readLessClassName='read-more-less--less'
-                          >
-                            {item.title}
-                          </ReactReadMoreReadLess>
-                        </Card.Title>
+                        <Card.Title className='p-0'>{item.title}</Card.Title>
                         <Card.Text className='p-0'>
-                          <ReactReadMoreReadLess
-                            charLimit={45}
-                            readMoreText={'Read more ▼'}
-                            readLessText={'Read less ▲'}
-                            readMoreClassName='read-more-less--more'
-                            readLessClassName='read-more-less--less'
-                          >
-                            {item.Content}
-                          </ReactReadMoreReadLess>
+                          {
+                            (a =
+                              item.Content.length > 20
+                                ? item.Content.slice(0, 20) + '...'
+                                : item.Content.slice(0, 20))
+                          }
                         </Card.Text>
                         <Card.Text>
                           <strong> {item.Date.substr(0, 15)}</strong>
@@ -761,6 +731,11 @@ export default function NotesDisplay() {
                         >
                           Delete
                         </Card.Link>
+                        {item.Content.length > 20 && (
+                          <Card.Link href='#' onClick={() => setReadMore(item)}>
+                            Show More
+                          </Card.Link>
+                        )}
                         <Card.Link href='#' onClick={() => setEditItem(item)}>
                           Edit
                         </Card.Link>
@@ -787,27 +762,25 @@ export default function NotesDisplay() {
           {EarlieruserNotesData.map((item, index) =>
             item ? (
               <React.Fragment key={index}>
-                {/* DeleteModal */}
                 <Modal show={Object.keys(deleteModal).length > 0}>
                   <Modal.Header>
-                    <Modal.Title>
-                      Are you sure that you want to delete this note
-                    </Modal.Title>
-                    <Modal.Footer>
-                      <Button
-                        variant='secondary'
-                        onClick={() => setDeleteModal({})}
-                      >
-                        Cancel
-                      </Button>
-                      <Button variant='primary' onClick={Delete}>
-                        Delete
-                      </Button>
-                    </Modal.Footer>
+                    <Modal.Title>Sure you want to delete ? </Modal.Title>
+                    <Button
+                      variant='secondary'
+                      onClick={() => setDeleteModal({})}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      variant='primary'
+                      className='btn-info'
+                      onClick={Delete}
+                    >
+                      Delete
+                    </Button>
                   </Modal.Header>
                 </Modal>
 
-                {/* EditModal */}
                 <Modal show={Object.keys(editItem).length > 0}>
                   {' '}
                   {editItem.img && (
@@ -851,7 +824,11 @@ export default function NotesDisplay() {
                     <Button variant='secondary' onClick={() => setEditItem({})}>
                       Close
                     </Button>
-                    <Button variant='primary' onClick={UpdateNote}>
+                    <Button
+                      variant='primary'
+                      className='btn-info'
+                      onClick={UpdateNote}
+                    >
                       Save changes
                     </Button>
                   </Modal.Footer>
@@ -866,7 +843,6 @@ export default function NotesDisplay() {
                 >
                   <Card.Body className=' d-flex  justify-content-center align-item-center'>
                     {item.img && (
-                      // <div>
                       <Image
                         style={{
                           maxWidth: '150px',
@@ -875,34 +851,20 @@ export default function NotesDisplay() {
                         cloudName='adarsh022'
                         publicId={item.img}
                       />
-                      // </div>
                     )}
                     <div
                       style={{ marginLeft: '16px' }}
                       className='d-grid  justify-content-center align-item-center'
                     >
                       <div className='  p-0 ' style={{ maxWidth: '225px' }}>
-                        <Card.Title className='p-0'>
-                          <ReactReadMoreReadLess
-                            charLimit={45}
-                            readMoreText={'Read more ▼'}
-                            readLessText={'Read less ▲'}
-                            readMoreClassName='read-more-less--more'
-                            readLessClassName='read-more-less--less'
-                          >
-                            {item.title}
-                          </ReactReadMoreReadLess>
-                        </Card.Title>
+                        <Card.Title className='p-0'>{item.title}</Card.Title>
                         <Card.Text className='p-0'>
-                          <ReactReadMoreReadLess
-                            charLimit={45}
-                            readMoreText={'Read more ▼'}
-                            readLessText={'Read less ▲'}
-                            readMoreClassName='read-more-less--more'
-                            readLessClassName='read-more-less--less'
-                          >
-                            {item.Content}
-                          </ReactReadMoreReadLess>
+                          {
+                            (a =
+                              item.Content.length > 20
+                                ? item.Content.slice(0, 20) + '...'
+                                : item.Content.slice(0, 20))
+                          }
                         </Card.Text>
                         <Card.Text>
                           <strong> {item.Date.substr(0, 15)}</strong>
@@ -918,6 +880,11 @@ export default function NotesDisplay() {
                         >
                           Delete
                         </Card.Link>
+                        {item.Content.length > 20 && (
+                          <Card.Link href='#' onClick={() => setReadMore(item)}>
+                            Show More
+                          </Card.Link>
+                        )}
                         <Card.Link href='#' onClick={() => setEditItem(item)}>
                           Edit
                         </Card.Link>
@@ -947,6 +914,15 @@ export default function NotesDisplay() {
         >
           <strong>
             <h1>No Notes to Display</h1>
+            {loading ? (
+              <Spinner
+                animation='border'
+                size='lg'
+                style={{ marginLeft: '2rem' }}
+              />
+            ) : (
+              ''
+            )}
           </strong>
         </div>
       )}
