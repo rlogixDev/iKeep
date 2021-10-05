@@ -85,7 +85,9 @@ export default function NotesDisplay() {
           '.json',
         updatedNote
       )
-      .then(() => (setNewNote(updatedNote),setEditContent(''),setEditTitle('')))
+      .then(
+        () => (setNewNote(updatedNote), setEditContent(''), setEditTitle(''))
+      )
       .catch(() => console.log('Error'));
     setEditItem({});
     setDelImg(false);
@@ -275,13 +277,14 @@ export default function NotesDisplay() {
   const yesMon = monthNames[new Date().getMonth()].substr(0, 3);
   const yesYear = new Date().getFullYear();
   const yesDate = new Date().getDate() - 1;
-  
-  const yesterday =Math.round(yesDate/10)==0?(yesDay + ' ' + yesMon + ' ' + "0"+yesDate + ' ' + yesYear):(yesDay + ' ' + yesMon + ' '+yesDate + ' ' + yesYear) ;
-  
+
+  const yesterday =
+    Math.round(yesDate / 10) == 0
+      ? yesDay + ' ' + yesMon + ' ' + '0' + yesDate + ' ' + yesYear
+      : yesDay + ' ' + yesMon + ' ' + yesDate + ' ' + yesYear;
+
   const yesterdayuserNotesData = userNotesData
-    ? userNotesData.filter((item, key) =>
-       (item.Date.substr(0, 15) === yesterday)
-      )
+    ? userNotesData.filter((item, key) => item.Date.substr(0, 15) === yesterday)
     : '';
   const EarlieruserNotesData = userNotesData
     ? userNotesData.filter((item, key) =>
@@ -304,7 +307,8 @@ export default function NotesDisplay() {
             >
               <Image
                 style={{
-                  maxWidth: '300px',
+                  width: '100%',
+                  height: '100%',
                 }}
                 cloudName='adarsh022'
                 publicId={readMore.img}
@@ -491,7 +495,8 @@ export default function NotesDisplay() {
                         >
                           <Image
                             style={{
-                              maxWidth: '300px',
+                              width: '100%',
+                              height: '100%',
                             }}
                             cloudName='adarsh022'
                             publicId={editItem.img}
@@ -549,8 +554,7 @@ export default function NotesDisplay() {
                         {item.img && (
                           <Image
                             style={{
-                              maxWidth: '150px',
-                              maxHeight: '150px',
+                              width: '150px',
                             }}
                             cloudName='adarsh022'
                             publicId={item.img}
@@ -562,14 +566,14 @@ export default function NotesDisplay() {
                         >
                           <div className='  p-0 ' style={{ maxWidth: '225px' }}>
                             <Card.Title className='p-0'>
-                              {item.title}
+                              <strong> {item.title}</strong>
                             </Card.Title>
                             <Card.Text className='p-0'>
                               {
                                 (a =
                                   item.Content.length > 20
-                                    ? item.Content.slice(0, 20) + '...'
-                                    : item.Content.slice(0, 20))
+                                    ? item.Content.slice(0, 60) + '...'
+                                    : item.Content.slice(0, 60))
                               }
                             </Card.Text>
                             <Card.Text>
@@ -652,7 +656,8 @@ export default function NotesDisplay() {
                     >
                       <Image
                         style={{
-                          maxWidth: '300px',
+                          width: '100%',
+                          height: '100%',
                         }}
                         cloudName='adarsh022'
                         publicId={editItem.img}
@@ -724,8 +729,8 @@ export default function NotesDisplay() {
                           {
                             (a =
                               item.Content.length > 20
-                                ? item.Content.slice(0, 20) + '...'
-                                : item.Content.slice(0, 20))
+                                ? item.Content.slice(0, 60) + '...'
+                                : item.Content.slice(0, 60))
                           }
                         </Card.Text>
                         <Card.Text>
@@ -801,7 +806,8 @@ export default function NotesDisplay() {
                     >
                       <Image
                         style={{
-                          maxWidth: '300px',
+                          width: '100%',
+                          height: '100%',
                         }}
                         cloudName='adarsh022'
                         publicId={editItem.img}
@@ -856,8 +862,8 @@ export default function NotesDisplay() {
                     {item.img && (
                       <Image
                         style={{
-                          maxWidth: '150px',
-                          maxHeight: '150px',
+                          width: '100%',
+                          height: '100%',
                         }}
                         cloudName='adarsh022'
                         publicId={item.img}
@@ -873,8 +879,8 @@ export default function NotesDisplay() {
                           {
                             (a =
                               item.Content.length > 20
-                                ? item.Content.slice(0, 20) + '...'
-                                : item.Content.slice(0, 20))
+                                ? item.Content.slice(0, 60) + '...'
+                                : item.Content.slice(0, 60))
                           }
                         </Card.Text>
                         <Card.Text>
