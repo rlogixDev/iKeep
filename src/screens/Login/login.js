@@ -123,7 +123,7 @@ export const Login = () => {
           <div className='row justify-content-start login-row pt-4'>
             <div className='col align-self-start pt-1'>
               <div className='form-group p-2 '>
-                <label>Username / Mobile</label>
+                <label>Email / Mobile</label>
               </div>
             </div>
             <div className='col-8'>
