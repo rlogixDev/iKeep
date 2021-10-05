@@ -15,7 +15,7 @@ const Header = () => {
           <img
             src={Logo}
             width='70'
-            height='70'
+            height='80'
             className='d-inline-block align-bottom text-danger'
             alt='Logo'
           />

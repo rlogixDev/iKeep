@@ -561,12 +561,18 @@ export default function NotesDisplay() {
                               <strong> {item.title}</strong>
                             </Card.Title>
                             <Card.Text className='p-0'>
-                              {
-                                (a =
-                                  item.Content.length > 20
-                                    ? item.Content.slice(0, 60) + '...'
-                                    : item.Content.slice(0, 60))
-                              }
+                              {/* <ReactReadMoreReadLess
+                                charLimit={45}
+                                readMoreText={'Read more ▼'}
+                                readLessText={'Read less ▲'}
+                                readMoreClassName='read-more-less--more'
+                                readLessClassName='read-more-less--less'
+                              > */}
+                              
+                              {(a = item.Content.length>20?item.Content.slice(0, 20)+'...':item.Content.slice(0, 20))}
+                            {/* {a} */}
+                              {/* {item.Content.length > 20 ? { a } + '...' : { a }} */}
+                              {/* </ReactReadMoreReadLess> */}
                             </Card.Text>
                             <Card.Text>
                               <strong> {item.Date.substr(0, 15)}</strong>
@@ -582,14 +588,13 @@ export default function NotesDisplay() {
                             >
                               Delete
                             </Card.Link>
-                            {item.Content.length > 20 && (
-                              <Card.Link
-                                href='#'
-                                onClick={() => setReadMore(item)}
-                              >
-                                Show More
-                              </Card.Link>
-                            )}
+                          { item.Content.length>20 &&  <Card.Link
+                              href='#'
+                              onClick={() => setReadMore(item)}
+                            >
+                              
+                              Show More
+                            </Card.Link>}
                             <Card.Link
                               href='#'
                               onClick={() => setEditItem(item)}

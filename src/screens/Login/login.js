@@ -211,7 +211,7 @@ export const Login = () => {
               </button>
             </div>
             <p className='link'>
-              Forgot Password? <Link to='/resetPassword'>Reset Password</Link>
+              Forgot Password? <Link className="text-info" to='/resetPassword'>Reset Password</Link>
             </p>
           </div>
           <div className='row '>
