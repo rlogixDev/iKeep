@@ -275,10 +275,12 @@ export default function NotesDisplay() {
   const yesMon = monthNames[new Date().getMonth()].substr(0, 3);
   const yesYear = new Date().getFullYear();
   const yesDate = new Date().getDate() - 1;
-  const yesterday = yesDay + ' ' + yesMon + ' ' + yesDate + ' ' + yesYear;
+  
+  const yesterday =Math.round(yesDate/10)==0?(yesDay + ' ' + yesMon + ' ' + "0"+yesDate + ' ' + yesYear):(yesDay + ' ' + yesMon + ' '+yesDate + ' ' + yesYear) ;
+  
   const yesterdayuserNotesData = userNotesData
     ? userNotesData.filter((item, key) =>
-        item ? item.Date.substr(0, 15) === yesterday : ''
+       (item.Date.substr(0, 15) === yesterday)
       )
     : '';
   const EarlieruserNotesData = userNotesData
