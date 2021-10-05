@@ -18,9 +18,10 @@ const ResetPassword = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        toast.error('Password reset failed!');
+        toast.error('Email address not found!');
       });
   };
+  const validEmail = new RegExp("@gmail.com$");
 
   return (
     <div>
@@ -43,7 +44,19 @@ const ResetPassword = () => {
                     placeholder="Enter email"
                     onChange={(e) => setUserName(e.target.value)}
                   />
-                  {!username && <p className="error">*Enter email</p>}
+                  {/* {!username && <p className="error">*Enter email</p>} */}
+                  {!validEmail.test(username) && (
+                      <p
+                        style={{
+                          textAlign: "left",
+                          color: "red",
+                          fontSize: "10px",
+                          marginBottom: "5px",
+                        }}
+                      >
+                        *should end with @gmail.com
+                      </p>
+                    )}
                 </div>
               </div>
             </div>
@@ -55,7 +68,7 @@ const ResetPassword = () => {
                   type="button"
                   className="btn btn-info btn-lg btn-block"
                   onClick={(e) => handleSubmit(e)}
-                  disabled={!username}
+                  disabled={!validEmail.test(username)}
                 >
                   {" "}
                   Submit
