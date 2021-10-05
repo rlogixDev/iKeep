@@ -54,7 +54,7 @@ export const Login = () => {
           })
           .catch((error) => {
             const errorMessage = error.message;
-            toast.error('User login failed')
+            toast.error('User login failed');
             // toast.error(errorMessage);
           });
         return;
@@ -135,7 +135,7 @@ export const Login = () => {
                   placeholder='Enter email'
                   onChange={(e) => setUserName(e.target.value)}
                 />
-                {!username && <p className='error'>*Enter email</p>}
+                {!username && <p className='error'>*Enter Email / Mobile </p>}
               </div>
             </div>
           </div>
