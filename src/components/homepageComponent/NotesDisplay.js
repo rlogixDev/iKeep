@@ -459,13 +459,9 @@ export default function NotesDisplay() {
           ) : (
             ''
           )}
-          {today
-            ? today.map((item, index) =>
-                item ? (
-                  <React.Fragment key={index}>
-                    <Modal show={Object.keys(deleteModal).length > 0}>
+           <Modal show={Object.keys(deleteModal).length > 0}>
                       <Modal.Header>
-                        <Modal.Title>Sure you want to delete ? </Modal.Title>
+                        <Modal.Title>Are you sure that you want to delete this note ? </Modal.Title>
                         <Button
                           variant='secondary'
                           onClick={() => setDeleteModal({})}
@@ -537,6 +533,11 @@ export default function NotesDisplay() {
                         </Button>
                       </Modal.Footer>
                     </Modal>
+          {today
+            ? today.map((item, index) =>
+                item ? (
+                  <React.Fragment key={index}>
+                   
                     <Card
                       style={{
                         width: 'auto',
@@ -624,77 +625,7 @@ export default function NotesDisplay() {
           {yesterdayuserNotesData.map((item, index) =>
             item ? (
               <React.Fragment key={index}>
-                <Modal show={Object.keys(deleteModal).length > 0}>
-                  <Modal.Header>
-                    <Modal.Title>Sure you want to delete ? </Modal.Title>
-                    <Button
-                      variant='secondary'
-                      onClick={() => setDeleteModal({})}
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      variant='primary'
-                      className='btn-info'
-                      onClick={Delete}
-                    >
-                      Delete
-                    </Button>
-                  </Modal.Header>
-                </Modal>
-
-                <Modal show={Object.keys(editItem).length > 0}>
-                  {' '}
-                  {editItem.img && (
-                    <div
-                      style={{ paddingTop: '16px' }}
-                      className='d-flex justify-content-center align-item-center'
-                    >
-                      <Image
-                        style={{
-                          maxWidth: '300px',
-                        }}
-                        cloudName='adarsh022'
-                        publicId={editItem.img}
-                      />
-                    </div>
-                  )}
-                  <Modal.Header>
-                    <Modal.Title style={{ width: '100%' }}>
-                      <p style={{ fontWeight: 'bold' }}>Title</p>
-                      <textarea
-                        style={{ width: '100%' }}
-                        onChange={(e) => setEditTitle(e.target.value)}
-                      >
-                        {editItem.title}
-                      </textarea>
-                    </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <p style={{ fontWeight: 'bold' }}>Content</p>
-
-                    <textarea
-                      style={{ width: '100%' }}
-                      cols='48'
-                      rows='10'
-                      onChange={(e) => setEditContent(e.target.value)}
-                    >
-                      {editItem.Content}
-                    </textarea>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant='secondary' onClick={() => setEditItem({})}>
-                      Close
-                    </Button>
-                    <Button
-                      variant='primary'
-                      className='btn-info'
-                      onClick={UpdateNote}
-                    >
-                      Save changes
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
+               
                 <Card
                   style={{
                     width: 'auto',
@@ -773,77 +704,7 @@ export default function NotesDisplay() {
           {EarlieruserNotesData.map((item, index) =>
             item ? (
               <React.Fragment key={index}>
-                <Modal show={Object.keys(deleteModal).length > 0}>
-                  <Modal.Header>
-                    <Modal.Title>Sure you want to delete ? </Modal.Title>
-                    <Button
-                      variant='secondary'
-                      onClick={() => setDeleteModal({})}
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      variant='primary'
-                      className='btn-info'
-                      onClick={Delete}
-                    >
-                      Delete
-                    </Button>
-                  </Modal.Header>
-                </Modal>
-
-                <Modal show={Object.keys(editItem).length > 0}>
-                  {' '}
-                  {editItem.img && (
-                    <div
-                      style={{ paddingTop: '16px' }}
-                      className='d-flex justify-content-center align-item-center'
-                    >
-                      <Image
-                        style={{
-                          maxWidth: '300px',
-                        }}
-                        cloudName='adarsh022'
-                        publicId={editItem.img}
-                      />
-                    </div>
-                  )}
-                  <Modal.Header>
-                    <Modal.Title style={{ width: '100%' }}>
-                      <p style={{ fontWeight: 'bold' }}>Title</p>
-                      <textarea
-                        style={{ width: '100%' }}
-                        onChange={(e) => setEditTitle(e.target.value)}
-                      >
-                        {editItem.title}
-                      </textarea>
-                    </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <p style={{ fontWeight: 'bold' }}>Content</p>
-
-                    <textarea
-                      style={{ width: '100%' }}
-                      cols='48'
-                      rows='10'
-                      onChange={(e) => setEditContent(e.target.value)}
-                    >
-                      {editItem.Content}
-                    </textarea>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant='secondary' onClick={() => setEditItem({})}>
-                      Close
-                    </Button>
-                    <Button
-                      variant='primary'
-                      className='btn-info'
-                      onClick={UpdateNote}
-                    >
-                      Save changes
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
+               
                 <Card
                   style={{
                     width: 'auto',
