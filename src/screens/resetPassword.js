@@ -54,7 +54,7 @@ const ResetPassword = () => {
                           marginBottom: "5px",
                         }}
                       >
-                        *should end with @gmail.com
+                        *Only gmail domains are allowed
                       </p>
                     )}
                 </div>
