@@ -712,8 +712,7 @@ export default function NotesDisplay() {
                     {item.img && (
                       <Image
                         style={{
-                          maxWidth: '150px',
-                          maxHeight: '150px',
+                          width: '150px',
                         }}
                         cloudName='adarsh022'
                         publicId={item.img}
@@ -724,7 +723,9 @@ export default function NotesDisplay() {
                       className='d-grid  justify-content-center align-item-center'
                     >
                       <div className='  p-0 ' style={{ maxWidth: '225px' }}>
-                        <Card.Title className='p-0'>{item.title}</Card.Title>
+                        <Card.Title className='p-0'>
+                          <strong> {item.title}</strong>
+                        </Card.Title>
                         <Card.Text className='p-0'>
                           {
                             (a =
@@ -862,8 +863,7 @@ export default function NotesDisplay() {
                     {item.img && (
                       <Image
                         style={{
-                          width: '100%',
-                          height: '100%',
+                          width: '150px',
                         }}
                         cloudName='adarsh022'
                         publicId={item.img}
@@ -874,7 +874,9 @@ export default function NotesDisplay() {
                       className='d-grid  justify-content-center align-item-center'
                     >
                       <div className='  p-0 ' style={{ maxWidth: '225px' }}>
-                        <Card.Title className='p-0'>{item.title}</Card.Title>
+                        <Card.Title className='p-0'>
+                          <strong> {item.title}</strong>
+                        </Card.Title>
                         <Card.Text className='p-0'>
                           {
                             (a =
