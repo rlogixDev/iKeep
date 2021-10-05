@@ -280,7 +280,7 @@ export default function NotesDisplay() {
   const yesDate = new Date().getDate() - 1;
 
   const yesterday =
-    Math.round(yesDate / 10) == 0
+    Math.floor(yesDate / 10) == 0
       ? yesDay + ' ' + yesMon + ' ' + '0' + yesDate + ' ' + yesYear
       : yesDay + ' ' + yesMon + ' ' + yesDate + ' ' + yesYear;
 
