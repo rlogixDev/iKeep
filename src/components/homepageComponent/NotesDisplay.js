@@ -562,23 +562,12 @@ export default function NotesDisplay() {
                               <strong> {item.title}</strong>
                             </Card.Title>
                             <Card.Text className='p-0'>
-                              {/* <ReactReadMoreReadLess
-                                charLimit={45}
-                                readMoreText={'Read more ▼'}
-                                readLessText={'Read less ▲'}
-                                readMoreClassName='read-more-less--more'
-                                readLessClassName='read-more-less--less'
-                              > */}
-
                               {
                                 (a =
                                   item.Content.length > 20
                                     ? item.Content.slice(0, 20) + '...'
                                     : item.Content.slice(0, 20))
                               }
-                              {/* {a} */}
-                              {/* {item.Content.length > 20 ? { a } + '...' : { a }} */}
-                              {/* </ReactReadMoreReadLess> */}
                             </Card.Text>
                             <Card.Text>
                               <strong> {item.Date.substr(0, 15)}</strong>
