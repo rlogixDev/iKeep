@@ -44,6 +44,21 @@ export default function NotesDisplay() {
 
   const fileInput = useRef();
 
+  function dateSort(a,b)
+  {
+      const DateA = a.Date;
+      const DateB = b.Date;
+
+      let comparison = 0;
+      if (DateA < DateB) {
+        comparison = 1;
+      } else if (DateA > DateB) {
+        comparison = -1;
+      }
+      return comparison;
+    
+  }
+
   function compare(a, b) {
     if (sort) {
       let ContentA = a.title.toUpperCase();
@@ -287,7 +302,7 @@ export default function NotesDisplay() {
   const yesterdayuserNotesData = userNotesData
     ? userNotesData.filter((item, key) => item.Date.substr(0, 15) === yesterday)
     : '';
-  const EarlieruserNotesData = userNotesData
+  const EarlieruserNotes = userNotesData
     ? userNotesData.filter((item, key) =>
         item
           ? item.Date.substr(0, 15) != yesterday &&
@@ -295,6 +310,10 @@ export default function NotesDisplay() {
           : ''
       )
     : '';
+    const EarlieruserNotesData=EarlieruserNotes.length>0?EarlieruserNotes.sort(dateSort):[];
+    // let dateDisplay='';
+    let dateDisplay='';
+    console.log("earlier",EarlieruserNotesData);
   return (
     <>
       <Container>
@@ -698,18 +717,10 @@ export default function NotesDisplay() {
             )
           )}
 
-          {EarlieruserNotesData.length > 0 ? (
-            <h4
-              className='text-decoration-underline'
-              style={{ textAlign: 'left' }}
-            >
-              Earlier Notes
-            </h4>
-          ) : (
-            ''
-          )}
           {EarlieruserNotesData.map((item, index) =>
-            item ? (
+
+
+            item ? item.Date.substr(0,15)==dateDisplay?(
               <React.Fragment key={index}>
                 <Card
                   style={{
@@ -772,7 +783,75 @@ export default function NotesDisplay() {
                   </Card.Body>
                 </Card>
               </React.Fragment>
-            ) : (
+            ) :<> <h4
+            className='text-decoration-underline'
+            style={{ textAlign: 'left' }}
+          >{dateDisplay=item.Date.substr(0,15)}</h4>
+                   <React.Fragment key={index}>
+                <Card
+                  style={{
+                    width: 'auto',
+                    borderRadius: '15px',
+                    height: 'auto',
+                  }}
+                  className='m-1 p-0'
+                >
+                  <Card.Body className=' d-flex  justify-content-center align-item-center'>
+                    {item.img && (
+                      <Image
+                        style={{
+                          width: '150px',
+                        }}
+                        cloudName='adarsh022'
+                        publicId={item.img}
+                      />
+                    )}
+                    <div
+                      style={{ marginLeft: '16px' }}
+                      className='d-grid  justify-content-center align-item-center'
+                    >
+                      <div className='  p-0 ' style={{ maxWidth: '225px' }}>
+                        <Card.Title className='p-0'>
+                          <strong> {item.title}</strong>
+                        </Card.Title>
+                        <Card.Text className='p-0'>
+                          {
+                            (a =
+                              item.Content.length > 20
+                                ? item.Content.slice(0, 60) + '...'
+                                : item.Content.slice(0, 60))
+                          }
+                        </Card.Text>
+                        <Card.Text>
+                          <strong> {item.Date.substr(0, 15)}</strong>
+                        </Card.Text>
+                      </div>
+                      <div
+                        className='d-flex justify-content-around '
+                        style={{ width: '100%' }}
+                      >
+                        <Card.Link
+                          href='#'
+                          onClick={() => setDeleteModal({ id: item.id })}
+                        >
+                          Delete
+                        </Card.Link>
+                        {item.Content.length > 20 && (
+                          <Card.Link href='#' onClick={() => setReadMore(item)}>
+                            Show More
+                          </Card.Link>
+                        )}
+                        <Card.Link href='#' onClick={() => setEditItem(item)}>
+                          Edit
+                        </Card.Link>
+                      </div>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </React.Fragment>
+            
+            
+            </>: (
               ''
             )
           )}
