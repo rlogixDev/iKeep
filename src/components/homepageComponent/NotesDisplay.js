@@ -46,8 +46,8 @@ export default function NotesDisplay() {
 
   function dateSort(a,b)
   {
-      const DateA = a.Date;
-      const DateB = b.Date;
+      const DateA = a.Date.substr(0,15);
+      const DateB = b.Date.substr(0,15);
 
       let comparison = 0;
       if (DateA < DateB) {
