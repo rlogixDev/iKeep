@@ -22,6 +22,29 @@ import { AuthContext } from '../../context/AuthContext';
 import { Form, FormControl, Dropdown, ButtonGroup } from 'react-bootstrap';
 
 export default function NotesDisplay() {
+  var days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
   const [editModal, setEditModal] = useState(false);
   const [searchText, setSearch] = useState();
   const [data, setData] = useState([]);
@@ -46,17 +69,36 @@ export default function NotesDisplay() {
 
   function dateSort(a,b)
   {
+      let comparison = 0;
+      const DateAMon= monthNames.indexOf(a.Date.slice(4,7))+1;
+      const DateBMon= monthNames.indexOf(b.Date.slice(4,7))+1
       const DateA = a.Date.substr(0,15);
       const DateB = b.Date.substr(0,15);
-
-      let comparison = 0;
-      if (DateA < DateB) {
-        comparison = 1;
-      } else if (DateA > DateB) {
-        comparison = -1;
+      const DateAYear=a.Date.slice(11,15);
+      const DateBYear=b.Date.slice(11,15);
+      if(DateAYear<DateBYear)
+        comparison=1;
+      else if(DateAYear>DateBYear)
+      comparison=-1;  
+      else
+      {
+        if(DateAMon<DateBMon)
+          comparison=1;
+        else if(DateAMon>DateBMon)
+          comparison=-1;
+        else
+        {
+          if (DateA < DateB) 
+          {
+            comparison = 1;
+          } 
+          else if (DateA > DateB) 
+          {
+            comparison = -1;
+          }
+        }
       }
-      return comparison;
-    
+     return comparison;
   }
 
   function compare(a, b) {
@@ -253,29 +295,7 @@ export default function NotesDisplay() {
     );
   }
 
-  var days = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+ 
 
   const today = userNotesData
     ? userNotesData.filter((item, key) =>
@@ -290,7 +310,7 @@ export default function NotesDisplay() {
       ? 'Saturday'
       : days[new Date().getDay() - 1]
   ).substr(0, 3);
-  const yesMon = monthNames[new Date().getMonth()].substr(0, 3);
+  const yesMon = monthNames[new Date().getMonth()];
   const yesYear = new Date().getFullYear();
   const yesDate = new Date().getDate() - 1;
 
@@ -313,8 +333,8 @@ export default function NotesDisplay() {
     const EarlieruserNotesData=EarlieruserNotes.length>0?EarlieruserNotes.sort(dateSort):[];
     // let dateDisplay='';
     let dateDisplay='';
-    console.log("earlier",EarlieruserNotesData);
-  return (
+
+    return (
     <>
       <Container>
         {/* /////////////////// */}
