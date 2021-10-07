@@ -330,8 +330,9 @@ export default function NotesDisplay() {
           : ''
       )
     : '';
+    
     const EarlieruserNotesData=EarlieruserNotes.length>0?EarlieruserNotes.sort(dateSort):[];
-    // let dateDisplay='';
+    
     let dateDisplay='';
 
     return (
