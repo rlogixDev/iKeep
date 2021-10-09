@@ -72,8 +72,8 @@ export default function NotesDisplay() {
       let comparison = 0;
       const DateAMon= monthNames.indexOf(a.Date.slice(4,7))+1;
       const DateBMon= monthNames.indexOf(b.Date.slice(4,7))+1
-      const DateA = a.Date.substr(0,15);
-      const DateB = b.Date.substr(0,15);
+      const DateA = a.Date.slice(8,10);
+      const DateB = b.Date.slice(8,10);
       const DateAYear=a.Date.slice(11,15);
       const DateBYear=b.Date.slice(11,15);
       if(DateAYear<DateBYear)
@@ -332,7 +332,7 @@ export default function NotesDisplay() {
     : '';
     
     const EarlieruserNotesData=EarlieruserNotes.length>0?EarlieruserNotes.sort(dateSort):[];
-    
+    console.log("comparison",EarlieruserNotes.length>0?console.log(EarlieruserNotes[0].Date.slice(8,10)):'')
     let dateDisplay='';
 
     return (
