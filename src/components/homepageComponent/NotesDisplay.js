@@ -285,10 +285,13 @@ export default function NotesDisplay() {
 
   {
     userNotes.length > 0 ? (
-      filteredData.length > 0 ? (
-        (userNotesData = filteredData)
+      searchText?
+     ( filteredData.length > 0 ? (
+        userNotesData = filteredData
       ) : (
-        (userNotesData = userNotes)
+        userNotesData = []
+      )):(
+        userNotesData=userNotes
       )
     ) : (
       <p>No results found..</p>
