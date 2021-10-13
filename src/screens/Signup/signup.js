@@ -88,8 +88,6 @@ export default function Signup() {
           setError('Mobile Number already exist');
           setLoading(false);
           flag = false;
-        } else {
-          flag = true;
         }
       });
       if (flag == true) {
@@ -135,15 +133,15 @@ export default function Signup() {
     }
   };
 
-  useEffect(() => {
-    axios
-      .get(
-        'https://rlogixx-33270-default-rtdb.firebaseio.com/zipcode_details.json'
-      )
-      .then((res) => {
-        setPincodes(res.data);
-      });
-  }, [pincodes.length]);
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       'https://rlogixx-33270-default-rtdb.firebaseio.com/zipcode_details.json'
+  //     )
+  //     .then((res) => {
+  //       setPincodes(res.data);
+  //     });
+  // }, [pincodes.length]);
 
   return (
     <>
@@ -376,7 +374,7 @@ export default function Signup() {
                 </Col>
               </Row>
             </Form.Group>
-            <Form.Group className='mb-3'>
+            {/* <Form.Group className='mb-3'>
               <Row className='justify-content-center'>
                 <Form.Label column sm='4'>
                   Zip Code
@@ -479,7 +477,7 @@ export default function Signup() {
                   </Row>
                 </Col>
               </Row>
-            </Form.Group>
+            </Form.Group> */}
             <Form.Group className='mb-3'>
               <Row className='justify-content-start '>
                 <Col sm='4'></Col>
